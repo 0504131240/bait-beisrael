@@ -76,7 +76,21 @@ nav a:hover { color: var(--gold); }
 .tel { color: var(--on-navy); font-weight: 800; text-decoration: none; font-variant-numeric: tabular-nums; }
 .tel:hover { color: var(--gold); }
 @media (max-width: 420px) { .top-cta .btn { display: none; } }
-@media (max-width: 820px) { nav { display: none; } }
+.menu-btn { display: none; width: 2.6rem; height: 2.6rem; padding: .55rem; border: 0; border-radius: 8px; background: transparent; cursor: pointer; flex-direction: column; justify-content: space-between; }
+.menu-btn span { display: block; height: 2.5px; border-radius: 2px; background: var(--on-navy); transition: transform .25s ease, opacity .2s ease; }
+.top.open .menu-btn span:nth-child(1) { transform: translateY(9.3px) rotate(45deg); }
+.top.open .menu-btn span:nth-child(2) { opacity: 0; }
+.top.open .menu-btn span:nth-child(3) { transform: translateY(-9.3px) rotate(-45deg); }
+@media (max-width: 820px) {
+  .menu-btn { display: flex; }
+  .top nav { display: none; }
+  .top.open nav {
+    display: flex; flex-direction: column; gap: 0; position: absolute; top: 100%; right: 0; left: 0;
+    background: var(--navy); border-bottom: 2px solid var(--gold); box-shadow: 0 18px 30px -15px rgba(0,0,0,.6); padding: .25rem 16px 1rem;
+  }
+  .top.open nav a { padding: .9rem .25rem; font-size: 1.15rem; color: var(--on-navy); border-bottom: 1px solid color-mix(in srgb, var(--on-navy) 12%, transparent); }
+  .top.open nav a:last-child { border-bottom: 0; }
+}
 /* <use> clones live in a shadow tree, so style them with bare class selectors */
 .a { stroke: var(--gold); } .b { stroke: var(--on-navy); }
 
@@ -93,6 +107,10 @@ nav a:hover { color: var(--gold); }
 /* After the logo builds it flies to the header corner as the page scrolls (see script) */
 .hero-mark.flying { position: fixed; z-index: 20; margin: 0; pointer-events: none; transform-origin: 0 0; will-change: transform; }
 .has-flyer .brand .mark { visibility: hidden; }
+/* While the mobile menu is open, show the header's own logo and hide the floating one so it can't cover the list */
+.menu-open .hero-mark.flying { opacity: 0; }
+.menu-open.has-flyer .brand .mark { visibility: visible; }
+section[id] { scroll-margin-top: 4.25rem; }
 .hero-mark rect { fill: none; stroke-width: var(--sw, 6); stroke-dasharray: 100; stroke-dashoffset: 0; }
 .hero h1 { font-size: clamp(3rem, 7vw, 5.2rem); font-weight: 900; }
 .hero .sub { margin-top: .6rem; display: flex; align-items: center; gap: .8rem; color: var(--gold); font-weight: 800; font-size: clamp(1.15rem, 2.2vw, 1.5rem); }
@@ -200,8 +218,6 @@ section.block { padding-block: clamp(3rem, 7vw, 5rem); }
 .proj .city { color: var(--muted); font-weight: 600; }
 .proj .stage { margin-top: .6rem; padding-top: .6rem; border-top: 1px solid var(--line); font-size: 1rem; }
 .proj .stage b { color: var(--gold-ink); }
-@media (max-width: 900px) { .projects { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 600px) { .projects { grid-template-columns: 1fr; } }
 
 /* CEO facts */
 .ceo .facts { list-style: none; margin: .8rem 0 0; padding: 0; display: grid; gap: .6rem; }
@@ -339,6 +355,26 @@ html.a11y-nomotion .has-flyer .brand .mark { visibility: visible; }
 html.a11y-nomotion .slides img + img { opacity: 0 !important; }
 html.a11y-nomotion .slides img:first-of-type { opacity: 1 !important; }
 
+/* Project cards, image-led: title and status sit on a dark band over the picture */
+.projects { grid-template-columns: 1fr 1fr; }
+.projects .proj:first-child { grid-column: 1 / -1; }
+.projects .proj:first-child .pic { aspect-ratio: 21 / 9; }
+.proj { display: block; position: relative; background: var(--navy-2); border-radius: 6px; }
+.proj .pic { aspect-ratio: 4 / 3; }
+.proj .pic small { top: .75rem; bottom: auto; }
+.proj .ov {
+  position: absolute; inset: auto 0 0 0; z-index: 2; padding: 3.5rem 1.4rem 1.2rem;
+  background: linear-gradient(to top, rgba(9,18,34,.92) 0%, rgba(9,18,34,.75) 55%, transparent 100%);
+  display: grid; grid-template-columns: 1fr auto; align-items: end; gap: .2rem 1rem; color: #f2f4f8;
+}
+.proj .ov h3 { grid-column: 1; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: var(--gold); }
+.proj .ov p { grid-column: 1; font-size: 1.05rem; font-weight: 600; }
+.proj .ov p i { font-style: normal; color: var(--gold); margin-inline: .35rem; }
+.proj .go { grid-column: 2; grid-row: 1 / span 2; width: 3rem; height: 3rem; border: 0; background: none; color: var(--gold); cursor: pointer; padding: 0; }
+.proj .go svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.6; transition: transform .3s ease; }
+.proj:hover .go svg { transform: translate(-3px, -3px); }
+@media (max-width: 700px) { .projects { grid-template-columns: 1fr; } .projects .proj:first-child .pic { aspect-ratio: 4 / 3; } }
+
 /* Project cards open a details dialog */
 .proj[data-card] { cursor: pointer; }
 .proj .more { justify-self: start; margin-top: .8rem; font: inherit; font-weight: 800; font-size: 1rem; color: var(--gold-ink); background: none; border: 0; padding: .2rem 0; cursor: pointer; border-bottom: 2px solid currentColor; }
@@ -363,12 +399,6 @@ dialog.pd::backdrop { background: rgba(8, 16, 30, .72); }
 .pd-title h2 { font-size: clamp(2rem, 4vw, 2.6rem); font-weight: 900; }
 .pd-title p { color: var(--muted); font-weight: 600; }
 .pd-title a { color: var(--gold-ink); font-weight: 700; }
-.pd-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; margin: 0; }
-.pd-facts div { background: var(--paper); border-radius: 6px; padding: .7rem .9rem; min-width: 0; }
-.pd-facts dt { font-size: .85rem; color: var(--muted); }
-.pd-facts dd { margin: 0; font-family: var(--display); font-weight: 900; font-size: 1.7rem; line-height: 1.15; font-variant-numeric: tabular-nums; }
-.pd-facts .small dd { font-family: var(--body); font-size: 1.05rem; font-weight: 800; line-height: 1.4; }
-@media (max-width: 640px) { .pd-facts { grid-template-columns: 1fr 1fr; } }
 .pd h3 { font-family: var(--body); font-size: 1.15rem; font-weight: 800; margin-bottom: .75rem; }
 .pd-sig .sig { margin-top: 0; }
 .timeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: .4rem; counter-reset: t; }
@@ -392,6 +422,50 @@ dialog.pd::backdrop { background: rgba(8, 16, 30, .72); }
 .pd-about { color: var(--muted); max-width: 62ch; }
 .pd-cta { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; padding-top: 1.2rem; border-top: 1px solid var(--line); }
 .pd-cta .ghost3 { font: inherit; font-weight: 800; font-size: 1rem; text-decoration: none; color: var(--ink); border: 1.5px solid var(--line); border-radius: 999px; padding: .7rem 1.4rem; }
+
+/* Details dialog: full-bleed picture with the name on it, then an "orbit" of key facts around a round picture */
+dialog.pd { background: var(--navy); color: var(--on-navy); }
+.pd-hero { position: relative; background: var(--navy-2); }
+.pd-hero .pd-main { aspect-ratio: 16 / 10; }
+.pd-hero-text { position: absolute; inset: auto 0 0 0; padding: 4rem 1.6rem 1.4rem; background: linear-gradient(to top, rgba(9,18,34,.9), transparent); }
+.pd-hero-text h2 { font-size: clamp(2.4rem, 7vw, 4rem); font-weight: 900; color: var(--gold); line-height: 1.05; }
+.pd-hero-text p { font-size: 1.2rem; font-weight: 700; color: var(--gold); opacity: .9; margin-top: .3rem; }
+.pd-cap { top: .8rem; bottom: auto; left: 4rem; }
+.pd-thumbs { padding: .8rem 1.6rem 0; }
+.pd .pd-body { padding: 1.6rem; gap: 2rem; }
+.pd .pd-about { color: var(--on-navy); font-size: 1.15rem; line-height: 1.8; }
+.pd h3 { color: var(--on-navy); }
+.pd .sig span { color: var(--on-navy-muted); }
+.pd .sig i { background-color: color-mix(in srgb, var(--on-navy) 18%, transparent); }
+.pd .timeline li { color: var(--on-navy-muted); }
+.pd .timeline li.done, .pd .timeline li.now { color: var(--on-navy); }
+.pd .timeline li::before { background: color-mix(in srgb, var(--on-navy) 20%, transparent); }
+.pd .timeline li::after { background: var(--navy); border-color: color-mix(in srgb, var(--on-navy) 30%, transparent); }
+.pd .timeline li.done::before, .pd .timeline li.done::after { background: var(--gold); border-color: var(--gold); }
+.pd .timeline li.now::after { border-color: var(--gold); }
+.pd .timeline small { color: var(--gold); }
+.pd .pd-cta { border-top-color: color-mix(in srgb, var(--on-navy) 15%, transparent); }
+.pd .pd-cta .ghost3 { color: var(--on-navy); border-color: color-mix(in srgb, var(--on-navy) 35%, transparent); }
+
+.orbit { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.5rem; padding-block: .5rem; }
+.orb-circle { width: clamp(11rem, 26vw, 15rem); aspect-ratio: 1; }
+.orb-circle img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; box-shadow: 0 0 0 6px var(--navy), 0 0 0 7px color-mix(in srgb, var(--gold) 55%, transparent); }
+.orb-side { display: grid; gap: 1rem; min-width: 0; }
+/* Facts sit in rectangles, echoing the logo's rectangles */
+.orb {
+  display: grid; gap: .15rem; padding: .9rem 1.1rem; min-width: 0;
+  background: color-mix(in srgb, var(--on-navy) 6%, var(--navy));
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent); border-right: 4px solid var(--gold);
+}
+.orb b { font-size: .9rem; font-weight: 800; color: var(--gold); }
+.orb span { font-size: 1.1rem; font-weight: 700; color: var(--on-navy); }
+.orb .orb-note { font-style: normal; font-size: .9rem; color: var(--on-navy-muted); }
+.orb span.big { font-family: var(--display); font-weight: 900; font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+@media (max-width: 640px) {
+  .orbit { grid-template-columns: 1fr 1fr; gap: .75rem; }
+  .orb-circle { grid-column: 1 / -1; grid-row: 1; justify-self: center; margin-bottom: .75rem; }
+  .orb-side { display: contents; }
+}
 
 /* Policy dialogs */
 dialog.policy {
@@ -441,16 +515,17 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
       <svg class="mark" aria-hidden="true"><use href="#logo-mark"/></svg>
       <span>בית בישראל</span>
     </a>
-    <nav aria-label="ניווט ראשי">
+    <nav aria-label="ניווט ראשי" id="main-nav">
       <a href="#about">אודות</a>
-      <a href="#services">שירותים</a>
       <a href="#projects">הפרויקטים</a>
       <a href="#partners">השותפים שלנו</a>
+      <a href="#services">ניהול תכנון ורישוי</a>
       <a href="#contact">צור קשר</a>
     </nav>
     <div class="top-cta">
       <a class="tel" href="tel:+972527111707" dir="ltr">052-7111707</a>
       <a class="btn" href="#contact">צור קשר</a>
+      <button class="menu-btn" type="button" aria-label="תפריט" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
@@ -473,14 +548,10 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
         <h1>בית בישראל</h1>
         <p class="sub">יזמות נדל"ן והתחדשות עירונית</p>
         <p class="slogan">בונים עתיד, יוצרים קהילה</p>
-        <p class="lead">יזמות, התחדשות עירונית וניהול תכנון ורישוי פרויקטים. שותפים במיזמי תמ"א 38 באשדוד, בהובלת יצחק זיידמן, בוגר הטכניון עם כ-15 שנות ניסיון.</p>
-        <div class="actions">
-          <a class="btn" href="#contact">לשיחת ייעוץ</a>
-          <a class="btn ghost" href="#projects">לפרויקטים שלנו</a>
-        </div>
+        <p class="lead">יזמות והתחדשות עירונית. שותפים במיזמי תמ"א 38 באשדוד, בהובלת יצחק זיידמן, בוגר הטכניון עם כ-15 שנות ניסיון.</p>
       </div>
     </div>
-    <span class="credit">הדמיה · מיכקשווילי 14</span>
+    <span class="credit">הדמיה · מיכשווילי 14</span>
   </section>
 
   <section class="block" id="about">
@@ -518,22 +589,6 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
     </div>
   </section>
 
-  <section class="block service-band" id="services">
-    <div class="wrap">
-      <div class="head">
-        <p class="eyebrow">שירות</p>
-        <h2>ניהול תכנון ורישוי פרויקטים</h2>
-        <hr class="rule">
-        <p class="sub-lead">אנחנו מנהלים את כל תהליך התכנון והרישוי, כדי שהפרויקט יגיע להיתר ולביצוע בלי עיכובים מיותרים.</p>
-      </div>
-      <ol class="steps">
-        <li><h3>ניהול התכנון</h3><p>הובלת תהליך התכנון מהשלב המוקדם ועד לתוכניות מוכנות להגשה.</p></li>
-        <li><h3>בקשה להיתר בנייה</h3><p>הכנת הבקשה להיתר, הגשתה וליווי שלה עד קבלת ההיתר.</p></li>
-        <li><h3>תיאום יועצים</h3><p>ניהול ותיאום סופרפוזיציה בין כל יועצי הפרויקט.</p></li>
-        <li><h3>אישורים וועדות</h3><p>קבלת אישורי הגורמים השונים והוועדה המקומית.</p></li>
-      </ol>
-    </div>
-  </section>
 
   <section class="block navy bleed" id="projects">
     <div class="wrap">
@@ -544,30 +599,27 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
       </div>
       <div class="projects">
         <article class="proj" data-card>
-          <div class="pic slides"><img src="assets/img/render-a-day.jpg" alt="הדמיית הפרויקט במיכקשווילי 14, אשדוד" loading="lazy"><img src="assets/img/hero-night.jpg" alt="" loading="lazy"><img src="assets/img/render-b-day.jpg" alt="" loading="lazy"><span class="status">לקראת היתר</span><small>הדמיה</small></div>
-          <div class="body">
-            <h3>מיכקשווילי 14</h3>
-            <p class="city">רובע ו', אשדוד</p>
-            <p class="stage">לקראת הוצאת היתר בנייה ועלייה לקרקע</p>
-            <button class="more" type="button" data-project="michakshvili-14">לכל פרטי הפרויקט <span aria-hidden="true">←</span></button>
+          <div class="pic slides"><img src="assets/img/render-a-day.jpg" alt="הדמיית הפרויקט במיכשווילי 14, אשדוד" loading="lazy"><img src="assets/img/hero-night.jpg" alt="" loading="lazy"><img src="assets/img/render-b-day.jpg" alt="" loading="lazy"><small>הדמיה</small></div>
+          <div class="ov">
+            <h3>מיכשווילי 14</h3>
+            <p>רובע ו', אשדוד <i aria-hidden="true">•</i> לקראת היתר</p>
+            <button class="go" type="button" data-project="michakshvili-14" aria-label="לכל פרטי הפרויקט מיכשווילי 14"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17 7 7M7 7v8M7 7h8"/></svg></button>
           </div>
         </article>
         <article class="proj" data-card>
-          <div class="pic"><img src="assets/img/aerial-givati-2.jpg" alt="צילום אוויר של המגרש בחטיבת גבעתי 2, אשדוד" loading="lazy"><span class="status s2">אושר בוועדות</span><small>מצב קיים · צילום אוויר</small></div>
-          <div class="body">
+          <div class="pic"><img src="assets/img/aerial-givati-2.jpg" alt="צילום אוויר של המגרש בחטיבת גבעתי 2, אשדוד" loading="lazy"><small>מצב קיים · צילום אוויר</small></div>
+          <div class="ov">
             <h3>חטיבת גבעתי 2</h3>
-            <p class="city">רובע ג', אשדוד</p>
-            <p class="stage">לאחר אישור הוועדה המקומית והוועדה המחוזית</p>
-            <button class="more" type="button" data-project="givati-2">לכל פרטי הפרויקט <span aria-hidden="true">←</span></button>
+            <p>רובע ג', אשדוד <i aria-hidden="true">•</i> אושר בוועדות</p>
+            <button class="go" type="button" data-project="givati-2" aria-label="לכל פרטי הפרויקט חטיבת גבעתי 2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17 7 7M7 7v8M7 7h8"/></svg></button>
           </div>
         </article>
         <article class="proj" data-card>
-          <div class="pic"><img src="assets/img/aerial-palmach-13.jpg" alt="צילום אוויר של המגרש בהפלמ&quot;ח 13, אשדוד" loading="lazy"><span class="status s3">תכנון מוקדם</span><small>מצב קיים · צילום אוויר</small></div>
-          <div class="body">
+          <div class="pic"><img src="assets/img/aerial-palmach-13.jpg" alt="צילום אוויר של המגרש בהפלמ&quot;ח 13, אשדוד" loading="lazy"><small>מצב קיים · צילום אוויר</small></div>
+          <div class="ov">
             <h3>הפלמ"ח 13</h3>
-            <p class="city">רובע ג', אשדוד</p>
-            <p class="stage">בתכנון מוקדם</p>
-            <button class="more" type="button" data-project="palmach-13">לכל פרטי הפרויקט <span aria-hidden="true">←</span></button>
+            <p>רובע ג', אשדוד <i aria-hidden="true">•</i> תכנון מוקדם</p>
+            <button class="go" type="button" data-project="palmach-13" aria-label="לכל פרטי הפרויקט הפלמ&quot;ח 13"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17 7 7M7 7v8M7 7h8"/></svg></button>
           </div>
         </article>
       </div>
@@ -592,6 +644,22 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
     </div>
   </section>
 
+  <section class="block service-band" id="services">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">שירות נוסף</p>
+        <h2>ניהול תכנון ורישוי פרויקטים</h2>
+        <hr class="rule">
+        <p class="sub-lead">אנחנו מנהלים את כל תהליך התכנון והרישוי, כדי שהפרויקט יגיע להיתר ולביצוע בלי עיכובים מיותרים.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>ניהול התכנון</h3><p>הובלת תהליך התכנון מהשלב המוקדם ועד לתוכניות מוכנות להגשה.</p></li>
+        <li><h3>בקשה להיתר בנייה</h3><p>הכנת הבקשה להיתר, הגשתה וליווי שלה עד קבלת ההיתר.</p></li>
+        <li><h3>תיאום יועצים</h3><p>ניהול ותיאום סופרפוזיציה בין כל יועצי הפרויקט.</p></li>
+        <li><h3>אישורים וועדות</h3><p>קבלת אישורי הגורמים השונים והוועדה המקומית.</p></li>
+      </ol>
+    </div>
+  </section>
 
   <section class="block contact navy bleed" id="contact">
     <div class="wrap">
@@ -664,24 +732,28 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
 
 <dialog class="pd" id="project-dialog" aria-labelledby="pd-name">
   <button class="pd-close" type="button" data-close aria-label="סגירה">×</button>
-  <div class="pd-gallery">
+  <div class="pd-hero">
     <img class="pd-main" id="pd-main" alt="">
-    <span class="status" id="pd-status"></span>
+    <div class="pd-hero-text">
+      <h2 id="pd-name"></h2>
+      <p id="pd-where"></p>
+    </div>
     <span class="pd-cap" id="pd-cap"></span>
   </div>
   <div class="pd-thumbs" id="pd-thumbs"></div>
   <div class="pd-body">
-    <div class="pd-title">
-      <h2 id="pd-name"></h2>
-      <p><span id="pd-where"></span> · <a id="pd-map" href="#" target="_blank" rel="noopener">פתיחה במפה</a></p>
+    <p class="pd-about" id="pd-about"></p>
+    <div class="orbit" id="pd-orbit">
+      <div class="orb-side" id="orb-right"></div>
+      <div class="orb-circle"><img id="pd-orb-img" alt=""></div>
+      <div class="orb-side" id="orb-left"></div>
     </div>
-    <dl class="pd-facts" id="pd-facts"></dl>
     <div class="pd-sig"><h3>חתימות דיירים</h3><div class="sig" id="pd-sig"></div></div>
     <div><h3>שלבי הפרויקט</h3><ol class="timeline" id="pd-timeline"></ol></div>
-    <div><h3>על הפרויקט</h3><p class="pd-about" id="pd-about"></p></div>
     <div class="pd-cta">
       <button type="button" class="btn" id="pd-contact">פנייה בנוגע לפרויקט</button>
       <a class="ghost3" href="https://wa.me/972527111707" id="pd-wa" target="_blank" rel="noopener">וואטסאפ</a>
+      <a class="ghost3" id="pd-map" href="#" target="_blank" rel="noopener">פתיחה במפה</a>
     </div>
   </div>
 </dialog>
@@ -755,13 +827,22 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
 </div>
 
 <script>
+// Mobile menu: the three-line button opens the section list; choosing a section or pressing Esc closes it.
+(function () {
+  var top = document.querySelector('.top'), btn = top.querySelector('.menu-btn'), nav = document.getElementById('main-nav');
+  function set(open) { top.classList.toggle('open', open); document.body.classList.toggle('menu-open', open); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); btn.setAttribute('aria-label', open ? 'סגירת התפריט' : 'תפריט'); }
+  btn.addEventListener('click', function () { set(!top.classList.contains('open')); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && top.classList.contains('open')) { set(false); btn.focus(); } });
+  document.addEventListener('click', function (e) { if (!top.contains(e.target)) set(false); });
+})();
 
 // Project details. Data matches the cards; open by clicking a card or linking to #p-<id>.
 (function () {
   var STAGES = ['חתימות דיירים', 'תכנון ואישורים', 'היתר בנייה', 'ביצוע', 'אכלוס'];
   var P = {
     'michakshvili-14': {
-      name: 'מיכקשווילי 14', where: "רובע ו', אשדוד", street: 'מיכקשווילי 14, אשדוד',
+      name: 'מיכשווילי 14', where: "רובע ו', אשדוד", street: 'מיכשווילי 14, אשדוד',
       status: 'לקראת היתר', statusClass: '', existing: 32, added: 32, sig: 100, sigText: '100%',
       stage: 'לקראת הוצאת היתר בנייה ועלייה לקרקע',
       steps: ['done', 'done', 'now', '', ''],
@@ -796,16 +877,21 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
     var d = P[id]; if (!d) return; current = d;
     $('pd-name').textContent = d.name; $('pd-where').textContent = d.where;
     $('pd-map').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(d.street);
-    $('pd-status').textContent = d.status; $('pd-status').className = 'status ' + d.statusClass;
     var t = $('pd-thumbs'); t.innerHTML = ''; t.hidden = d.images.length < 2;
     d.images.forEach(function (img) {
       var b = el('button', '<img src="' + img[0] + '" alt="">'); b.type = 'button'; b.dataset.src = img[0];
       b.setAttribute('aria-label', 'הצגת ' + img[1]); b.addEventListener('click', function () { show(img); }); t.appendChild(b);
     });
     show(d.images[0]);
-    var f = $('pd-facts'); f.innerHTML = '';
-    [['מסלול', 'תמ"א 38', 'small'], ['יח"ד קיימות', d.existing], ['יח"ד חדשות', '<span dir="ltr">+' + d.added + '</span>'], ['סה"כ אחרי הפרויקט', d.existing + d.added]]
-      .forEach(function (x) { var w = el('div', '<dt>' + x[0] + '</dt><dd>' + x[1] + '</dd>', x[2]); f.appendChild(w); });
+    var orbImg = d.images[d.images.length > 2 ? 1 : 0];
+    $('pd-orb-img').src = orbImg[0]; $('pd-orb-img').alt = '';
+    function orb(cls, label, value, big) { return el('div', '<b>' + label + '</b><span' + (big ? ' class="big"' : '') + '>' + value + '</span>', 'orb ' + cls); }
+    var R = $('orb-right'), L = $('orb-left'); R.innerHTML = ''; L.innerHTML = '';
+    R.appendChild(orb('', 'מיקום', d.where));
+    R.appendChild(orb('', 'סטטוס', d.status));
+    L.appendChild(orb('', 'יח"ד קיימות', d.existing, true));
+    L.appendChild(orb('', 'יח"ד אחרי הפרויקט', d.existing + d.added, true));
+    L.lastChild.appendChild(el('em', 'מתוכן ' + d.added + ' יח"ד חדשות', 'orb-note'));
     $('pd-sig').innerHTML = '<span>מהדיירים בבניין כבר חתמו</span><b>' + d.sigText + '</b><i style="--p:' + d.sig + '%"></i>';
     var tl = $('pd-timeline'); tl.innerHTML = '';
     STAGES.forEach(function (name, i) {
