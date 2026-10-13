@@ -95,7 +95,11 @@ nav a:hover { color: var(--gold); }
 .hero .wrap { position: relative; }
 .hero-copy { max-width: 34rem; }
 .hero-mark { width: clamp(7rem, 14vw, 9.5rem); height: auto; display: block; margin-bottom: 1.25rem; overflow: visible; }
-.hero-mark rect { fill: none; stroke-width: 6; stroke-dasharray: 100; stroke-dashoffset: 0; }
+.hero-mark-slot { margin-bottom: 1.25rem; }
+/* After the logo builds it flies to the header corner as the page scrolls (see script) */
+.hero-mark.flying { position: fixed; z-index: 20; margin: 0; pointer-events: none; transform-origin: 0 0; will-change: transform; }
+.has-flyer .brand .mark { visibility: hidden; }
+.hero-mark rect { fill: none; stroke-width: var(--sw, 6); stroke-dasharray: 100; stroke-dashoffset: 0; }
 .hero h1 { font-size: clamp(3rem, 7vw, 5.2rem); font-weight: 900; }
 .hero .sub { margin-top: .6rem; display: flex; align-items: center; gap: .8rem; color: var(--gold); font-weight: 800; font-size: clamp(1.15rem, 2.2vw, 1.5rem); }
 .hero .sub::after { content: ""; flex: 0 0 3rem; height: 2px; background: var(--gold); transform-origin: right; }
@@ -118,7 +122,7 @@ nav a:hover { color: var(--gold); }
   .hero-mark rect:nth-child(2) { animation-delay: .15s } .hero-mark rect:nth-child(3) { animation-delay: .3s }
   .hero-mark rect:nth-child(4) { animation-delay: .45s } .hero-mark rect:nth-child(5) { animation-delay: .6s }
   .hero-mark rect:nth-child(6) { animation-delay: .75s }
-  .hero-copy > :not(svg) { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+  .hero-copy > :not(.hero-mark):not(.hero-mark-slot) { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
   .hero-copy > h1 { animation-delay: .9s } .hero-copy > .sub { animation-delay: 1.05s }
   .hero-copy > .slogan { animation-delay: 1.2s } .hero-copy > .lead { animation-delay: 1.35s }
   .hero-copy > .actions { animation-delay: 1.5s }
@@ -561,6 +565,47 @@ document.querySelectorAll('.copy').forEach(function (b) {
     el.classList.add('reveal');
     io.observe(el);
   });
+})();
+
+// The hero logo leaves the page flow and, as you scroll, glides into the header logo's spot.
+(function () {
+  var mark = document.querySelector('.hero-mark');
+  var target = document.querySelector('.brand .mark');
+  if (!mark || !target) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { mark.style.display = 'none'; return; }
+  var slot = document.createElement('div');
+  slot.className = 'hero-mark-slot';
+  mark.parentNode.insertBefore(slot, mark);
+  var start, end, travel;
+  function measure() {
+    mark.classList.remove('flying'); mark.style.cssText = '';
+    slot.style.height = '0px';
+    var r = mark.getBoundingClientRect();
+    start = { x: r.left + scrollX, y: r.top + scrollY, w: r.width, h: r.height };
+    slot.style.width = r.width + 'px'; slot.style.height = r.height + 'px';
+    var t = target.getBoundingClientRect();
+    end = { x: t.left, y: t.top, w: t.width };
+    travel = Math.max(260, (start.y - end.y) * 1.4);
+    document.body.appendChild(mark);
+    mark.classList.add('flying');
+    mark.style.left = start.x + 'px'; mark.style.top = '0px'; mark.style.width = start.w + 'px';
+    document.body.classList.add('has-flyer');
+    update();
+  }
+  function update() {
+    var y = scrollY, p = Math.min(1, Math.max(0, y / travel));
+    var e = p * p * (3 - 2 * p);
+    var top = (start.y - y) * (1 - e) + end.y * e;
+    var left = start.x + (end.x - start.x) * e;
+    var sc = 1 + (end.w / start.w - 1) * e;
+    mark.style.transform = 'translate(' + (left - start.x) + 'px,' + top + 'px) scale(' + sc + ')';
+    mark.style.setProperty('--sw', 6 + 12 * e);
+  }
+  // Re-insert into the hero before measuring again on resize.
+  function remeasure() { slot.parentNode.insertBefore(mark, slot); slot.style.cssText = ''; scrollTo(scrollX, scrollY); measure(); }
+  addEventListener('scroll', function () { requestAnimationFrame(update); }, { passive: true });
+  addEventListener('resize', function () { var y = scrollY; scrollTo(0, 0); remeasure(); scrollTo(0, y); });
+  if (document.readyState === 'complete') measure(); else addEventListener('load', measure);
 })();
 </script>
 
