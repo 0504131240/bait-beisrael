@@ -127,8 +127,6 @@ section.block { padding-block: clamp(3rem, 7vw, 5rem); }
 .about .text b { color: var(--gold-ink); }
 .ceo { background: var(--sheet); border: 1px solid var(--line); border-top: 3px solid var(--gold); padding: 1.75rem; display: grid; gap: .4rem; }
 .ceo .name { font-family: var(--display); font-size: 1.8rem; font-weight: 900; }
-.ceo .role { color: var(--muted); }
-.ceo .bio { margin-top: .8rem; color: var(--muted); }
 .values { margin-top: 3rem; display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--line); }
 .values div { padding: 1.25rem 1rem; display: grid; gap: .2rem; text-align: center; align-content: start; min-width: 0; }
 .values div + div { border-right: 1px solid var(--line); }
@@ -160,6 +158,32 @@ section.block { padding-block: clamp(3rem, 7vw, 5rem); }
 @media (max-width: 900px) { .projects { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 600px) { .projects { grid-template-columns: 1fr; } }
 
+/* CEO facts */
+.ceo .facts { list-style: none; margin: .8rem 0 0; padding: 0; display: grid; gap: .6rem; }
+.ceo .facts li { padding-right: 1.1rem; position: relative; color: var(--muted); }
+.ceo .facts li::before { content: ""; position: absolute; right: 0; top: .65em; width: .45rem; height: .45rem; background: var(--gold); }
+
+/* Service steps: a real sequence */
+.service-band { border-top: 1px solid var(--line); }
+.sub-lead { color: var(--muted); margin-top: .8rem; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; counter-reset: s; }
+.steps li { counter-increment: s; border-top: 3px solid var(--gold); padding-top: 1rem; min-width: 0; }
+.steps li::before { content: "שלב " counter(s); display: block; font-weight: 800; font-size: .85rem; color: var(--gold-ink); margin-bottom: .3rem; }
+.steps h3 { font-size: 1.3rem; margin-bottom: .4rem; }
+.steps p { color: var(--muted); font-size: 1rem; }
+@media (max-width: 900px) { .steps { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+
+/* Project facts */
+.units { margin: .6rem 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.units div { background: var(--paper); padding: .5rem .75rem; border-radius: 4px; }
+.units dt { font-size: .85rem; color: var(--muted); }
+.units dd { margin: 0; font-family: var(--display); font-weight: 900; font-size: 1.6rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.units div + div dd { color: var(--gold-ink); }
+.sig { margin-top: .9rem; display: grid; grid-template-columns: 1fr auto; gap: .35rem; font-size: .95rem; }
+.sig b { font-variant-numeric: tabular-nums; }
+.sig i { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: linear-gradient(to left, var(--gold) var(--p), var(--line) var(--p)); }
+
 /* Partner */
 .partners-band { background: var(--navy-2); }
 .partner { max-width: 48rem; }
@@ -171,12 +195,12 @@ section.block { padding-block: clamp(3rem, 7vw, 5rem); }
 .partner .addr li { border: 1px solid color-mix(in srgb, var(--on-navy) 25%, transparent); padding: .25rem .8rem; border-radius: 999px; font-size: .95rem; }
 
 /* Stats */
-.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: center; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; text-align: center; }
 .stats div { display: grid; gap: .25rem; align-content: start; min-width: 0; }
 .stats b { font-family: var(--display); font-size: clamp(2rem, 4vw, 2.8rem); color: var(--gold-ink); font-variant-numeric: tabular-nums; line-height: 1.1; }
 .stats span { font-weight: 700; }
 .stats small { color: var(--muted); font-size: .95rem; }
-@media (max-width: 520px) { .stats { grid-template-columns: 1fr; row-gap: 2rem; } }
+@media (max-width: 760px) { .stats { grid-template-columns: 1fr 1fr; row-gap: 2rem; } }
 
 /* Contact */
 .contact .wrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 5vw, 4rem); }
@@ -242,6 +266,7 @@ footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gol
     </a>
     <nav aria-label="ניווט ראשי">
       <a href="#about">אודות</a>
+      <a href="#services">שירותים</a>
       <a href="#projects">הפרויקטים</a>
       <a href="#partners">השותפים שלנו</a>
       <a href="#contact">צור קשר</a>
@@ -257,7 +282,7 @@ footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gol
         <h1>בית בישראל</h1>
         <p class="sub">יזמות נדל"ן והתחדשות עירונית</p>
         <p class="slogan">בונים עתיד, יוצרים קהילה</p>
-        <p class="lead">יזמות נדל"ן, התחדשות עירונית והשבחת נכסים במיקומים המבוקשים ביותר, בהובלת צוות עם 15 שנות ניסיון בתחום.</p>
+        <p class="lead">יזמות, התחדשות עירונית וניהול תכנון ורישוי פרויקטים. שותפים במיזמי תמ"א 38 באשדוד, בהובלת יצחק זיידמן, בוגר הטכניון עם כ-15 שנות ניסיון.</p>
         <div class="actions">
           <a class="btn" href="#contact">לשיחת ייעוץ</a>
           <a class="btn ghost" href="#projects">לפרויקטים שלנו</a>
@@ -287,26 +312,41 @@ footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gol
       <div class="about">
         <div class="text">
           <div class="head">
-            <p class="eyebrow">אודות החברה</p>
+            <p class="eyebrow">קצת עלינו</p>
             <h2>הניסיון שלנו הוא היתרון שלכם</h2>
             <hr class="rule">
           </div>
-          <p>חברת בית בישראל אדריכלות ובנייה בע"מ היא חברה יזמית המתמחה בפרויקטים של התחדשות עירונית ופיתוח נדל"ן במיקומים אסטרטגיים ברחבי הארץ.</p>
-          <p>החברה פועלת בהנהלתו של <b>מר יצחק זיידמן</b>, בעל ניסיון של 15 שנים בפרויקטי התחדשות עירונית. זיידמן ניהל וליווה עשרות פרויקטים בכל שלבי הביצוע, מהייזום ועד האכלוס, וצבר ניסיון ומוניטין שמעניקים ללקוחות ולשותפים ביטחון מקצועי.</p>
+          <p>חברת בית בישראל, בבעלותו של <b>יצחק זיידמן</b>, עוסקת ביזמות ובהתחדשות עירונית. החברה שותפה במספר מיזמי תמ"א 38 באשדוד יחד עם קבוצת אם סי פרויקטים, חברה יזמית בעלת ניסיון מקצועי רב.</p>
+          <p>יצחק זיידמן הוא בוגר הטכניון בתחום ניהול פרויקטים לבנייה, ובעל ניסיון של כ-15 שנה בניהול תכנון ורישוי פרויקטים. במסגרת תפקידו ניהל וליווה עשרות רבות של פרויקטים, משלב הייזום ועד לאכלוס וקבלת טופס 4.</p>
+          <p>אנחנו בבית בישראל נותנים ללקוחות מענה מקצועי, אמין ושלם לאורך כל הדרך.</p>
         </div>
         <aside class="ceo">
-          <p class="eyebrow">הנהלה</p>
+          <p class="eyebrow">הבעלים</p>
           <p class="name">יצחק זיידמן</p>
-          <p class="role">מנכ"ל ובעלים</p>
-          <p class="bio">15 שנות ניסיון בהתחדשות עירונית. ליווה עשרות פרויקטים משלב הייזום ועד לאכלוס.</p>
+          <ul class="facts">
+            <li>בוגר הטכניון, ניהול פרויקטים לבנייה</li>
+            <li>כ-15 שנות ניסיון בניהול תכנון ורישוי</li>
+            <li>עשרות רבות של פרויקטים, מהייזום ועד טופס 4</li>
+          </ul>
         </aside>
       </div>
-      <div class="values">
-        <div><b>מובילים קהילה</b><span>ערך חברתי ופרויקטים שמחברים בין אנשים</span></div>
-        <div><b>15 שנות ניסיון</b><span>בהתחדשות עירונית ובפרויקטים למגורים</span></div>
-        <div><b>ליווי מלא</b><span>משלב הייזום ועד לאכלוס</span></div>
-        <div><b>מוניטין וחוסן</b><span>שותפויות נכונות וניהול מקצועי</span></div>
+    </div>
+  </section>
+
+  <section class="block service-band" id="services">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">שירות</p>
+        <h2>ניהול תכנון ורישוי פרויקטים</h2>
+        <hr class="rule">
+        <p class="sub-lead">אנחנו מנהלים את כל תהליך התכנון והרישוי, כדי שהפרויקט יגיע להיתר ולביצוע בלי עיכובים מיותרים.</p>
       </div>
+      <ol class="steps">
+        <li><h3>ניהול התכנון</h3><p>הובלת תהליך התכנון מהשלב המוקדם ועד לתוכניות מוכנות להגשה.</p></li>
+        <li><h3>בקשה להיתר בנייה</h3><p>הכנת הבקשה להיתר, הגשתה וליווי שלה עד קבלת ההיתר.</p></li>
+        <li><h3>תיאום יועצים</h3><p>ניהול ותיאום סופרפוזיציה בין כל יועצי הפרויקט.</p></li>
+        <li><h3>אישורים וועדות</h3><p>קבלת אישורי הגורמים השונים והוועדה המקומית.</p></li>
+      </ol>
     </div>
   </section>
 
@@ -314,32 +354,38 @@ footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gol
     <div class="wrap">
       <div class="head">
         <p class="eyebrow">הפרויקטים שלנו</p>
-        <h2>פרויקטים שמחברים בין אנשים, קהילה ועתיד</h2>
+        <h2>פרויקטי תמ"א 38 בהם שותפה בית בישראל</h2>
         <hr class="rule">
       </div>
       <div class="projects">
         <article class="proj">
-          <div class="pic"><span class="status">בתכנון</span><svg aria-hidden="true"><use href="#bld"/></svg><small>הדמיה תתווסף</small></div>
-          <div class="body">
-            <h3>הפלמ"ח 13</h3>
-            <p class="city">אשדוד</p>
-            <p class="stage">שלב: <b>תכנון</b></p>
-          </div>
-        </article>
-        <article class="proj">
-          <div class="pic"><span class="status s2">לקראת ביצוע</span><svg aria-hidden="true"><use href="#bld"/></svg><small>הדמיה תתווסף</small></div>
+          <div class="pic"><span class="status">לקראת היתר</span><svg aria-hidden="true"><use href="#bld"/></svg><small>הדמיה תתווסף</small></div>
           <div class="body">
             <h3>מיכקשווילי 14</h3>
-            <p class="city">אשדוד</p>
-            <p class="stage">שלב: <b>לקראת היתר וביצוע</b></p>
+            <p class="city">רובע ו', אשדוד</p>
+            <dl class="units"><div><dt>יח"ד קיימות</dt><dd>32</dd></div><div><dt>יח"ד חדשות</dt><dd><span dir="ltr">+32</span></dd></div></dl>
+            <div class="sig"><span>חתימות דיירים</span><b>100%</b><i style="--p:100%"></i></div>
+            <p class="stage">לקראת הוצאת היתר בנייה ועלייה לקרקע</p>
           </div>
         </article>
         <article class="proj">
-          <div class="pic"><span class="status s3">תב"ע</span><svg aria-hidden="true"><use href="#bld"/></svg><small>הדמיה תתווסף</small></div>
+          <div class="pic"><span class="status s2">אושר בוועדות</span><svg aria-hidden="true"><use href="#bld"/></svg><small>הדמיה תתווסף</small></div>
           <div class="body">
-            <h3>גבעתי 2</h3>
-            <p class="city">אשדוד</p>
-            <p class="stage">שלב: <b>תב"ע באישור הוועדה המחוזית</b></p>
+            <h3>חטיבת גבעתי 2</h3>
+            <p class="city">רובע ג', אשדוד</p>
+            <dl class="units"><div><dt>יח"ד קיימות</dt><dd>48</dd></div><div><dt>יח"ד חדשות</dt><dd><span dir="ltr">+84</span></dd></div></dl>
+            <div class="sig"><span>חתימות דיירים</span><b>מעל 80%</b><i style="--p:80%"></i></div>
+            <p class="stage">לאחר אישור הוועדה המקומית והוועדה המחוזית</p>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="pic"><span class="status s3">תכנון מוקדם</span><svg aria-hidden="true"><use href="#bld"/></svg><small>הדמיה תתווסף</small></div>
+          <div class="body">
+            <h3>הפלמ"ח 13</h3>
+            <p class="city">רובע ג', אשדוד</p>
+            <dl class="units"><div><dt>יח"ד קיימות</dt><dd>32</dd></div><div><dt>יח"ד חדשות</dt><dd><span dir="ltr">+32</span></dd></div></dl>
+            <div class="sig"><span>חתימות דיירים</span><b>מעל 70%</b><i style="--p:70%"></i></div>
+            <p class="stage">בתכנון מוקדם</p>
           </div>
         </article>
       </div>
@@ -351,14 +397,14 @@ footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gol
       <div>
         <div class="head">
           <p class="eyebrow">השותפים שלנו</p>
-          <h2>שותפות אסטרטגית עם M.S.C פרויקטים</h2>
+          <h2>קבוצת אם סי פרויקטים</h2>
           <hr class="rule">
         </div>
-        <p>בית בישראל עוסקת בייזום פרויקטי התחדשות עירונית בשותפות עם קבוצת M.S.C פרויקטים, חברה בעלת ניסיון ומוניטין רב שנים בייזום ובאכלוס פרויקטי התחדשות עירונית בעיר אשדוד.</p>
+        <p>קבוצת אם סי פרויקטים, בבעלותו של יעקב מלבסקי, היא חברה יזמית בעלת מוניטין ואיתנות פיננסית.</p>
         <p>הקבוצה <b class="hl">דורגה בדירוג Dun's 100 לשנת 2026 בתחום ההתחדשות העירונית</b>.</p>
-        <p>בין הפרויקטים שהקבוצה הובילה באשדוד:</p>
+        <p>פרויקטים שהקבוצה השלימה וכבר אוכלסו באשדוד:</p>
         <ul class="addr">
-          <li>החמנייה 3</li><li>הרותם 10</li><li>אברהם שפירא 15</li><li>אברהם שפירא 9</li><li>אברהם שפירא 1</li>
+          <li>החמציץ 3</li><li>הרותם 10</li><li>אברהם שפירא 15</li><li>אברהם שפירא 9</li><li>אברהם שפירא 1</li>
         </ul>
       </div>
     </div>
@@ -366,9 +412,10 @@ footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gol
 
   <section class="block">
     <div class="wrap stats">
-      <div><b>15</b><span>שנות ניסיון</span><small>בהתחדשות עירונית</small></div>
-      <div><b>עשרות</b><span>פרויקטים</span><small>שהובלו ולוו בהצלחה</small></div>
-      <div><b>3</b><span>פרויקטים פעילים</span><small>באשדוד</small></div>
+      <div><b>15</b><span>שנות ניסיון</span><small>בניהול תכנון ורישוי</small></div>
+      <div><b>3</b><span>פרויקטי תמ"א 38</span><small>באשדוד</small></div>
+      <div><b>112</b><span>דירות קיימות</span><small>שעוברות התחדשות</small></div>
+      <div><b>148</b><span>יח"ד חדשות</span><small>שיתווספו בפרויקטים</small></div>
     </div>
   </section>
 
@@ -394,6 +441,7 @@ footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gol
           <select id="f-type" name="type">
             <option>בעל דירה בבניין להתחדשות עירונית</option>
             <option>בעל קרקע</option>
+            <option>ניהול תכנון ורישוי פרויקט</option>
             <option>משקיע / שותפות</option>
             <option>אחר</option>
           </select>
