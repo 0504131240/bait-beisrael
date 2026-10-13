@@ -287,6 +287,89 @@ footer { padding-block: 1.75rem; font-size: .95rem; background: var(--navy); col
 footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
 footer .legal { font-variant-numeric: tabular-nums; }
 footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gold); font-weight: 700; }
+/* Skip link */
+.skip { position: absolute; right: 1rem; top: -4rem; z-index: 50; background: var(--gold); color: #1a1406; padding: .6rem 1rem; font-weight: 800; border-radius: 6px; text-decoration: none; }
+.skip:focus { top: calc(env(safe-area-inset-top, 0px) + .5rem); }
+
+/* Footer links */
+.foot-links { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; width: 100%; padding-top: 1rem; margin-top: .25rem; border-top: 1px solid color-mix(in srgb, var(--on-navy) 12%, transparent); }
+.foot-links button, .foot-links a { font: inherit; font-size: .95rem; background: none; border: 0; padding: 0; color: var(--on-navy-muted); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.foot-links button:hover { color: var(--gold); }
+
+/* Form consent */
+.consent { display: flex; gap: .6rem; align-items: start; font-weight: 400; font-size: .95rem; color: var(--on-navy-muted); }
+.consent input { width: 1.15rem; height: 1.15rem; margin-top: .3rem; flex: none; accent-color: var(--gold); }
+.linkish { font: inherit; background: none; border: 0; padding: 0; color: var(--gold); text-decoration: underline; cursor: pointer; }
+
+/* Accessibility toolbar */
+.a11y-btn {
+  position: fixed; left: 0; top: 50%; z-index: 47; transform: translateY(-50%);
+  width: 3.1rem; height: 3.1rem; border: 0; border-radius: 0 10px 10px 0; cursor: pointer;
+  background: #1554c0; color: #fff; display: grid; place-items: center; box-shadow: 0 6px 18px -6px rgba(0,0,0,.5);
+}
+.a11y-btn svg { width: 1.9rem; height: 1.9rem; }
+.a11y-panel {
+  position: fixed; left: 3.4rem; top: 50%; transform: translateY(-50%); z-index: 48;
+  width: min(20rem, calc(100vw - 4.4rem)); max-height: calc(100vh - 2rem); overflow: auto;
+  background: var(--sheet); color: var(--ink); border: 1px solid var(--line); border-radius: 10px;
+  box-shadow: 0 20px 50px -20px rgba(0,0,0,.6); padding: 1rem;
+}
+.a11y-panel h2 { font-family: var(--body); font-size: 1.15rem; font-weight: 800; margin: 0 0 .75rem; display: flex; justify-content: space-between; align-items: center; }
+.a11y-panel .x { background: none; border: 0; font-size: 1.5rem; line-height: 1; color: var(--ink); cursor: pointer; padding: .2rem .4rem; }
+.a11y-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.a11y-grid button {
+  font: inherit; font-size: .9rem; font-weight: 600; min-height: 3.2rem; padding: .4rem; border-radius: 8px; cursor: pointer;
+  background: var(--paper); color: var(--ink); border: 1.5px solid var(--line);
+}
+.a11y-grid button[aria-pressed="true"] { border-color: #1554c0; background: color-mix(in srgb, #1554c0 14%, var(--paper)); }
+.a11y-grid .wide { grid-column: 1 / -1; }
+.a11y-panel .row2 { display: flex; justify-content: space-between; gap: .5rem; margin-top: .75rem; font-size: .9rem; }
+
+/* Accessibility modes (classes on <html>) */
+html.a11y-font-1 { font-size: 112.5%; }
+html.a11y-font-2 { font-size: 125%; }
+html.a11y-font-3 { font-size: 140%; }
+html.a11y-readable body, html.a11y-readable h1, html.a11y-readable h2, html.a11y-readable h3, html.a11y-readable button, html.a11y-readable input, html.a11y-readable select, html.a11y-readable textarea { font-family: Arial, "Arial Hebrew", sans-serif !important; letter-spacing: .01em; }
+html.a11y-links a { text-decoration: underline !important; text-underline-offset: 3px; outline: 2px dashed currentColor; outline-offset: 2px; }
+html.a11y-gray main, html.a11y-gray header, html.a11y-gray footer { filter: grayscale(1); }
+html.a11y-contrast {
+  --paper: #000; --sheet: #000; --ink: #fff; --muted: #fff; --line: #fff;
+  --navy: #000; --navy-2: #000; --gold: #ffeb3b; --gold-ink: #ffeb3b; --on-navy: #fff; --on-navy-muted: #fff; color-scheme: dark;
+}
+html.a11y-contrast .hero::before, html.a11y-contrast .hero::after { display: none; }
+html.a11y-contrast .proj, html.a11y-contrast .ceo, html.a11y-contrast .units div { border: 1px solid #fff; }
+html.a11y-nomotion *, html.a11y-nomotion *::before, html.a11y-nomotion *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+html.a11y-nomotion .reveal { opacity: 1 !important; transform: none !important; }
+html.a11y-nomotion .hero-mark.flying { display: none; }
+html.a11y-nomotion .has-flyer .brand .mark { visibility: visible; }
+html.a11y-nomotion .slides img + img { opacity: 0 !important; }
+html.a11y-nomotion .slides img:first-of-type { opacity: 1 !important; }
+
+/* Policy dialogs */
+dialog.policy {
+  width: min(46rem, calc(100vw - 2rem)); max-height: calc(100vh - 3rem); padding: 0; border: 0; border-radius: 10px;
+  background: var(--sheet); color: var(--ink); box-shadow: 0 30px 80px -20px rgba(0,0,0,.6);
+}
+dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
+.policy-head { position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 1.4rem; background: var(--sheet); border-bottom: 1px solid var(--line); }
+.policy-head h2 { font-size: 1.5rem; }
+.policy-head button { font: inherit; font-weight: 700; background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: .3rem 1rem; cursor: pointer; }
+.policy-body { padding: 1.2rem 1.4rem 1.6rem; display: grid; gap: .9rem; font-size: 1rem; }
+.policy-body h3 { font-family: var(--body); font-size: 1.1rem; font-weight: 800; margin-top: .4rem; }
+.policy-body ul { margin: 0; padding-right: 1.2rem; display: grid; gap: .3rem; }
+.policy-body .meta { color: var(--muted); font-size: .9rem; }
+
+/* Cookie banner */
+.cookie {
+  position: fixed; z-index: 45; right: 1rem; left: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  max-width: 44rem; margin-inline: auto; padding: 1rem 1.2rem; border-radius: 10px;
+  background: var(--sheet); color: var(--ink); border: 1px solid var(--line); border-top: 3px solid var(--gold);
+  box-shadow: 0 20px 50px -15px rgba(0,0,0,.55); display: grid; gap: .8rem;
+}
+.cookie p { font-size: .98rem; }
+.cookie .cookie-actions { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
+.cookie .btn { padding: .55rem 1.2rem; }
+.cookie .ghost2 { font: inherit; font-weight: 700; background: transparent; color: var(--ink); border: 1.5px solid var(--line); border-radius: 999px; padding: .5rem 1.1rem; cursor: pointer; }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -301,6 +384,8 @@ footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gol
     </g>
   </symbol>
 </svg>
+
+<a class="skip" href="#main-content">דלג לתוכן הראשי</a>
 
 <header class="top bleed">
   <div class="wrap">
@@ -323,6 +408,7 @@ footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gol
 </header>
 
 <main id="top">
+  <span id="main-content" tabindex="-1"></span>
   <section class="hero bleed">
     <div class="wrap">
       <div class="hero-copy">
@@ -490,6 +576,7 @@ footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gol
           </select>
         </label>
         <label for="f-msg">הודעה<textarea id="f-msg" name="message" placeholder="כתובת הבניין או הקרקע, ובמה נוכל לעזור"></textarea></label>
+        <label class="consent" for="f-consent"><input id="f-consent" name="consent" type="checkbox" required><span>קראתי ואני מסכים/ה ל<button type="button" class="linkish" data-open="privacy">מדיניות הפרטיות</button>, ולכך שבית בישראל תשתמש בפרטים כדי לחזור אליי בנוגע לפנייה.</span></label>
         <button class="btn" type="submit">שליחה</button>
         <p class="note" id="form-note" hidden></p>
       </form>
@@ -501,10 +588,161 @@ footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gol
   <div class="wrap">
     <span class="motto">ביחד בונים עתיד טוב יותר</span>
     <span class="legal">© בית בישראל אדריכלות ובנייה בע"מ · ח.פ. <span dir="ltr">516315587</span> · הוז דב 4, אשדוד</span>
+    <nav class="foot-links" aria-label="מידע משפטי">
+      <button type="button" data-open="accessibility">הצהרת נגישות</button>
+      <button type="button" data-open="privacy">מדיניות פרטיות</button>
+      <button type="button" id="cookie-settings">הגדרות עוגיות</button>
+    </nav>
   </div>
 </footer>
 
+
+<button class="a11y-btn" id="a11y-btn" type="button" aria-label="תפריט נגישות" aria-expanded="false" aria-controls="a11y-panel">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><circle cx="12" cy="4" r="2"/><path d="M19 9.5c-2.2.5-4.4.8-5.5.8v3.2l2.6 6.4a1 1 0 0 1-1.8.8L12 15.2l-2.3 5.5a1 1 0 0 1-1.8-.8l2.6-6.4v-3.2c-1.1 0-3.3-.3-5.5-.8a1 1 0 1 1 .5-1.9c2.3.6 4.5.9 6.5.9s4.2-.3 6.5-.9a1 1 0 1 1 .5 1.9z"/></svg>
+</button>
+<div class="a11y-panel" id="a11y-panel" role="dialog" aria-modal="false" aria-labelledby="a11y-title" hidden>
+  <h2 id="a11y-title">נגישות <button class="x" type="button" id="a11y-close" aria-label="סגירת תפריט הנגישות">×</button></h2>
+  <div class="a11y-grid">
+    <button type="button" data-font="1">הגדלת טקסט</button>
+    <button type="button" data-font="-1">הקטנת טקסט</button>
+    <button type="button" data-mode="contrast" aria-pressed="false">ניגודיות גבוהה</button>
+    <button type="button" data-mode="gray" aria-pressed="false">גווני אפור</button>
+    <button type="button" data-mode="links" aria-pressed="false">הדגשת קישורים</button>
+    <button type="button" data-mode="readable" aria-pressed="false">גופן קריא</button>
+    <button type="button" class="wide" data-mode="nomotion" aria-pressed="false">עצירת אנימציות</button>
+  </div>
+  <div class="row2">
+    <button type="button" class="linkish" id="a11y-reset">איפוס הגדרות</button>
+    <button type="button" class="linkish" data-open="accessibility">הצהרת נגישות</button>
+  </div>
+</div>
+
+<dialog class="policy" id="accessibility" aria-labelledby="acc-title">
+  <div class="policy-head"><h2 id="acc-title">הצהרת נגישות</h2><button type="button" data-close>סגירה</button></div>
+  <div class="policy-body">
+    <p>בית בישראל אדריכלות ובנייה בע"מ רואה חשיבות בהנגשת האתר לכלל הציבור, ובכלל זה לאנשים עם מוגבלות. אנו פועלים להתאמת האתר לתקן הישראלי ת"י 5568 ברמת AA, המבוסס על הנחיות WCAG 2.0, ובהתאם לתקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג-2013.</p>
+    <h3>מה עשינו באתר</h3>
+    <ul>
+      <li>מבנה כותרות היררכי וסימון אזורים (כותרת, תפריט, תוכן, תחתית) לקוראי מסך.</li>
+      <li>קישור "דלג לתוכן הראשי" וניווט מלא במקלדת, עם סימון בולט של הרכיב שבפוקוס.</li>
+      <li>טקסט חלופי לתמונות ולהדמיות, ותוויות לכל שדות הטופס.</li>
+      <li>ניגודיות צבעים מספקת, ותצוגה מותאמת לנייד ולהגדלת מסך עד 200%.</li>
+      <li>כיבוד הגדרת "הפחתת תנועה" של המכשיר, ואפשרות לעצור אנימציות.</li>
+      <li>תפריט נגישות (הכפתור הכחול בצד המסך): הגדלת טקסט, ניגודיות גבוהה, גווני אפור, הדגשת קישורים, גופן קריא ועצירת אנימציות.</li>
+    </ul>
+    <h3>מגבלות ידועות</h3>
+    <p>ייתכן שחלק מהתכנים, כגון הדמיות אדריכליות וצילומי אוויר, אינם נגישים במלואם לאנשים עם לקות ראייה. המידע המהותי בהם מופיע גם בטקסט בכרטיסי הפרויקטים. אם נתקלתם ברכיב שאינו נגיש, נשמח לדעת ולתקן.</p>
+    <h3>הסדרי נגישות במשרד</h3>
+    <p>המשרד נמצא ברחוב הוז דב 4, אשדוד. לפרטים על הסדרי הנגישות במקום, או לתיאום פגישה בהתאמה אישית, ניתן לפנות אלינו מראש.</p>
+    <h3>רכז הנגישות ופניות בנושא</h3>
+    <ul>
+      <li>רכז נגישות: יצחק זיידמן</li>
+      <li>טלפון: <span dir="ltr">052-7111707</span></li>
+      <li>דוא"ל: <span dir="ltr">yz@bb-ar.com</span></li>
+    </ul>
+    <p class="meta">ההצהרה עודכנה בתאריך 13.10.2026.</p>
+  </div>
+</dialog>
+
+<dialog class="policy" id="privacy" aria-labelledby="priv-title">
+  <div class="policy-head"><h2 id="priv-title">מדיניות פרטיות</h2><button type="button" data-close>סגירה</button></div>
+  <div class="policy-body">
+    <p>מדיניות זו מסבירה איזה מידע אוסף אתר בית בישראל, כיצד אנו משתמשים בו ומהן זכויותיכם. האתר מופעל על ידי בית בישראל אדריכלות ובנייה בע"מ, ח.פ. <span dir="ltr">516315587</span>, הוז דב 4, אשדוד (להלן: "החברה").</p>
+    <h3>איזה מידע נאסף</h3>
+    <ul>
+      <li><b>פרטים שאתם מוסרים בטופס יצירת הקשר:</b> שם, טלפון, דוא"ל, סוג הפנייה ותוכן ההודעה. אין חובה חוקית למסור את המידע, אך בלעדיו לא נוכל לחזור אליכם.</li>
+      <li><b>מידע טכני:</b> כמו בכל אתר, שרתי האחסון רושמים מידע טכני בסיסי (כגון כתובת IP, סוג דפדפן ושעת הגלישה) לצורך אבטחה ותפעול.</li>
+    </ul>
+    <h3>מטרות השימוש</h3>
+    <ul>
+      <li>חזרה אליכם ומתן מענה לפנייה, ובכלל זה מידע על פרויקטים ושירותים של החברה.</li>
+      <li>תפעול האתר, אבטחתו ושיפורו.</li>
+      <li>עמידה בדרישות הדין.</li>
+    </ul>
+    <p>לא נשלח אליכם דברי פרסומת אלא אם הסכמתם לכך במפורש, ותוכלו לבטל הסכמה בכל עת.</p>
+    <h3>העברת מידע לצדדים שלישיים</h3>
+    <p>החברה אינה מוכרת את המידע שלכם. המידע עשוי להיות מועבר לספקי שירות הפועלים מטעמנו (כגון אחסון האתר ומערכות דוא"ל), לשותפינו לפרויקט כאשר הדבר נדרש לטיפול בפנייתכם, או כאשר הדין מחייב זאת. חלק מספקי השירות עשויים לשמור מידע מחוץ לישראל.</p>
+    <h3>עוגיות ושירותי צד שלישי</h3>
+    <p>האתר אינו משתמש בעוגיות פרסום או במעקב אחר גולשים. האתר שומר בדפדפן שלכם את בחירתכם בנושא עוגיות ואת הגדרות הנגישות שבחרתם. גופני האתר נטענים משירות Google Fonts, ולכן Google מקבלת את כתובת ה-IP שלכם בעת הטעינה. קישור הוואטסאפ מעביר אתכם לשירות של WhatsApp, הכפוף למדיניות הפרטיות שלו.</p>
+    <h3>אבטחת מידע ושמירתו</h3>
+    <p>אנו נוקטים אמצעים סבירים לאבטחת המידע, ושומרים אותו רק כל עוד הוא נדרש למטרות שלשמן נאסף או כנדרש בדין.</p>
+    <h3>הזכויות שלכם</h3>
+    <p>בהתאם לחוק הגנת הפרטיות, התשמ"א-1981, אתם רשאים לעיין במידע עליכם המוחזק אצלנו, ולבקש לתקנו או למחקו אם אינו נכון, שלם, ברור או מעודכן. לפניות בנושא:</p>
+    <ul>
+      <li>טלפון: <span dir="ltr">052-7111707</span></li>
+      <li>דוא"ל: <span dir="ltr">yz@bb-ar.com</span></li>
+      <li>דואר: הוז דב 4, אשדוד</li>
+    </ul>
+    <p class="meta">המדיניות עודכנה בתאריך 13.10.2026. החברה רשאית לעדכן מדיניות זו מעת לעת, והנוסח המעודכן יפורסם בעמוד זה.</p>
+  </div>
+</dialog>
+
+<div class="cookie" id="cookie" role="region" aria-label="הודעת עוגיות" hidden>
+  <p>האתר משתמש בעוגיות ובאחסון מקומי חיוניים בלבד, כדי לזכור את הבחירות שלכם (למשל הגדרות נגישות), וטוען גופנים מ-Google Fonts. אין באתר עוגיות פרסום או מעקב. פרטים נוספים ב<button type="button" class="linkish" data-open="privacy">מדיניות הפרטיות</button>.</p>
+  <div class="cookie-actions">
+    <button type="button" class="btn" id="cookie-accept">אישור</button>
+    <button type="button" class="ghost2" id="cookie-essential">חיוניות בלבד</button>
+  </div>
+</div>
+
 <script>
+
+// Safe localStorage helpers (storage can be blocked).
+function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+
+// Policy dialogs: any [data-open] button opens one; #privacy / #accessibility in the URL open it too.
+(function () {
+  function open(id) { var d = document.getElementById(id); if (d && !d.open) { if (d.showModal) d.showModal(); else d.setAttribute('open', ''); } }
+  document.addEventListener('click', function (e) {
+    var o = e.target.closest('[data-open]'); if (o) { e.preventDefault(); open(o.getAttribute('data-open')); }
+    var c = e.target.closest('[data-close]'); if (c) c.closest('dialog').close();
+  });
+  document.querySelectorAll('dialog.policy').forEach(function (d) {
+    d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
+  });
+  var h = location.hash.slice(1); if (h === 'privacy' || h === 'accessibility') open(h);
+})();
+
+// Accessibility toolbar. Choices are remembered on this device.
+(function () {
+  var root = document.documentElement, btn = document.getElementById('a11y-btn'), panel = document.getElementById('a11y-panel');
+  var modes = ['contrast', 'gray', 'links', 'readable', 'nomotion'];
+  var state = {}; try { state = JSON.parse(store('bb-a11y') || '{}') || {}; } catch (e) {}
+  function apply() {
+    root.classList.remove('a11y-font-1', 'a11y-font-2', 'a11y-font-3');
+    if (state.font > 0) root.classList.add('a11y-font-' + state.font);
+    modes.forEach(function (m) {
+      root.classList.toggle('a11y-' + m, !!state[m]);
+      var b = panel.querySelector('[data-mode="' + m + '"]'); if (b) b.setAttribute('aria-pressed', state[m] ? 'true' : 'false');
+    });
+    store('bb-a11y', JSON.stringify(state));
+  }
+  function toggle(show) {
+    panel.hidden = !show; btn.setAttribute('aria-expanded', show ? 'true' : 'false');
+    if (show) panel.querySelector('button[data-font]').focus(); else btn.focus();
+  }
+  btn.addEventListener('click', function () { toggle(panel.hidden); });
+  document.getElementById('a11y-close').addEventListener('click', function () { toggle(false); });
+  panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') toggle(false); });
+  panel.addEventListener('click', function (e) {
+    var f = e.target.closest('[data-font]'), m = e.target.closest('[data-mode]');
+    if (f) state.font = Math.max(0, Math.min(3, (state.font || 0) + +f.getAttribute('data-font')));
+    if (m) state[m.getAttribute('data-mode')] = !state[m.getAttribute('data-mode')];
+    if (f || m) apply();
+  });
+  document.getElementById('a11y-reset').addEventListener('click', function () { state = {}; apply(); });
+  apply();
+})();
+
+// Cookie notice: shown until the visitor chooses; "הגדרות עוגיות" in the footer reopens it.
+(function () {
+  var bar = document.getElementById('cookie');
+  function choose(v) { store('bb-cookies', v); bar.hidden = true; }
+  if (!store('bb-cookies')) bar.hidden = false;
+  document.getElementById('cookie-accept').addEventListener('click', function () { choose('all'); });
+  document.getElementById('cookie-essential').addEventListener('click', function () { choose('essential'); });
+  document.getElementById('cookie-settings').addEventListener('click', function () { bar.hidden = false; document.getElementById('cookie-accept').focus(); });
+})();
 document.getElementById('lead-form').addEventListener('submit', function (e) {
   e.preventDefault();
   var note = document.getElementById('form-note');
@@ -512,6 +750,8 @@ document.getElementById('lead-form').addEventListener('submit', function (e) {
   var phone = document.getElementById('f-phone').value.trim();
   if (!name || !phone) {
     note.textContent = 'נא למלא שם וטלפון כדי שנוכל לחזור אליכם.';
+  } else if (!document.getElementById('f-consent').checked) {
+    note.textContent = 'כדי לשלוח את הפנייה יש לאשר את מדיניות הפרטיות.';
   } else {
     note.textContent = 'תודה, ' + name + '. זו גרסת טיוטה: הטופס עדיין לא מחובר, ולכן הפרטים לא נשלחו. אפשר לפנות אלינו בטלפון או בוואטסאפ.';
   }
