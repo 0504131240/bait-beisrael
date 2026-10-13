@@ -72,9 +72,10 @@ a { color: inherit; }
   background: var(--navy); color: var(--on-navy);
   border-bottom: 1px solid color-mix(in srgb, var(--gold) 40%, transparent);
 }
-.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .7rem; }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .45rem; }
 .brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
-.brand svg { width: 48px; height: 30px; }
+.brand svg { width: 84px; height: 50px; }
+@media (max-width: 420px) { .brand svg { width: 72px; height: 44px; } }
 .brand span { font-family: var(--display); font-weight: 900; font-size: 1.35rem; white-space: nowrap; }
 nav { display: flex; gap: 1.75rem; flex-wrap: wrap; }
 nav a { text-decoration: none; font-weight: 600; font-size: 1rem; color: var(--on-navy-muted); }
@@ -1071,7 +1072,7 @@ document.getElementById('lead-form').addEventListener('submit', function (e) {
     var left = start.x + (end.x - start.x) * e;
     var sc = 1 + (end.w / start.w - 1) * e;
     mark.style.transform = 'translate(' + (left - start.x) + 'px,' + top + 'px) scale(' + sc + ')';
-    mark.style.setProperty('--sw', 6 + 12 * e);
+    mark.style.setProperty('--sw', 6 + 3 * e);
   }
   addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   // Phones fire resize when the address bar hides; only re-measure when the width really changes.
