@@ -473,10 +473,11 @@ dialog.pd { background: var(--navy); color: var(--on-navy); }
 }
 .orb b { font-size: .9rem; font-weight: 800; color: var(--gold); }
 .orb span { font-size: 1.1rem; font-weight: 700; color: var(--on-navy); }
+.orb-partner { justify-self: center; width: min(100%, 26rem); text-align: center; border-right-width: 1px; border-top: 4px solid var(--gold); }
 .orb .orb-note { font-style: normal; font-size: .9rem; color: var(--on-navy-muted); }
 .orb span.big { font-family: var(--display); font-weight: 900; font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
 @media (max-width: 640px) {
-  .orbit { grid-template-columns: 1fr 1fr; gap: .75rem; }
+  .orbit { grid-template-columns: 1fr 1fr; gap: .75rem; align-items: stretch; }
   .orb-circle { grid-column: 1 / -1; grid-row: 1; justify-self: center; margin-bottom: .75rem; }
   .orb-side { display: contents; }
 }
@@ -764,6 +765,7 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
       <div class="orb-circle"><img id="pd-orb-img" alt=""></div>
       <div class="orb-side" id="orb-left"></div>
     </div>
+    <div class="orb orb-partner" id="pd-partner" hidden><b>שותף בפרויקט</b><span id="pd-partner-name"></span></div>
     <div class="pd-sig"><h3>חתימות דיירים</h3><div class="sig" id="pd-sig"></div></div>
     <div><h3>שלבי הפרויקט</h3><ol class="timeline" id="pd-timeline"></ol></div>
     <div class="pd-cta">
@@ -867,6 +869,7 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
     },
     'givati-2': {
       name: 'חטיבת גבעתי 2', where: "רובע ג', אשדוד", street: 'חטיבת גבעתי 2, אשדוד',
+      partner: 'קבוצת אם סי פרויקטים',
       status: 'אושר בוועדות', statusClass: 's2', existing: 48, added: 84, sig: 80, sigText: 'מעל 80%',
       stage: 'לאחר אישור הוועדה המקומית והוועדה המחוזית',
       steps: ['now', 'done', '', '', ''],
@@ -915,6 +918,7 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
       if (st === 'now') li.setAttribute('aria-current', 'step'); tl.appendChild(li);
     });
     $('pd-about').textContent = d.about;
+    $('pd-partner').hidden = !d.partner; $('pd-partner-name').textContent = d.partner || '';
     $('pd-wa').href = 'https://wa.me/972527111707?text=' + encodeURIComponent('שלום, אשמח לפרטים על הפרויקט ' + d.name);
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
     dlg.scrollTop = 0;
