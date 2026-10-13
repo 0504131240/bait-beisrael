@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="בית בישראל – יזמות נדל&quot;ן וניהול פרויקטים: מבדיקת היתכנות ועד מסירת המפתח.">
+</head>
+<body>
+<title>בית בישראל</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Assistant:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: blueprint sheet. Thin drafting lines, the logo's rectangles as the hero drawing, content set on a measured grid. */
+:root {
+  --paper: #eceef1;
+  --sheet: #f7f8fa;
+  --ink: #1d2126;
+  --muted: #5a6370;
+  --navy: #2b4a6f;
+  --navy-deep: #1f3654;
+  --line: #c9d0d9;
+  --on-navy: #f3f5f8;
+  --logo-a: #2b4a6f;
+  --logo-b: #1d2126;
+  --display: "Frank Ruhl Libre", "David", "Times New Roman", serif;
+  --body: "Assistant", "Arial Hebrew", "Segoe UI", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --wrap: 72rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12161c; --sheet: #181d25; --ink: #e6e9ee; --muted: #9aa4b2;
+    --navy: #8fb0d8; --navy-deep: #22395a; --line: #2c3542; --on-navy: #f3f5f8;
+    --logo-a: #8fb0d8; --logo-b: #e6e9ee; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #12161c; --sheet: #181d25; --ink: #e6e9ee; --muted: #9aa4b2;
+  --navy: #8fb0d8; --navy-deep: #22395a; --line: #2c3542; --on-navy: #f3f5f8;
+  --logo-a: #8fb0d8; --logo-b: #e6e9ee; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  direction: rtl;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  padding-inline: 16px;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-attachment: fixed;
+}
+.wrap { max-width: var(--wrap); margin-inline: auto; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
+.tag {
+  font-family: var(--body); font-size: .9rem; font-weight: 700;
+  color: var(--navy);
+}
+
+/* Header */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  margin-inline: -16px; padding-inline: 16px;
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .75rem; }
+.brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+.brand svg { width: 52px; height: auto; }
+.brand span { font-family: var(--display); font-weight: 900; font-size: 1.35rem; color: var(--navy); }
+nav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+nav a { text-decoration: none; font-weight: 600; font-size: 1rem; color: var(--muted); }
+nav a:hover { color: var(--navy); }
+.btn {
+  display: inline-block; text-decoration: none; font-weight: 700; font-family: var(--body);
+  background: var(--navy-deep); color: var(--on-navy); border: 0; cursor: pointer;
+  padding: .7rem 1.4rem; font-size: 1rem;
+}
+.btn:hover { background: var(--navy); }
+.btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+@media (max-width: 760px) { nav { display: none; } }
+
+/* Hero */
+.hero { padding-block: clamp(3rem, 8vw, 6rem) clamp(2rem, 5vw, 4rem); }
+.hero .wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: end; }
+.hero h1 { font-size: clamp(2.4rem, 5.5vw, 4.2rem); font-weight: 900; }
+.hero h1 em { font-style: normal; color: var(--navy); }
+.hero p.lead { margin-top: 1.25rem; font-size: 1.25rem; color: var(--muted); max-width: 34ch; }
+.hero .actions { margin-top: 2rem; display: flex; gap: .75rem; flex-wrap: wrap; }
+.drawing { position: relative; min-width: 0; }
+.drawing svg { width: 100%; height: auto; display: block; overflow: visible; }
+.drawing .dim { font-family: var(--body); font-size: 9px; fill: var(--muted); }
+.drawing .dimline { stroke: var(--muted); stroke-width: .6; fill: none; }
+.draw rect { fill: none; stroke-width: 3.5; stroke-dasharray: 700; stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .draw rect { animation: draw 2.2s ease-out both; }
+  .draw rect:nth-child(2) { animation-delay: .15s } .draw rect:nth-child(3) { animation-delay: .3s }
+  .draw rect:nth-child(4) { animation-delay: .45s } .draw rect:nth-child(5) { animation-delay: .6s }
+  .draw rect:nth-child(6) { animation-delay: .75s }
+}
+@keyframes draw { from { stroke-dashoffset: 700; } to { stroke-dashoffset: 0; } }
+.a { stroke: var(--logo-a); } .b { stroke: var(--logo-b); }
+@media (max-width: 760px) { .hero .wrap { grid-template-columns: 1fr; } .drawing { order: -1; max-width: 22rem; } }
+
+/* Sections */
+section.block { padding-block: clamp(3rem, 7vw, 5rem); border-top: 1px solid var(--line); }
+.head { display: grid; gap: .5rem; margin-bottom: 2.5rem; max-width: 40rem; }
+.head h2 { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; }
+.head p { color: var(--muted); }
+
+.services { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; background: var(--sheet); border: 1px solid var(--line); }
+.svc { padding: 2rem; border-bottom: 1px solid var(--line); min-width: 0; display: grid; gap: .6rem; align-content: start; }
+.svc:nth-child(odd) { border-left: 1px solid var(--line); }
+.svc:nth-last-child(-n+2) { border-bottom: 0; }
+.svc h3 { font-size: 1.5rem; font-weight: 700; color: var(--navy); }
+.svc p { color: var(--muted); }
+@media (max-width: 760px) {
+  .services { grid-template-columns: 1fr; }
+  .svc:nth-child(odd) { border-left: 0; }
+  .svc:nth-last-child(2) { border-bottom: 1px solid var(--line); }
+}
+
+/* Process: a real sequence */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; counter-reset: s; }
+.steps li { counter-increment: s; border-top: 3px solid var(--navy); padding-top: 1rem; min-width: 0; }
+.steps li::before { content: "שלב " counter(s); display: block; font-weight: 700; font-size: .85rem; color: var(--navy); margin-bottom: .4rem; }
+.steps h3 { font-size: 1.3rem; margin-bottom: .4rem; }
+.steps p { color: var(--muted); font-size: 1rem; }
+@media (max-width: 900px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+
+/* Why us */
+.why { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+.why blockquote { margin: 0; font-family: var(--display); font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.35; font-weight: 500; }
+.why ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.why li { display: grid; grid-template-columns: auto 1fr; gap: .9rem; align-items: baseline; }
+.why li::before { content: ""; width: .8rem; height: .8rem; border: 2px solid var(--navy); transform: translateY(.1rem); }
+.why li b { display: block; }
+.why li span { color: var(--muted); font-size: 1rem; }
+@media (max-width: 760px) { .why { grid-template-columns: 1fr; } }
+
+/* Contact */
+.contact { background: var(--navy-deep); color: var(--on-navy); margin-inline: -16px; padding-inline: 16px; border-top: 0; }
+.contact .wrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 5vw, 4rem); }
+.contact h2 { font-size: clamp(2rem, 4vw, 2.8rem); }
+.contact .tag { color: #b9cbe2; }
+.contact p { color: #cfd8e4; margin-top: 1rem; }
+.details { margin-top: 2rem; display: grid; gap: .75rem; font-size: 1.1rem; }
+.details div { display: flex; gap: .75rem; flex-wrap: wrap; }
+.details dt { font-size: .9rem; color: #b9cbe2; min-width: 4.5rem; padding-top: .3rem; }
+.details dd { margin: 0; font-weight: 600; user-select: all; }
+form { display: grid; gap: 1rem; min-width: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 520px) { .row { grid-template-columns: 1fr; } }
+label { display: grid; gap: .3rem; font-size: .95rem; font-weight: 600; }
+input, select, textarea {
+  font: inherit; font-size: 1rem; padding: .7rem .8rem; border: 1px solid #5d7799;
+  background: #15283f; color: var(--on-navy); width: 100%; border-radius: 0;
+}
+textarea { min-height: 7rem; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: 2px solid #b9cbe2; outline-offset: 0; }
+form .btn { background: var(--on-navy); color: #1f3654; justify-self: start; }
+form .btn:hover { background: #fff; }
+.note { font-size: .95rem; padding: .8rem 1rem; border: 1px solid #b9cbe2; }
+@media (max-width: 760px) { .contact .wrap { grid-template-columns: 1fr; } }
+
+footer { padding-block: 2rem; font-size: .9rem; color: var(--muted); }
+footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.draft { font-size: .85rem; }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo-mark" viewBox="22 48 384 232">
+    <g fill="none" stroke-width="5">
+      <rect class="a" x="30" y="55" width="50" height="217"/>
+      <rect class="a" x="98" y="118" width="88" height="154"/>
+      <rect class="a" x="222" y="167" width="153" height="105"/>
+      <rect class="b" x="55" y="158" width="67" height="114"/>
+      <rect class="b" x="145" y="203" width="183" height="69"/>
+      <rect class="b" x="245" y="240" width="153" height="32"/>
+    </g>
+  </symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="בית בישראל – לראש הדף">
+      <svg aria-hidden="true"><use href="#logo-mark"/></svg>
+      <span>בית בישראל</span>
+    </a>
+    <nav aria-label="ניווט ראשי">
+      <a href="#services">שירותים</a>
+      <a href="#process">תהליך העבודה</a>
+      <a href="#why">למה אנחנו</a>
+      <a href="#contact">צור קשר</a>
+    </nav>
+    <a class="btn" href="#contact">לתיאום פגישה</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="tag">יזמות · ניהול פרויקטים · נדל"ן</p>
+        <h1>מהקרקע ועד <em>המפתח</em>, <br>אנחנו מנהלים את הדרך.</h1>
+        <p class="lead">בית בישראל מלווה בעלי קרקעות, משקיעים ודיירים בפרויקטי בנייה ומגורים. אנחנו בודקים היתכנות, מובילים תכנון והיתרים ומפקחים על הביצוע עד למסירה.</p>
+        <div class="actions">
+          <a class="btn" href="#contact">לשיחת ייעוץ ראשונית</a>
+          <a class="btn ghost" href="#services">מה אנחנו עושים</a>
+        </div>
+      </div>
+      <div class="drawing" aria-hidden="true">
+        <svg viewBox="0 30 430 290">
+          <g class="draw">
+            <rect class="a" x="30" y="55" width="50" height="217"/>
+            <rect class="a" x="98" y="118" width="88" height="154"/>
+            <rect class="a" x="222" y="167" width="153" height="105"/>
+            <rect class="b" x="55" y="158" width="67" height="114"/>
+            <rect class="b" x="145" y="203" width="183" height="69"/>
+            <rect class="b" x="245" y="240" width="153" height="32"/>
+          </g>
+          <line class="dimline" x1="20" y1="290" x2="408" y2="290"/>
+          <line class="dimline" x1="20" y1="284" x2="20" y2="296"/>
+          <line class="dimline" x1="408" y1="284" x2="408" y2="296"/>
+          <text class="dim" x="214" y="306" text-anchor="middle">חתך חזית · קנ"מ 1:200</text>
+          <line class="dimline" x1="16" y1="55" x2="16" y2="272"/>
+          <text class="dim" x="10" y="165" text-anchor="middle" transform="rotate(-90 10 165)">+21.70</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="services">
+    <div class="wrap">
+      <div class="head">
+        <p class="tag">שירותים</p>
+        <h2>מה אנחנו עושים</h2>
+        <p>צוות אחד שמחזיק את כל שלבי הפרויקט, כדי שלכם יהיה גורם אחד לפנות אליו.</p>
+      </div>
+      <div class="services">
+        <article class="svc">
+          <h3>יזמות נדל"ן</h3>
+          <p>איתור קרקעות והזדמנויות, בדיקות תכנוניות וכלכליות, גיוס שותפים ומימון והובלת הפרויקט מהרעיון ועד האכלוס.</p>
+        </article>
+        <article class="svc">
+          <h3>ניהול פרויקטים</h3>
+          <p>ניהול לוחות זמנים ותקציב, תיאום מתכננים ויועצים, בחירת קבלנים ופיקוח צמוד באתר.</p>
+        </article>
+        <article class="svc">
+          <h3>התחדשות עירונית</h3>
+          <p>ליווי פרויקטי תמ"א 38 ופינוי-בינוי: הסכמות דיירים, מול הרשויות ומול היזם, עם שקיפות מלאה לבעלי הדירות.</p>
+        </article>
+        <article class="svc">
+          <h3>ליווי בעלי קרקע ומשפחות</h3>
+          <p>מי שבונה בית או מפתח מגרש מקבל ייצוג מקצועי מול מתכננים, קבלנים ורשויות, ושומר על האינטרסים שלו לאורך הדרך.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="process">
+    <div class="wrap">
+      <div class="head">
+        <p class="tag">תהליך העבודה</p>
+        <h2>ארבעה שלבים, אחריות אחת</h2>
+      </div>
+      <ol class="steps">
+        <li><h3>בדיקת היתכנות</h3><p>תב"ע, זכויות בנייה, מצב משפטי ודוח אפס כלכלי. מחליטים על סמך מספרים.</p></li>
+        <li><h3>תכנון והיתרים</h3><p>בחירת אדריכל ויועצים, הגשה לוועדה המקומית וליווי עד קבלת היתר הבנייה.</p></li>
+        <li><h3>ביצוע ופיקוח</h3><p>מכרז קבלנים, חוזים, פיקוח הנדסי ובקרת תקציב שוטפת עם דיווח קבוע ללקוח.</p></li>
+        <li><h3>מסירה</h3><p>טופס 4, תעודת גמר, מסירת דירות ותיקוני שנת בדק.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="why">
+    <div class="wrap why">
+      <div>
+        <p class="tag">למה בית בישראל</p>
+        <blockquote>בית הוא ההשקעה הגדולה של רוב האנשים. אנחנו מנהלים אותה כאילו היא שלנו.</blockquote>
+      </div>
+      <ul>
+        <li><div><b>גורם אחד מול כולם</b><span>אתם מדברים איתנו, ואנחנו מתאמים את האדריכל, הקבלן, השמאי והרשויות.</span></div></li>
+        <li><div><b>שקיפות בתקציב</b><span>דוחות עלויות ולוחות זמנים מעודכנים לאורך כל הפרויקט, בלי הפתעות.</span></div></li>
+        <li><div><b>פיקוח בשטח</b><span>נוכחות קבועה באתר ובדיקת איכות בכל שלב לפני שממשיכים לשלב הבא.</span></div></li>
+        <li><div><b>ליווי בשפה שלכם</b><span>[טקסט זמני: שפות שירות, למשל עברית, אנגלית וצרפתית]</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block contact" id="contact">
+    <div class="wrap">
+      <div>
+        <p class="tag">צור קשר</p>
+        <h2>יש לכם קרקע, בניין או רעיון?</h2>
+        <p>השאירו פרטים ונחזור אליכם לשיחת היכרות ללא עלות.</p>
+        <dl class="details">
+          <div><dt>טלפון</dt><dd>[050-0000000]</dd></div>
+          <div><dt>מייל</dt><dd>[info@example.co.il]</dd></div>
+          <div><dt>משרד</dt><dd>[כתובת המשרד]</dd></div>
+        </dl>
+      </div>
+      <form id="lead-form" novalidate>
+        <div class="row">
+          <label for="f-name">שם מלא<input id="f-name" name="name" required autocomplete="name"></label>
+          <label for="f-phone">טלפון<input id="f-phone" name="phone" type="tel" required autocomplete="tel" dir="ltr"></label>
+        </div>
+        <label for="f-type">סוג הפנייה
+          <select id="f-type" name="type">
+            <option>יזמות / שותפות בפרויקט</option>
+            <option>ניהול פרויקט</option>
+            <option>התחדשות עירונית (תמ"א / פינוי-בינוי)</option>
+            <option>בניית בית פרטי</option>
+            <option>אחר</option>
+          </select>
+        </label>
+        <label for="f-msg">ספרו לנו בקצרה<textarea id="f-msg" name="message" placeholder="מיקום, גודל המגרש או הבניין, איפה אתם עומדים היום"></textarea></label>
+        <button class="btn" type="submit">שליחה</button>
+        <p class="note" id="form-note" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© בית בישראל · יזמות וניהול פרויקטים</span>
+    <span class="draft">טיוטה · טקסט בסוגריים מרובעים יוחלף בפרטים אמיתיים</span>
+  </div>
+</footer>
+
+<script>
+document.getElementById('lead-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var note = document.getElementById('form-note');
+  var name = document.getElementById('f-name').value.trim();
+  var phone = document.getElementById('f-phone').value.trim();
+  if (!name || !phone) {
+    note.textContent = 'נא למלא שם וטלפון כדי שנוכל לחזור אליכם.';
+  } else {
+    note.textContent = 'תודה, ' + name + '. זו גרסת טיוטה: הטופס עדיין לא מחובר למייל או לוואטסאפ, ולכן הפרטים לא נשלחו.';
+  }
+  note.hidden = false;
+});
+</script>
+
+</body>
+</html>
