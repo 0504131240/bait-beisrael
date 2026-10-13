@@ -76,7 +76,21 @@ nav a:hover { color: var(--gold); }
 .tel { color: var(--on-navy); font-weight: 800; text-decoration: none; font-variant-numeric: tabular-nums; }
 .tel:hover { color: var(--gold); }
 @media (max-width: 420px) { .top-cta .btn { display: none; } }
-@media (max-width: 820px) { nav { display: none; } }
+.menu-btn { display: none; width: 2.6rem; height: 2.6rem; padding: .55rem; border: 0; border-radius: 8px; background: transparent; cursor: pointer; flex-direction: column; justify-content: space-between; }
+.menu-btn span { display: block; height: 2.5px; border-radius: 2px; background: var(--on-navy); transition: transform .25s ease, opacity .2s ease; }
+.top.open .menu-btn span:nth-child(1) { transform: translateY(9.3px) rotate(45deg); }
+.top.open .menu-btn span:nth-child(2) { opacity: 0; }
+.top.open .menu-btn span:nth-child(3) { transform: translateY(-9.3px) rotate(-45deg); }
+@media (max-width: 820px) {
+  .menu-btn { display: flex; }
+  .top nav { display: none; }
+  .top.open nav {
+    display: flex; flex-direction: column; gap: 0; position: absolute; top: 100%; right: 0; left: 0;
+    background: var(--navy); border-bottom: 2px solid var(--gold); box-shadow: 0 18px 30px -15px rgba(0,0,0,.6); padding: .25rem 16px 1rem;
+  }
+  .top.open nav a { padding: .9rem .25rem; font-size: 1.15rem; color: var(--on-navy); border-bottom: 1px solid color-mix(in srgb, var(--on-navy) 12%, transparent); }
+  .top.open nav a:last-child { border-bottom: 0; }
+}
 /* <use> clones live in a shadow tree, so style them with bare class selectors */
 .a { stroke: var(--gold); } .b { stroke: var(--on-navy); }
 
@@ -93,6 +107,10 @@ nav a:hover { color: var(--gold); }
 /* After the logo builds it flies to the header corner as the page scrolls (see script) */
 .hero-mark.flying { position: fixed; z-index: 20; margin: 0; pointer-events: none; transform-origin: 0 0; will-change: transform; }
 .has-flyer .brand .mark { visibility: hidden; }
+/* While the mobile menu is open, show the header's own logo and hide the floating one so it can't cover the list */
+.menu-open .hero-mark.flying { opacity: 0; }
+.menu-open.has-flyer .brand .mark { visibility: visible; }
+section[id] { scroll-margin-top: 4.25rem; }
 .hero-mark rect { fill: none; stroke-width: var(--sw, 6); stroke-dasharray: 100; stroke-dashoffset: 0; }
 .hero h1 { font-size: clamp(3rem, 7vw, 5.2rem); font-weight: 900; }
 .hero .sub { margin-top: .6rem; display: flex; align-items: center; gap: .8rem; color: var(--gold); font-weight: 800; font-size: clamp(1.15rem, 2.2vw, 1.5rem); }
@@ -497,16 +515,17 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
       <svg class="mark" aria-hidden="true"><use href="#logo-mark"/></svg>
       <span>בית בישראל</span>
     </a>
-    <nav aria-label="ניווט ראשי">
+    <nav aria-label="ניווט ראשי" id="main-nav">
       <a href="#about">אודות</a>
-      <a href="#services">שירותים</a>
       <a href="#projects">הפרויקטים</a>
       <a href="#partners">השותפים שלנו</a>
+      <a href="#services">ניהול תכנון ורישוי</a>
       <a href="#contact">צור קשר</a>
     </nav>
     <div class="top-cta">
       <a class="tel" href="tel:+972527111707" dir="ltr">052-7111707</a>
       <a class="btn" href="#contact">צור קשר</a>
+      <button class="menu-btn" type="button" aria-label="תפריט" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
@@ -529,14 +548,10 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
         <h1>בית בישראל</h1>
         <p class="sub">יזמות נדל"ן והתחדשות עירונית</p>
         <p class="slogan">בונים עתיד, יוצרים קהילה</p>
-        <p class="lead">יזמות, התחדשות עירונית וניהול תכנון ורישוי פרויקטים. שותפים במיזמי תמ"א 38 באשדוד, בהובלת יצחק זיידמן, בוגר הטכניון עם כ-15 שנות ניסיון.</p>
-        <div class="actions">
-          <a class="btn" href="#contact">לשיחת ייעוץ</a>
-          <a class="btn ghost" href="#projects">לפרויקטים שלנו</a>
-        </div>
+        <p class="lead">יזמות והתחדשות עירונית. שותפים במיזמי תמ"א 38 באשדוד, בהובלת יצחק זיידמן, בוגר הטכניון עם כ-15 שנות ניסיון.</p>
       </div>
     </div>
-    <span class="credit">הדמיה · מיכקשווילי 14</span>
+    <span class="credit">הדמיה · מיכשווילי 14</span>
   </section>
 
   <section class="block" id="about">
@@ -574,22 +589,6 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
     </div>
   </section>
 
-  <section class="block service-band" id="services">
-    <div class="wrap">
-      <div class="head">
-        <p class="eyebrow">שירות</p>
-        <h2>ניהול תכנון ורישוי פרויקטים</h2>
-        <hr class="rule">
-        <p class="sub-lead">אנחנו מנהלים את כל תהליך התכנון והרישוי, כדי שהפרויקט יגיע להיתר ולביצוע בלי עיכובים מיותרים.</p>
-      </div>
-      <ol class="steps">
-        <li><h3>ניהול התכנון</h3><p>הובלת תהליך התכנון מהשלב המוקדם ועד לתוכניות מוכנות להגשה.</p></li>
-        <li><h3>בקשה להיתר בנייה</h3><p>הכנת הבקשה להיתר, הגשתה וליווי שלה עד קבלת ההיתר.</p></li>
-        <li><h3>תיאום יועצים</h3><p>ניהול ותיאום סופרפוזיציה בין כל יועצי הפרויקט.</p></li>
-        <li><h3>אישורים וועדות</h3><p>קבלת אישורי הגורמים השונים והוועדה המקומית.</p></li>
-      </ol>
-    </div>
-  </section>
 
   <section class="block navy bleed" id="projects">
     <div class="wrap">
@@ -600,11 +599,11 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
       </div>
       <div class="projects">
         <article class="proj" data-card>
-          <div class="pic slides"><img src="assets/img/render-a-day.jpg" alt="הדמיית הפרויקט במיכקשווילי 14, אשדוד" loading="lazy"><img src="assets/img/hero-night.jpg" alt="" loading="lazy"><img src="assets/img/render-b-day.jpg" alt="" loading="lazy"><small>הדמיה</small></div>
+          <div class="pic slides"><img src="assets/img/render-a-day.jpg" alt="הדמיית הפרויקט במיכשווילי 14, אשדוד" loading="lazy"><img src="assets/img/hero-night.jpg" alt="" loading="lazy"><img src="assets/img/render-b-day.jpg" alt="" loading="lazy"><small>הדמיה</small></div>
           <div class="ov">
-            <h3>מיכקשווילי 14</h3>
+            <h3>מיכשווילי 14</h3>
             <p>רובע ו', אשדוד <i aria-hidden="true">•</i> לקראת היתר</p>
-            <button class="go" type="button" data-project="michakshvili-14" aria-label="לכל פרטי הפרויקט מיכקשווילי 14"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17 7 7M7 7v8M7 7h8"/></svg></button>
+            <button class="go" type="button" data-project="michakshvili-14" aria-label="לכל פרטי הפרויקט מיכשווילי 14"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17 7 7M7 7v8M7 7h8"/></svg></button>
           </div>
         </article>
         <article class="proj" data-card>
@@ -645,6 +644,22 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
     </div>
   </section>
 
+  <section class="block service-band" id="services">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">שירות נוסף</p>
+        <h2>ניהול תכנון ורישוי פרויקטים</h2>
+        <hr class="rule">
+        <p class="sub-lead">אנחנו מנהלים את כל תהליך התכנון והרישוי, כדי שהפרויקט יגיע להיתר ולביצוע בלי עיכובים מיותרים.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>ניהול התכנון</h3><p>הובלת תהליך התכנון מהשלב המוקדם ועד לתוכניות מוכנות להגשה.</p></li>
+        <li><h3>בקשה להיתר בנייה</h3><p>הכנת הבקשה להיתר, הגשתה וליווי שלה עד קבלת ההיתר.</p></li>
+        <li><h3>תיאום יועצים</h3><p>ניהול ותיאום סופרפוזיציה בין כל יועצי הפרויקט.</p></li>
+        <li><h3>אישורים וועדות</h3><p>קבלת אישורי הגורמים השונים והוועדה המקומית.</p></li>
+      </ol>
+    </div>
+  </section>
 
   <section class="block contact navy bleed" id="contact">
     <div class="wrap">
@@ -812,13 +827,22 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
 </div>
 
 <script>
+// Mobile menu: the three-line button opens the section list; choosing a section or pressing Esc closes it.
+(function () {
+  var top = document.querySelector('.top'), btn = top.querySelector('.menu-btn'), nav = document.getElementById('main-nav');
+  function set(open) { top.classList.toggle('open', open); document.body.classList.toggle('menu-open', open); btn.setAttribute('aria-expanded', open ? 'true' : 'false'); btn.setAttribute('aria-label', open ? 'סגירת התפריט' : 'תפריט'); }
+  btn.addEventListener('click', function () { set(!top.classList.contains('open')); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && top.classList.contains('open')) { set(false); btn.focus(); } });
+  document.addEventListener('click', function (e) { if (!top.contains(e.target)) set(false); });
+})();
 
 // Project details. Data matches the cards; open by clicking a card or linking to #p-<id>.
 (function () {
   var STAGES = ['חתימות דיירים', 'תכנון ואישורים', 'היתר בנייה', 'ביצוע', 'אכלוס'];
   var P = {
     'michakshvili-14': {
-      name: 'מיכקשווילי 14', where: "רובע ו', אשדוד", street: 'מיכקשווילי 14, אשדוד',
+      name: 'מיכשווילי 14', where: "רובע ו', אשדוד", street: 'מיכשווילי 14, אשדוד',
       status: 'לקראת היתר', statusClass: '', existing: 32, added: 32, sig: 100, sigText: '100%',
       stage: 'לקראת הוצאת היתר בנייה ועלייה לקרקע',
       steps: ['done', 'done', 'now', '', ''],
