@@ -208,8 +208,6 @@ section.block { padding-block: clamp(3rem, 7vw, 5rem); }
 .proj .city { color: var(--muted); font-weight: 600; }
 .proj .stage { margin-top: .6rem; padding-top: .6rem; border-top: 1px solid var(--line); font-size: 1rem; }
 .proj .stage b { color: var(--gold-ink); }
-@media (max-width: 900px) { .projects { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 600px) { .projects { grid-template-columns: 1fr; } }
 
 /* CEO facts */
 .ceo .facts { list-style: none; margin: .8rem 0 0; padding: 0; display: grid; gap: .6rem; }
@@ -347,6 +345,26 @@ html.a11y-nomotion .has-flyer .brand .mark { visibility: visible; }
 html.a11y-nomotion .slides img + img { opacity: 0 !important; }
 html.a11y-nomotion .slides img:first-of-type { opacity: 1 !important; }
 
+/* Project cards, image-led: title and status sit on a dark band over the picture */
+.projects { grid-template-columns: 1fr 1fr; }
+.projects .proj:first-child { grid-column: 1 / -1; }
+.projects .proj:first-child .pic { aspect-ratio: 21 / 9; }
+.proj { display: block; position: relative; background: var(--navy-2); border-radius: 6px; }
+.proj .pic { aspect-ratio: 4 / 3; }
+.proj .pic small { top: .75rem; bottom: auto; }
+.proj .ov {
+  position: absolute; inset: auto 0 0 0; z-index: 2; padding: 3.5rem 1.4rem 1.2rem;
+  background: linear-gradient(to top, rgba(9,18,34,.92) 0%, rgba(9,18,34,.75) 55%, transparent 100%);
+  display: grid; grid-template-columns: 1fr auto; align-items: end; gap: .2rem 1rem; color: #f2f4f8;
+}
+.proj .ov h3 { grid-column: 1; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: var(--gold); }
+.proj .ov p { grid-column: 1; font-size: 1.05rem; font-weight: 600; }
+.proj .ov p i { font-style: normal; color: var(--gold); margin-inline: .35rem; }
+.proj .go { grid-column: 2; grid-row: 1 / span 2; width: 3rem; height: 3rem; border: 0; background: none; color: var(--gold); cursor: pointer; padding: 0; }
+.proj .go svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.6; transition: transform .3s ease; }
+.proj:hover .go svg { transform: translate(-3px, -3px); }
+@media (max-width: 700px) { .projects { grid-template-columns: 1fr; } .projects .proj:first-child .pic { aspect-ratio: 4 / 3; } }
+
 /* Project cards open a details dialog */
 .proj[data-card] { cursor: pointer; }
 .proj .more { justify-self: start; margin-top: .8rem; font: inherit; font-weight: 800; font-size: 1rem; color: var(--gold-ink); background: none; border: 0; padding: .2rem 0; cursor: pointer; border-bottom: 2px solid currentColor; }
@@ -371,12 +389,6 @@ dialog.pd::backdrop { background: rgba(8, 16, 30, .72); }
 .pd-title h2 { font-size: clamp(2rem, 4vw, 2.6rem); font-weight: 900; }
 .pd-title p { color: var(--muted); font-weight: 600; }
 .pd-title a { color: var(--gold-ink); font-weight: 700; }
-.pd-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; margin: 0; }
-.pd-facts div { background: var(--paper); border-radius: 6px; padding: .7rem .9rem; min-width: 0; }
-.pd-facts dt { font-size: .85rem; color: var(--muted); }
-.pd-facts dd { margin: 0; font-family: var(--display); font-weight: 900; font-size: 1.7rem; line-height: 1.15; font-variant-numeric: tabular-nums; }
-.pd-facts .small dd { font-family: var(--body); font-size: 1.05rem; font-weight: 800; line-height: 1.4; }
-@media (max-width: 640px) { .pd-facts { grid-template-columns: 1fr 1fr; } }
 .pd h3 { font-family: var(--body); font-size: 1.15rem; font-weight: 800; margin-bottom: .75rem; }
 .pd-sig .sig { margin-top: 0; }
 .timeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: .4rem; counter-reset: t; }
@@ -400,6 +412,55 @@ dialog.pd::backdrop { background: rgba(8, 16, 30, .72); }
 .pd-about { color: var(--muted); max-width: 62ch; }
 .pd-cta { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; padding-top: 1.2rem; border-top: 1px solid var(--line); }
 .pd-cta .ghost3 { font: inherit; font-weight: 800; font-size: 1rem; text-decoration: none; color: var(--ink); border: 1.5px solid var(--line); border-radius: 999px; padding: .7rem 1.4rem; }
+
+/* Details dialog: full-bleed picture with the name on it, then an "orbit" of key facts around a round picture */
+dialog.pd { background: var(--navy); color: var(--on-navy); }
+.pd-hero { position: relative; background: var(--navy-2); }
+.pd-hero .pd-main { aspect-ratio: 16 / 10; }
+.pd-hero-text { position: absolute; inset: auto 0 0 0; padding: 4rem 1.6rem 1.4rem; background: linear-gradient(to top, rgba(9,18,34,.9), transparent); }
+.pd-hero-text h2 { font-size: clamp(2.4rem, 7vw, 4rem); font-weight: 900; color: var(--gold); line-height: 1.05; }
+.pd-hero-text p { font-size: 1.2rem; font-weight: 700; color: var(--gold); opacity: .9; margin-top: .3rem; }
+.pd-cap { top: .8rem; bottom: auto; left: 4rem; }
+.pd-thumbs { padding: .8rem 1.6rem 0; }
+.pd .pd-body { padding: 1.6rem; gap: 2rem; }
+.pd .pd-about { color: var(--on-navy); font-size: 1.15rem; line-height: 1.8; }
+.pd h3 { color: var(--on-navy); }
+.pd .sig span { color: var(--on-navy-muted); }
+.pd .sig i { background-color: color-mix(in srgb, var(--on-navy) 18%, transparent); }
+.pd .timeline li { color: var(--on-navy-muted); }
+.pd .timeline li.done, .pd .timeline li.now { color: var(--on-navy); }
+.pd .timeline li::before { background: color-mix(in srgb, var(--on-navy) 20%, transparent); }
+.pd .timeline li::after { background: var(--navy); border-color: color-mix(in srgb, var(--on-navy) 30%, transparent); }
+.pd .timeline li.done::before, .pd .timeline li.done::after { background: var(--gold); border-color: var(--gold); }
+.pd .timeline li.now::after { border-color: var(--gold); }
+.pd .timeline small { color: var(--gold); }
+.pd .pd-cta { border-top-color: color-mix(in srgb, var(--on-navy) 15%, transparent); }
+.pd .pd-cta .ghost3 { color: var(--on-navy); border-color: color-mix(in srgb, var(--on-navy) 35%, transparent); }
+
+.orbit { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0; padding-block: 1rem; }
+.orb-circle { width: clamp(12rem, 30vw, 17rem); aspect-ratio: 1; border-radius: 50%; padding: 1.4rem; border: 1.5px solid color-mix(in srgb, var(--on-navy) 45%, transparent); }
+.orb-circle img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+.orb-side { display: grid; gap: 2.2rem; min-width: 0; }
+.orb { position: relative; display: grid; gap: .1rem; }
+.orb b { font-size: 1.05rem; font-weight: 800; }
+.orb span { font-size: 1.15rem; color: var(--on-navy); }
+.orb .orb-note { font-style: normal; font-size: .9rem; color: var(--on-navy-muted); }
+.orb span.big { font-family: var(--display); font-weight: 900; font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+#orb-right .orb { padding-left: 3.2rem; text-align: right; }
+#orb-left .orb { padding-right: 3.2rem; text-align: left; }
+.orb::before { content: ""; position: absolute; top: .55rem; width: 2.2rem; height: 1.5px; background: currentColor; opacity: .7; }
+.orb::after { content: ""; position: absolute; top: .05rem; width: 1.1rem; height: 1.1rem; border-radius: 50%; border: 1.5px solid currentColor; box-sizing: border-box; }
+#orb-right .orb::before { left: 0; } #orb-right .orb::after { left: 2.1rem; }
+#orb-left .orb::before { right: 0; } #orb-left .orb::after { right: 2.1rem; }
+.orb.c1 { color: #e2725b; } .orb.c2 { color: #3bb3a0; } .orb.c3 { color: var(--gold); } .orb.c4 { color: #6f9be0; }
+@media (max-width: 640px) {
+  .orbit { grid-template-columns: 1fr 1fr; }
+  .orb-circle { grid-column: 1 / -1; grid-row: 1; justify-self: center; margin-bottom: 1.5rem; }
+  .orb-side { gap: 1.5rem; }
+  #orb-right .orb, #orb-left .orb { padding: 0 0 0 0; padding-top: 1.6rem; text-align: right; }
+  #orb-right .orb::before, #orb-left .orb::before { display: none; }
+  #orb-right .orb::after, #orb-left .orb::after { top: 0; right: 0; left: auto; }
+}
 
 /* Policy dialogs */
 dialog.policy {
@@ -552,30 +613,27 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
       </div>
       <div class="projects">
         <article class="proj" data-card>
-          <div class="pic slides"><img src="assets/img/render-a-day.jpg" alt="הדמיית הפרויקט במיכקשווילי 14, אשדוד" loading="lazy"><img src="assets/img/hero-night.jpg" alt="" loading="lazy"><img src="assets/img/render-b-day.jpg" alt="" loading="lazy"><span class="status">לקראת היתר</span><small>הדמיה</small></div>
-          <div class="body">
+          <div class="pic slides"><img src="assets/img/render-a-day.jpg" alt="הדמיית הפרויקט במיכקשווילי 14, אשדוד" loading="lazy"><img src="assets/img/hero-night.jpg" alt="" loading="lazy"><img src="assets/img/render-b-day.jpg" alt="" loading="lazy"><small>הדמיה</small></div>
+          <div class="ov">
             <h3>מיכקשווילי 14</h3>
-            <p class="city">רובע ו', אשדוד</p>
-            <p class="stage">לקראת הוצאת היתר בנייה ועלייה לקרקע</p>
-            <button class="more" type="button" data-project="michakshvili-14">לכל פרטי הפרויקט <span aria-hidden="true">←</span></button>
+            <p>רובע ו', אשדוד <i aria-hidden="true">•</i> לקראת היתר</p>
+            <button class="go" type="button" data-project="michakshvili-14" aria-label="לכל פרטי הפרויקט מיכקשווילי 14"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17 7 7M7 7v8M7 7h8"/></svg></button>
           </div>
         </article>
         <article class="proj" data-card>
-          <div class="pic"><img src="assets/img/aerial-givati-2.jpg" alt="צילום אוויר של המגרש בחטיבת גבעתי 2, אשדוד" loading="lazy"><span class="status s2">אושר בוועדות</span><small>מצב קיים · צילום אוויר</small></div>
-          <div class="body">
+          <div class="pic"><img src="assets/img/aerial-givati-2.jpg" alt="צילום אוויר של המגרש בחטיבת גבעתי 2, אשדוד" loading="lazy"><small>מצב קיים · צילום אוויר</small></div>
+          <div class="ov">
             <h3>חטיבת גבעתי 2</h3>
-            <p class="city">רובע ג', אשדוד</p>
-            <p class="stage">לאחר אישור הוועדה המקומית והוועדה המחוזית</p>
-            <button class="more" type="button" data-project="givati-2">לכל פרטי הפרויקט <span aria-hidden="true">←</span></button>
+            <p>רובע ג', אשדוד <i aria-hidden="true">•</i> אושר בוועדות</p>
+            <button class="go" type="button" data-project="givati-2" aria-label="לכל פרטי הפרויקט חטיבת גבעתי 2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17 7 7M7 7v8M7 7h8"/></svg></button>
           </div>
         </article>
         <article class="proj" data-card>
-          <div class="pic"><img src="assets/img/aerial-palmach-13.jpg" alt="צילום אוויר של המגרש בהפלמ&quot;ח 13, אשדוד" loading="lazy"><span class="status s3">תכנון מוקדם</span><small>מצב קיים · צילום אוויר</small></div>
-          <div class="body">
+          <div class="pic"><img src="assets/img/aerial-palmach-13.jpg" alt="צילום אוויר של המגרש בהפלמ&quot;ח 13, אשדוד" loading="lazy"><small>מצב קיים · צילום אוויר</small></div>
+          <div class="ov">
             <h3>הפלמ"ח 13</h3>
-            <p class="city">רובע ג', אשדוד</p>
-            <p class="stage">בתכנון מוקדם</p>
-            <button class="more" type="button" data-project="palmach-13">לכל פרטי הפרויקט <span aria-hidden="true">←</span></button>
+            <p>רובע ג', אשדוד <i aria-hidden="true">•</i> תכנון מוקדם</p>
+            <button class="go" type="button" data-project="palmach-13" aria-label="לכל פרטי הפרויקט הפלמ&quot;ח 13"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17 7 7M7 7v8M7 7h8"/></svg></button>
           </div>
         </article>
       </div>
@@ -672,24 +730,28 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
 
 <dialog class="pd" id="project-dialog" aria-labelledby="pd-name">
   <button class="pd-close" type="button" data-close aria-label="סגירה">×</button>
-  <div class="pd-gallery">
+  <div class="pd-hero">
     <img class="pd-main" id="pd-main" alt="">
-    <span class="status" id="pd-status"></span>
+    <div class="pd-hero-text">
+      <h2 id="pd-name"></h2>
+      <p id="pd-where"></p>
+    </div>
     <span class="pd-cap" id="pd-cap"></span>
   </div>
   <div class="pd-thumbs" id="pd-thumbs"></div>
   <div class="pd-body">
-    <div class="pd-title">
-      <h2 id="pd-name"></h2>
-      <p><span id="pd-where"></span> · <a id="pd-map" href="#" target="_blank" rel="noopener">פתיחה במפה</a></p>
+    <p class="pd-about" id="pd-about"></p>
+    <div class="orbit" id="pd-orbit">
+      <div class="orb-side" id="orb-right"></div>
+      <div class="orb-circle"><img id="pd-orb-img" alt=""></div>
+      <div class="orb-side" id="orb-left"></div>
     </div>
-    <dl class="pd-facts" id="pd-facts"></dl>
     <div class="pd-sig"><h3>חתימות דיירים</h3><div class="sig" id="pd-sig"></div></div>
     <div><h3>שלבי הפרויקט</h3><ol class="timeline" id="pd-timeline"></ol></div>
-    <div><h3>על הפרויקט</h3><p class="pd-about" id="pd-about"></p></div>
     <div class="pd-cta">
       <button type="button" class="btn" id="pd-contact">פנייה בנוגע לפרויקט</button>
       <a class="ghost3" href="https://wa.me/972527111707" id="pd-wa" target="_blank" rel="noopener">וואטסאפ</a>
+      <a class="ghost3" id="pd-map" href="#" target="_blank" rel="noopener">פתיחה במפה</a>
     </div>
   </div>
 </dialog>
@@ -804,16 +866,21 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
     var d = P[id]; if (!d) return; current = d;
     $('pd-name').textContent = d.name; $('pd-where').textContent = d.where;
     $('pd-map').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(d.street);
-    $('pd-status').textContent = d.status; $('pd-status').className = 'status ' + d.statusClass;
     var t = $('pd-thumbs'); t.innerHTML = ''; t.hidden = d.images.length < 2;
     d.images.forEach(function (img) {
       var b = el('button', '<img src="' + img[0] + '" alt="">'); b.type = 'button'; b.dataset.src = img[0];
       b.setAttribute('aria-label', 'הצגת ' + img[1]); b.addEventListener('click', function () { show(img); }); t.appendChild(b);
     });
     show(d.images[0]);
-    var f = $('pd-facts'); f.innerHTML = '';
-    [['מסלול', 'תמ"א 38', 'small'], ['יח"ד קיימות', d.existing], ['יח"ד חדשות', '<span dir="ltr">+' + d.added + '</span>'], ['סה"כ אחרי הפרויקט', d.existing + d.added]]
-      .forEach(function (x) { var w = el('div', '<dt>' + x[0] + '</dt><dd>' + x[1] + '</dd>', x[2]); f.appendChild(w); });
+    var orbImg = d.images[d.images.length > 2 ? 1 : 0];
+    $('pd-orb-img').src = orbImg[0]; $('pd-orb-img').alt = '';
+    function orb(cls, label, value, big) { return el('div', '<b>' + label + '</b><span' + (big ? ' class="big"' : '') + '>' + value + '</span>', 'orb ' + cls); }
+    var R = $('orb-right'), L = $('orb-left'); R.innerHTML = ''; L.innerHTML = '';
+    R.appendChild(orb('c1', 'מיקום:', d.where));
+    R.appendChild(orb('c2', 'סטטוס:', d.status));
+    L.appendChild(orb('c3', 'יח"ד קיימות:', d.existing, true));
+    L.appendChild(orb('c4', 'יח"ד אחרי הפרויקט:', d.existing + d.added, true));
+    L.lastChild.appendChild(el('em', 'מתוכן ' + d.added + ' יח"ד חדשות', 'orb-note'));
     $('pd-sig').innerHTML = '<span>מהדיירים בבניין כבר חתמו</span><b>' + d.sigText + '</b><i style="--p:' + d.sig + '%"></i>';
     var tl = $('pd-timeline'); tl.innerHTML = '';
     STAGES.forEach(function (name, i) {
