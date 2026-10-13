@@ -171,6 +171,15 @@ section.block { padding-block: clamp(3rem, 7vw, 5rem); }
 .bld { fill: none; stroke: var(--on-navy-muted); stroke-width: 2; }
 .win { fill: var(--gold); opacity: .8; }
 .proj .pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* Michakshvili card: three renders crossfade */
+.slides img + img { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .slides img { animation: slide 15s infinite; }
+  .slides img:nth-of-type(2) { animation-delay: 5s; }
+  .slides img:nth-of-type(3) { animation-delay: 10s; }
+  .slides img:first-of-type { opacity: 1; }
+}
+@keyframes slide { 0% { opacity: 0 } 6% { opacity: 1 } 33% { opacity: 1 } 40% { opacity: 0 } 100% { opacity: 0 } }
 .proj .pic small { z-index: 1; background: color-mix(in srgb, #0f2340 70%, transparent); color: #e6e9ee; padding: .05rem .5rem; border-radius: 3px; position: absolute; bottom: .4rem; left: .75rem; font-size: .75rem; color: var(--on-navy-muted); }
 .status {
   z-index: 1; position: absolute; top: 0; right: 1.25rem; width: 5.5rem; min-height: 7.5rem;
@@ -279,17 +288,6 @@ footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gol
       <rect class="b" x="245" y="240" width="153" height="32" pathLength="100"/>
     </g>
   </symbol>
-  <symbol id="bld" viewBox="0 0 200 120">
-    <rect class="bld" x="20" y="10" width="70" height="110"/>
-    <rect class="bld" x="100" y="35" width="80" height="85"/>
-    <g class="win">
-      <rect x="32" y="24" width="10" height="7"/><rect x="50" y="24" width="10" height="7"/><rect x="68" y="24" width="10" height="7"/>
-      <rect x="32" y="44" width="10" height="7"/><rect x="68" y="44" width="10" height="7"/>
-      <rect x="50" y="64" width="10" height="7"/><rect x="32" y="84" width="10" height="7"/><rect x="68" y="84" width="10" height="7"/>
-      <rect x="114" y="50" width="10" height="7"/><rect x="134" y="50" width="10" height="7"/><rect x="154" y="50" width="10" height="7"/>
-      <rect x="114" y="70" width="10" height="7"/><rect x="154" y="70" width="10" height="7"/><rect x="134" y="90" width="10" height="7"/>
-    </g>
-  </symbol>
 </svg>
 
 <header class="top bleed">
@@ -336,7 +334,7 @@ footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gol
         </div>
       </div>
     </div>
-    <span class="credit">הדמיה</span>
+    <span class="credit">הדמיה · מיכקשווילי 14</span>
   </section>
 
   <section class="block" id="about">
@@ -400,7 +398,7 @@ footer .motto { font-family: var(--display); font-size: 1.3rem; color: var(--gol
       </div>
       <div class="projects">
         <article class="proj">
-          <div class="pic"><span class="status">לקראת היתר</span><svg aria-hidden="true"><use href="#bld"/></svg><small>הדמיה תתווסף</small></div>
+          <div class="pic slides"><img src="assets/img/render-a-day.jpg" alt="הדמיית הפרויקט במיכקשווילי 14, אשדוד" loading="lazy"><img src="assets/img/hero-night.jpg" alt="" loading="lazy"><img src="assets/img/render-b-day.jpg" alt="" loading="lazy"><span class="status">לקראת היתר</span><small>הדמיה</small></div>
           <div class="body">
             <h3>מיכקשווילי 14</h3>
             <p class="city">רובע ו', אשדוד</p>
