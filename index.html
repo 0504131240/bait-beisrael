@@ -181,6 +181,9 @@ section.block { padding-block: clamp(3rem, 7vw, 5rem); }
 .about .text .head { margin-bottom: .5rem; }
 .about .text p { max-width: 62ch; }
 .about .text b { color: var(--gold-ink); }
+.focus { list-style: none; margin: .25rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.focus li { padding: .35rem .95rem; font-weight: 700; font-size: .95rem; border: 1.5px solid var(--gold); color: var(--ink); }
+.focus li:first-child { background: var(--gold); border-color: var(--gold); color: #1a1406; }
 .ceo { background: var(--sheet); border: 1px solid var(--line); border-top: 3px solid var(--gold); padding: 1.75rem; display: grid; gap: .4rem; }
 .ceo .name { font-family: var(--display); font-size: 1.8rem; font-weight: 900; }
 .values { margin-top: 3rem; display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--line); }
@@ -571,8 +574,12 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
             <h2>הניסיון שלנו הוא היתרון שלכם</h2>
             <hr class="rule">
           </div>
-          <p>חברת בית בישראל, בבעלותו של <b>יצחק זיידמן</b>, עוסקת ביזמות ובהתחדשות עירונית. החברה שותפה במספר מיזמי תמ"א 38 באשדוד יחד עם קבוצת אם סי פרויקטים, חברה יזמית בעלת ניסיון מקצועי רב.</p>
-          <p>הניסיון שלנו בתכנון וברישוי מאפשר לנו להכיר את הדרך מקרוב, משלב הייזום ועד לאכלוס, ולתת לדיירים ולשותפים מענה מקצועי, אמין ושלם לאורך כל הדרך.</p>
+          <p>בית בישראל היא חברת יזמות בתחום ההתחדשות העירונית, בבעלותו של <b>יצחק זיידמן</b>. אנחנו מקדמים פרויקטים במסלול תמ"א 38, שבהם בניינים ותיקים עוברים התחדשות ומתווספות להם דירות חדשות, ומובילים אותם משלב הייזום ועד שהדיירים מקבלים את המפתח.</p>
+          <p>לצד הייזום, אנחנו מנהלים בעצמנו את תהליכי התכנון והרישוי: תיאום האדריכל והיועצים, הגשת הבקשות להיתר וקבלת האישורים מהוועדות. כך כל פרויקט מתקדם בצורה מסודרת, עם גורם אחד שאחראי על התמונה המלאה.</p>
+          <p>את פרויקטי תמ"א 38 באשדוד אנחנו מקדמים בשותפות עם קבוצת אם סי פרויקטים, חברה יזמית בעלת ניסיון מקצועי רב.</p>
+          <ul class="focus" aria-label="תחומי הפעילות">
+            <li>יזמות נדל"ן</li><li>התחדשות עירונית</li><li>תמ"א 38</li><li>ניהול תכנון ואישורים</li>
+          </ul>
         </div>
         <aside class="ceo">
           <p class="eyebrow">הבעלים</p>
