@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="בית בישראל – יזמות נדל&quot;ן והתחדשות עירונית באשדוד. בונים עתיד, יוצרים קהילה.">
+</head>
+<body>
+<title>בית בישראל · קולנועי</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;600;800&display=swap">
+<style>
+/* Layout: cinematic night. Full-screen opening on the render, a statement band, projects in a horizontal swipe gallery of tall cards, numbers over a blurred photo, everything dark with warm gold light. */
+:root {
+  --night: #0a0c10; --night-2: #12161d; --glass: rgba(255,255,255,.06); --line: rgba(255,255,255,.12);
+  --text: #f1eee8; --dim: #a7a49d; --gold: #d6b77b; --font: "Heebo", Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body { margin: 0; direction: rtl; background: var(--night); color: var(--text); font-family: var(--font); font-weight: 300; font-size: 1.1rem; line-height: 1.75; }
+h1, h2, h3 { margin: 0; font-weight: 200; line-height: 1.05; text-wrap: balance; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.wrap { max-width: 76rem; margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
+.label { font-size: .9rem; letter-spacing: .03em; color: var(--gold); font-weight: 400; }
+
+/* Bar: transparent over the film, solid after scrolling */
+.bar { position: fixed; top: 0; inset-inline: 0; z-index: 20; transition: background .4s ease, backdrop-filter .4s ease; }
+.bar.solid { background: rgba(10,12,16,.82); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .9rem; max-width: none; }
+.brand { display: flex; align-items: center; gap: .8rem; text-decoration: none; }
+.brand svg { width: 64px; }
+.brand svg rect { fill: none; stroke-width: 9; }
+.brand b { font-weight: 300; font-size: 1.35rem; letter-spacing: .05em; white-space: nowrap; }
+.bar nav { display: flex; gap: 2rem; }
+.bar nav a { text-decoration: none; font-size: 1rem; color: var(--dim); }
+.bar nav a:hover { color: var(--gold); }
+.menu { display: none; background: none; border: 0; padding: .4rem; cursor: pointer; }
+.menu span { display: block; width: 26px; height: 1.5px; background: var(--text); margin: 6px 0; }
+@media (max-width: 860px) {
+  .menu { display: block; }
+  .bar nav { display: none; position: absolute; top: 100%; inset-inline: 0; flex-direction: column; gap: 0; background: rgba(10,12,16,.96); padding: .5rem 1.25rem 1rem; }
+  .bar.open nav { display: flex; }
+  .bar nav a { padding: .8rem 0; border-bottom: 1px solid var(--line); font-size: 1.1rem; color: var(--text); }
+}
+
+/* Opening: full screen film still */
+.film { position: relative; height: 100svh; min-height: 34rem; display: grid; place-items: end center; text-align: center; overflow: hidden; }
+.film img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.film::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, var(--night) 0%, rgba(10,12,16,.55) 40%, rgba(10,12,16,.15) 70%, rgba(10,12,16,.5) 100%); }
+.film .copy { position: relative; z-index: 1; padding-bottom: 12svh; padding-inline: 1.25rem; }
+.film h1 { font-size: clamp(3rem, 12vw, 9rem); white-space: nowrap; letter-spacing: -.01em; }
+.film .sub { margin-top: 1rem; font-size: clamp(1.1rem, 2.2vw, 1.5rem); color: var(--dim); }
+.film .scroll { display: inline-block; margin-top: 3rem; width: 1px; height: 4rem; background: linear-gradient(var(--gold), transparent); }
+.film .cap { position: absolute; z-index: 1; top: 5.5rem; left: 1.25rem; font-size: .75rem; color: var(--dim); }
+
+section { padding-block: clamp(5rem, 11vw, 9rem); }
+
+/* Statement */
+.statement { text-align: center; }
+.statement p.big { font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 200; line-height: 1.35; max-width: 26ch; margin: 1.5rem auto 0; }
+.statement p.big em { font-style: normal; color: var(--gold); }
+.pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); margin-top: 4rem; border: 1px solid var(--line); text-align: right; }
+.pillars div { background: var(--night); padding: 2rem; display: grid; gap: .6rem; align-content: start; }
+.pillars h3 { font-size: 1.6rem; font-weight: 300; }
+.pillars p { color: var(--dim); font-size: 1rem; }
+@media (max-width: 800px) { .pillars { grid-template-columns: 1fr; } }
+
+/* Projects: horizontal swipe gallery */
+.gal-head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; flex-wrap: wrap; }
+.gal-head h2 { font-size: clamp(2.4rem, 6vw, 4.6rem); }
+.arrows { display: flex; gap: .5rem; }
+.arrows button { width: 3.2rem; height: 3.2rem; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--text); font-size: 1.3rem; cursor: pointer; }
+.arrows button:hover { border-color: var(--gold); color: var(--gold); }
+.track { display: grid; grid-auto-flow: column; grid-auto-columns: min(78vw, 26rem); gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2.5rem clamp(1.25rem, 4vw, 3rem) 1rem; scrollbar-width: none; }
+.track::-webkit-scrollbar { display: none; }
+.card { scroll-snap-align: start; position: relative; aspect-ratio: 3 / 4.2; overflow: hidden; border-radius: 4px; background: var(--night-2); cursor: pointer; border: 0; padding: 0; color: inherit; font: inherit; text-align: right; }
+.card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; }
+.card:hover img { transform: scale(1.06); }
+.card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,12,16,.95) 0%, rgba(10,12,16,.2) 55%, transparent 100%); }
+.card .in { position: absolute; z-index: 1; inset: auto 0 0 0; padding: 1.6rem; display: grid; gap: .3rem; }
+.card .st { font-size: .85rem; color: var(--gold); }
+.card h3 { font-size: 2.1rem; font-weight: 300; }
+.card .meta { color: var(--dim); font-size: .95rem; }
+.card .nums { display: flex; gap: 1.5rem; margin-top: .8rem; padding-top: .8rem; border-top: 1px solid var(--line); }
+.card .nums b { display: block; font-size: 1.8rem; font-weight: 200; line-height: 1; }
+.card .nums span { font-size: .8rem; color: var(--dim); }
+.card small { position: absolute; z-index: 1; top: 1rem; left: 1rem; font-size: .7rem; color: var(--dim); }
+
+/* Numbers over a blurred photo */
+.numbers { position: relative; overflow: hidden; }
+.numbers::before { content: ""; position: absolute; inset: -20px; background: url("assets/img/render-b-day.jpg") center / cover; filter: blur(18px) brightness(.25) saturate(.8); }
+.numbers .wrap { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+.numbers b { display: block; font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 200; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+.numbers span { color: var(--dim); font-size: .95rem; }
+@media (max-width: 700px) { .numbers .wrap { grid-template-columns: 1fr 1fr; row-gap: 3rem; } }
+
+/* Split panels */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border-block: 1px solid var(--line); }
+.split > div { background: var(--night); padding: clamp(2.5rem, 6vw, 5rem) clamp(1.25rem, 5vw, 4rem); display: grid; gap: 1.2rem; align-content: start; }
+.split h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
+.split p { color: var(--dim); }
+.split ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .1rem; }
+.split li { padding: .7rem 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 1rem; }
+.split li span { color: var(--dim); }
+.gold { color: var(--gold); }
+@media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
+
+/* Contact */
+.contact { text-align: center; }
+.contact h2 { font-size: clamp(2.6rem, 7vw, 5.5rem); }
+.contact .links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem 3rem; margin-top: 2.5rem; font-size: clamp(1.2rem, 2.4vw, 1.6rem); }
+.contact .links a { text-decoration: none; border-bottom: 1px solid var(--gold); }
+.contact form { margin: 3rem auto 0; max-width: 40rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: right; }
+.contact input { font: inherit; padding: 1rem 1.2rem; border-radius: 999px; border: 1px solid var(--line); background: var(--glass); color: var(--text); }
+.contact button { grid-column: 1 / -1; font: inherit; font-weight: 600; padding: 1rem; border-radius: 999px; border: 0; background: var(--gold); color: #1b1408; cursor: pointer; }
+.contact .note { grid-column: 1 / -1; text-align: center; color: var(--dim); font-size: .95rem; }
+@media (max-width: 560px) { .contact form { grid-template-columns: 1fr; } }
+footer { border-top: 1px solid var(--line); padding-block: 2rem; color: var(--dim); font-size: .85rem; }
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+
+/* Project overlay */
+.ov { position: fixed; inset: 0; z-index: 40; background: var(--night); overflow: auto; }
+.ov .hero { position: relative; height: 70svh; }
+.ov .hero img { width: 100%; height: 100%; object-fit: cover; }
+.ov .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, var(--night), transparent 60%); }
+.ov .hero h2 { position: absolute; z-index: 1; bottom: 2rem; right: clamp(1.25rem, 4vw, 3rem); font-size: clamp(2.8rem, 9vw, 6rem); white-space: nowrap; }
+.ov .close { position: fixed; top: 1rem; left: 1rem; z-index: 2; width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid var(--line); background: rgba(10,12,16,.7); color: var(--text); font-size: 1.4rem; cursor: pointer; }
+.ov .body { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; padding-block: 3rem 5rem; }
+.ov .body p { color: var(--dim); font-size: 1.15rem; }
+@media (max-width: 800px) { .ov .body { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: no-preference) {
+  .film img { animation: drift 18s ease-out both; }
+  .film .copy > * { animation: rise 1.2s cubic-bezier(.2,.7,.2,1) both; }
+  .film .copy > :nth-child(2) { animation-delay: .25s } .film .copy > :nth-child(3) { animation-delay: .5s } .film .copy > :nth-child(4) { animation-delay: .8s }
+  .brand svg rect { stroke-dasharray: 100; animation: draw 1.8s ease-out both; }
+}
+@keyframes drift { from { transform: scale(1.15); } to { transform: scale(1); } }
+@keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+@keyframes draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+</style>
+
+<header class="bar" id="bar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="בית בישראל">
+      <svg viewBox="22 48 384 232" aria-hidden="true"><rect pathLength="100" stroke="#d6b77b" x="30" y="55" width="50" height="217"/><rect pathLength="100" stroke="#d6b77b" x="98" y="118" width="88" height="154"/><rect pathLength="100" stroke="#d6b77b" x="222" y="167" width="153" height="105"/><rect pathLength="100" stroke="#f1eee8" x="55" y="158" width="67" height="114"/><rect pathLength="100" stroke="#f1eee8" x="145" y="203" width="183" height="69"/><rect pathLength="100" stroke="#f1eee8" x="245" y="240" width="153" height="32"/></svg>
+      <b>בית בישראל</b>
+    </a>
+    <nav aria-label="ניווט ראשי" id="nav"><a href="#about">החברה</a><a href="#projects">פרויקטים</a><a href="#partners">שותפים</a><a href="#contact">צור קשר</a></nav>
+    <button class="menu" type="button" aria-label="תפריט" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="film" style="padding:0">
+    <img src="assets/img/hero-night.jpg" alt="הדמיית לילה, מיכשווילי 14, אשדוד">
+    <span class="cap">הדמיה · מיכשווילי 14</span>
+    <div class="copy">
+      <p class="label">יזמות נדל"ן והתחדשות עירונית</p>
+      <h1>בית בישראל</h1>
+      <p class="sub">בונים עתיד · יוצרים קהילה</p>
+      <span class="scroll" aria-hidden="true"></span>
+    </div>
+  </section>
+
+  <section class="statement wrap" id="about">
+    <p class="label">החברה</p>
+    <p class="big">מקדמים פרויקטי <em>תמ"א 38</em> באשדוד, מהחתימה הראשונה של הדיירים ועד קבלת המפתח.</p>
+    <div class="pillars">
+      <div><p class="label">יזמות</p><h3>התחדשות עירונית</h3><p>בניינים ותיקים עוברים התחדשות ומתווספות להם דירות חדשות, בהובלה שלנו משלב הייזום.</p></div>
+      <div><p class="label">שירות</p><h3>ניהול תכנון ורישוי</h3><p>תיאום אדריכל ויועצים, הגשת בקשות להיתר וקבלת אישורים מהוועדות.</p></div>
+      <div><p class="label">הבעלים</p><h3>יצחק זיידמן</h3><p>בוגר הטכניון, כ-15 שנות ניסיון ועשרות רבות של פרויקטים עד טופס 4.</p></div>
+    </div>
+  </section>
+
+  <section id="projects" style="padding-inline:0">
+    <div class="wrap gal-head"><div><p class="label">פרויקטים</p><h2>תמ"א 38 · אשדוד</h2></div>
+      <div class="arrows"><button type="button" data-dir="1" aria-label="הקודם">→</button><button type="button" data-dir="-1" aria-label="הבא">←</button></div></div>
+    <div class="track" id="track">
+      <button class="card" type="button" data-p="0"><img src="assets/img/render-a-day.jpg" alt="" loading="lazy"><small>הדמיה</small><span class="in"><span class="st">לקראת היתר</span><h3>מיכשווילי 14</h3><span class="meta">רובע ו', אשדוד</span><span class="nums"><span><b>32</b><span>קיימות</span></span><span><b>64</b><span>אחרי הפרויקט</span></span><span><b>100%</b><span>חתימות</span></span></span></span></button>
+      <button class="card" type="button" data-p="1"><img src="assets/img/aerial-givati-2.jpg" alt="" loading="lazy"><small>מצב קיים</small><span class="in"><span class="st">אושר בוועדות</span><h3>חטיבת גבעתי 2</h3><span class="meta">רובע ג', אשדוד</span><span class="nums"><span><b>48</b><span>קיימות</span></span><span><b>132</b><span>אחרי הפרויקט</span></span><span><b>80%+</b><span>חתימות</span></span></span></span></button>
+      <button class="card" type="button" data-p="2"><img src="assets/img/aerial-palmach-13.jpg" alt="" loading="lazy"><small>מצב קיים</small><span class="in"><span class="st">תכנון מוקדם</span><h3>הפלמ"ח 13</h3><span class="meta">רובע ג', אשדוד</span><span class="nums"><span><b>32</b><span>קיימות</span></span><span><b>64</b><span>אחרי הפרויקט</span></span><span><b>70%+</b><span>חתימות</span></span></span></span></button>
+      <button class="card" type="button" data-p="0"><img src="assets/img/render-b-day.jpg" alt="" loading="lazy"><small>הדמיה</small><span class="in"><span class="st">מיכשווילי 14</span><h3>מבט נוסף</h3><span class="meta">הדמיית יום</span></span></button>
+    </div>
+  </section>
+
+  <section class="numbers">
+    <div class="wrap"><div><b>15</b><span>שנות ניסיון</span></div><div><b>3</b><span>פרויקטי תמ"א 38</span></div><div><b>112</b><span>דירות קיימות</span></div><div><b>148</b><span>יח"ד חדשות</span></div></div>
+  </section>
+
+  <section id="partners" style="padding:0">
+    <div class="split">
+      <div><p class="label">שותפים</p><h2>קבוצת אם סי פרויקטים</h2><p>חברה יזמית בבעלותו של יעקב מלבסקי, בעלת מוניטין ואיתנות פיננסית. <span class="gold">דורגה בדירוג Dun's 100 לשנת 2026 בתחום ההתחדשות העירונית.</span></p>
+        <ul><li>החמציץ 3<span>אוכלס</span></li><li>הרותם 10<span>אוכלס</span></li><li>אברהם שפירא 15, 9, 1<span>אוכלסו</span></li></ul></div>
+      <div><p class="label">שירות נוסף</p><h2>ניהול תכנון ורישוי</h2><p>החברה מעניקה שירות ניהול תכנון ורישוי ומלווה את הפרויקט עד היתר וביצוע.</p>
+        <ul><li>ניהול התכנון<span>01</span></li><li>בקשה להיתר בנייה<span>02</span></li><li>תיאום יועצים<span>03</span></li><li>אישורים וועדות<span>04</span></li></ul></div>
+    </div>
+  </section>
+
+  <section class="contact wrap" id="contact">
+    <p class="label">צור קשר</p>
+    <h2>נשמח לשמוע מכם</h2>
+    <div class="links"><a href="tel:+972527111707" dir="ltr">052-7111707</a><a href="mailto:yz@bb-ar.com" dir="ltr">yz@bb-ar.com</a><span>הוז דב 4, אשדוד</span></div>
+    <form onsubmit="event.preventDefault(); this.querySelector('.note').hidden=false;">
+      <input id="b-name" placeholder="שם מלא" aria-label="שם מלא"><input id="b-phone" placeholder="טלפון" aria-label="טלפון" type="tel">
+      <button type="submit">השארת פרטים</button>
+      <p class="note" hidden>דוגמת עיצוב: הטופס לא שולח.</p>
+    </form>
+  </section>
+</main>
+<footer><div class="wrap"><span>© בית בישראל אדריכלות ובנייה בע"מ · ח.פ. 516315587</span><span>דוגמת עיצוב ב' · קולנועי</span></div></footer>
+
+<div class="ov" id="ov" hidden role="dialog" aria-modal="true" aria-labelledby="ov-t">
+  <button class="close" type="button" aria-label="סגירה">×</button>
+  <div class="hero"><img id="ov-img" alt=""><h2 id="ov-t"></h2></div>
+  <div class="wrap body"><p id="ov-p"></p><div class="split" style="grid-template-columns:1fr"><div style="padding:0;background:none"><ul id="ov-l"></ul></div></div></div>
+</div>
+<script>
+(function () {
+  var bar = document.getElementById('bar'), menu = bar.querySelector('.menu');
+  addEventListener('scroll', function () { bar.classList.toggle('solid', scrollY > 40); }, { passive: true });
+  menu.addEventListener('click', function () { var o = bar.classList.toggle('open'); menu.setAttribute('aria-expanded', o); });
+  document.getElementById('nav').addEventListener('click', function () { bar.classList.remove('open'); });
+  var track = document.getElementById('track');
+  document.querySelectorAll('.arrows button').forEach(function (b) { b.addEventListener('click', function () { track.scrollBy({ left: -(+b.dataset.dir) * track.clientWidth * .8, behavior: 'smooth' }); }); });
+  var P = [
+    ['מיכשווילי 14', 'assets/img/hero-night.jpg', 'פרויקט תמ"א 38 ברובע ו\' באשדוד: 32 הדירות הקיימות עוברות התחדשות ומתווספות 32 דירות חדשות. כל הדיירים חתמו, והפרויקט לקראת הוצאת היתר בנייה ועלייה לקרקע.', [['סטטוס','לקראת היתר'],['יח"ד קיימות','32'],['יח"ד אחרי הפרויקט','64'],['חתימות','100%']]],
+    ['חטיבת גבעתי 2', 'assets/img/aerial-givati-2.jpg', 'פרויקט תמ"א 38 ברובע ג\' באשדוד: 48 דירות קיימות ומתווספות 84 חדשות. אושר בוועדה המקומית ובוועדה המחוזית.', [['סטטוס','אושר בוועדות'],['יח"ד קיימות','48'],['יח"ד אחרי הפרויקט','132'],['חתימות','מעל 80%'],['שותף','קבוצת אם סי פרויקטים']]],
+    ['הפלמ"ח 13', 'assets/img/aerial-palmach-13.jpg', 'פרויקט תמ"א 38 ברובע ג\' באשדוד: 32 דירות קיימות ומתווספות 32 חדשות. בתכנון מוקדם.', [['סטטוס','תכנון מוקדם'],['יח"ד קיימות','32'],['יח"ד אחרי הפרויקט','64'],['חתימות','מעל 70%']]]
+  ];
+  var ov = document.getElementById('ov');
+  document.querySelectorAll('.card').forEach(function (c) { c.addEventListener('click', function () {
+    var d = P[+c.dataset.p]; document.getElementById('ov-t').textContent = d[0]; document.getElementById('ov-img').src = d[1]; document.getElementById('ov-p').textContent = d[2];
+    document.getElementById('ov-l').innerHTML = d[3].map(function (r) { return '<li>' + r[0] + '<span>' + r[1] + '</span></li>'; }).join('');
+    ov.hidden = false; ov.scrollTop = 0; ov.querySelector('.close').focus(); }); });
+  ov.querySelector('.close').addEventListener('click', function () { ov.hidden = true; });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape') ov.hidden = true; });
+})();
+</script>
+<!-- Temporary design switcher: lets the client compare the four options on the live site. Remove once a design is chosen. -->
+<nav class="dz" aria-label="מעבר בין אפשרויות העיצוב">
+  <span class="dz-t">עיצוב:</span>
+  <a href="index.html" data-d="index">נוכחי</a>
+  <a href="design-a.html" data-d="design-a">א' מגזין</a>
+  <a href="design-b.html" data-d="design-b">ב' קולנועי</a>
+  <a href="design-c.html" data-d="design-c">ג' גיליון</a>
+</nav>
+<style>
+.dz { position: fixed; z-index: 9999; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px) + var(--cookie-h, 0px)); display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px;
+  background: rgba(20,20,22,.92); box-shadow: 0 10px 30px -10px rgba(0,0,0,.6); font: 600 13px/1 Arial, "Arial Hebrew", sans-serif; direction: rtl; max-width: calc(100vw - 90px); overflow-x: auto; }
+.dz-t { color: #bbb; padding: 0 8px; white-space: nowrap; }
+.dz a { color: #eee; text-decoration: none; padding: 8px 11px; border-radius: 999px; white-space: nowrap; }
+.dz a:hover { background: rgba(255,255,255,.12); }
+.dz a[aria-current="page"] { background: #d6b77b; color: #1a1406; }
+@media (max-width: 480px) { .dz-t { display: none; } .dz a { padding: 8px 9px; font-size: 12px; } }
+</style>
+<script>
+(function () {
+  var here = (location.pathname.split('/').pop() || 'index.html').replace('.html', '') || 'index';
+  document.querySelectorAll('.dz a').forEach(function (a) { if (a.dataset.d === here) a.setAttribute('aria-current', 'page'); });
+})();
+</script>
+
+</body>
+</html>
