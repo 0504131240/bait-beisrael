@@ -1,0 +1,23 @@
+<!-- Temporary design switcher: lets the client compare the four options on the live site. Remove once a design is chosen. -->
+<nav class="dz" aria-label="מעבר בין אפשרויות העיצוב">
+  <span class="dz-t">עיצוב:</span>
+  <a href="index.html" data-d="index">נוכחי</a>
+  <a href="design-a.html" data-d="design-a">א' מגזין</a>
+  <a href="design-b.html" data-d="design-b">ב' קולנועי</a>
+  <a href="design-c.html" data-d="design-c">ג' גיליון</a>
+</nav>
+<style>
+.dz { position: fixed; z-index: 9999; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px) + var(--cookie-h, 0px)); display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 999px;
+  background: rgba(20,20,22,.92); box-shadow: 0 10px 30px -10px rgba(0,0,0,.6); font: 600 13px/1 Arial, "Arial Hebrew", sans-serif; direction: rtl; max-width: calc(100vw - 90px); overflow-x: auto; }
+.dz-t { color: #bbb; padding: 0 8px; white-space: nowrap; }
+.dz a { color: #eee; text-decoration: none; padding: 8px 11px; border-radius: 999px; white-space: nowrap; }
+.dz a:hover { background: rgba(255,255,255,.12); }
+.dz a[aria-current="page"] { background: #d6b77b; color: #1a1406; }
+@media (max-width: 480px) { .dz-t { display: none; } .dz a { padding: 8px 9px; font-size: 12px; } }
+</style>
+<script>
+(function () {
+  var here = (location.pathname.split('/').pop() || 'index.html').replace('.html', '') || 'index';
+  document.querySelectorAll('.dz a').forEach(function (a) { if (a.dataset.d === here) a.setAttribute('aria-current', 'page'); });
+})();
+</script>

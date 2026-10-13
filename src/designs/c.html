@@ -1,0 +1,252 @@
+<title>בית בישראל · גיליון תכנון</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an architect's drawing set. Every section is a framed sheet on gridded paper with a title block, sheet numbers and dimension lines; projects are drawn as sheets with a data table. */
+:root {
+  --paper: #eeece4; --sheet: #fbfaf6; --ink: #1c2a44; --soft: #5f6a7c; --grid: rgba(28,42,68,.07); --rule: #1c2a44;
+  --accent: #b5862f; --red: #b24a3b;
+  --sans: "IBM Plex Sans Hebrew", Arial, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body { margin: 0; direction: rtl; font-family: var(--sans); font-weight: 300; font-size: 1.08rem; line-height: 1.7; color: var(--ink); padding-inline: 16px;
+  background: var(--paper); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 24px 24px; }
+h1, h2, h3 { margin: 0; font-weight: 500; line-height: 1.1; text-wrap: balance; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.mono { font-family: var(--mono); font-size: .75rem; letter-spacing: .08em; color: var(--soft); direction: ltr; unicode-bidi: isolate; }
+.wrap { max-width: 74rem; margin-inline: auto; }
+
+/* Top strip like a drawing set index */
+.strip { position: sticky; top: 0; z-index: 10; background: var(--sheet); border: 1.5px solid var(--rule); border-top: 0; margin-inline: auto; max-width: 74rem; display: flex; align-items: stretch; }
+.strip .logo { display: flex; align-items: center; gap: .7rem; padding: .5rem 1rem; border-left: 1.5px solid var(--rule); text-decoration: none; }
+.strip .logo svg { width: 64px; }
+.strip .logo svg rect { fill: none; stroke-width: 9; }
+.strip .logo b { font-weight: 700; font-size: 1.2rem; white-space: nowrap; }
+.strip nav { display: flex; flex: 1; }
+.strip nav a { flex: 1; display: grid; place-items: center; text-decoration: none; font-size: .95rem; border-left: 1px solid rgba(28,42,68,.25); padding: .4rem .5rem; text-align: center; line-height: 1.3; }
+.strip nav a:last-child { border-left: 0; }
+.strip nav a small { display: block; font-family: var(--mono); font-size: .65rem; color: var(--soft); }
+.strip nav a:hover { background: var(--ink); color: var(--sheet); }
+.strip nav a:hover small { color: #c8cfdb; }
+.menu { display: none; margin-right: auto; background: none; border: 0; border-right: 1.5px solid var(--rule); padding: 0 1rem; cursor: pointer; font-family: var(--mono); font-size: .8rem; color: var(--ink); }
+@media (max-width: 860px) {
+  .menu { display: block; }
+  .strip nav { display: none; position: absolute; top: 100%; right: -1.5px; left: -1.5px; flex-direction: column; background: var(--sheet); border: 1.5px solid var(--rule); border-top: 0; }
+  .strip.open nav { display: flex; }
+  .strip nav a { border-left: 0; border-bottom: 1px solid rgba(28,42,68,.2); padding: .8rem; place-items: start; text-align: right; }
+}
+
+/* Sheet frame */
+.sheet { position: relative; max-width: 74rem; margin: 2.5rem auto 0; background: var(--sheet); border: 1.5px solid var(--rule); outline: 1px solid var(--rule); outline-offset: 6px; padding: clamp(1.5rem, 4vw, 3.5rem); }
+.sheet-no { position: absolute; top: -.75rem; left: 1.5rem; background: var(--paper); padding: 0 .5rem; font-family: var(--mono); font-size: .75rem; letter-spacing: .1em; }
+.sheet h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
+.sheet .lead { color: var(--soft); max-width: 60ch; margin-top: .8rem; }
+
+/* Hero sheet: drawing + title */
+.hero { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
+.hero h1 { font-size: clamp(2.8rem, 9vw, 6rem); font-weight: 700; white-space: nowrap; }
+.hero .sub { margin-top: .8rem; font-size: clamp(1.2rem, 2.4vw, 1.6rem); color: var(--accent); font-weight: 500; }
+.hero .lead { font-size: 1.15rem; }
+.drawing { position: relative; min-width: 0; }
+.drawing svg { width: 100%; height: auto; display: block; overflow: visible; }
+.drawing .r { fill: none; stroke-width: 3; }
+.drawing .dim { stroke: var(--red); stroke-width: .8; fill: none; }
+.drawing text { font-family: var(--mono); font-size: 9px; fill: var(--red); }
+.render { position: relative; margin-top: 1.5rem; border: 1px solid var(--rule); }
+.render img { display: block; width: 100%; aspect-ratio: 16 / 7; object-fit: cover; max-width: 100%; }
+.render .mono { position: absolute; top: .5rem; left: .5rem; background: var(--sheet); padding: .1rem .4rem; }
+@media (max-width: 860px) { .hero { grid-template-columns: 1fr; } .drawing { max-width: 24rem; } }
+
+/* Title block (bottom-left of a drawing) */
+.tb { display: grid; grid-template-columns: repeat(4, 1fr); border: 1.5px solid var(--rule); margin-top: 2rem; }
+.tb div { padding: .6rem .8rem; border-left: 1px solid var(--rule); min-width: 0; }
+.tb div:last-child { border-left: 0; }
+.tb dt { font-family: var(--mono); font-size: .65rem; color: var(--soft); letter-spacing: .08em; }
+.tb dd { margin: 0; font-weight: 500; font-variant-numeric: tabular-nums; }
+.tb .num dd { font-size: 2rem; font-weight: 300; line-height: 1.1; }
+@media (max-width: 700px) { .tb { grid-template-columns: 1fr 1fr; } .tb div:nth-child(2) { border-left: 0; } .tb div:nth-child(n+3) { border-top: 1px solid var(--rule); } }
+
+/* About */
+.about { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2.5rem; margin-top: 1.8rem; }
+.about .txt { display: grid; gap: 1rem; }
+.spec { border: 1.5px solid var(--rule); align-self: start; }
+.spec h3 { font-size: 1rem; font-weight: 700; padding: .6rem .9rem; background: var(--ink); color: var(--sheet); }
+.spec dl { margin: 0; }
+.spec div { display: grid; grid-template-columns: 7rem 1fr; border-top: 1px solid rgba(28,42,68,.25); }
+.spec dt, .spec dd { margin: 0; padding: .55rem .9rem; font-size: .95rem; }
+.spec dt { border-left: 1px solid rgba(28,42,68,.25); color: var(--soft); }
+@media (max-width: 860px) { .about { grid-template-columns: 1fr; } }
+
+/* Project sheets */
+.projects { display: grid; gap: 2.5rem; margin-top: 2rem; }
+.psheet { display: grid; grid-template-columns: 1.4fr 1fr; border: 1.5px solid var(--rule); }
+.psheet .img { position: relative; border-left: 1.5px solid var(--rule); min-width: 0; }
+.psheet .img img { display: block; width: 100%; height: 100%; min-height: 18rem; object-fit: cover; max-width: 100%; }
+.psheet .img .mono { position: absolute; bottom: .5rem; left: .5rem; background: var(--sheet); padding: .1rem .4rem; }
+.psheet .data { display: grid; grid-template-rows: auto 1fr auto; }
+.psheet .name { padding: 1.1rem 1.2rem; border-bottom: 1.5px solid var(--rule); }
+.psheet h3 { font-size: 2rem; font-weight: 700; }
+.psheet .name p { color: var(--soft); }
+.psheet table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.psheet td { padding: .55rem 1.2rem; border-bottom: 1px solid rgba(28,42,68,.2); }
+.psheet td:first-child { color: var(--soft); width: 45%; }
+.psheet td:last-child { font-weight: 500; font-variant-numeric: tabular-nums; }
+.stamp { margin: 1rem 1.2rem; justify-self: start; display: inline-block; border: 2px solid var(--red); color: var(--red); padding: .2rem .7rem; font-weight: 700; transform: rotate(-3deg); letter-spacing: .05em; }
+.sig { height: 8px; border: 1px solid var(--rule); position: relative; margin-top: .3rem; background: repeating-linear-gradient(45deg, transparent 0 4px, rgba(28,42,68,.08) 4px 5px); }
+.sig i { position: absolute; inset: 0 0 0 auto; background: var(--ink); }
+@media (max-width: 860px) { .psheet { grid-template-columns: 1fr; } .psheet .img { border-left: 0; border-bottom: 1.5px solid var(--rule); } }
+
+/* Partner + service */
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 1.5rem; }
+.addr { display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; margin: 1rem 0 0; list-style: none; }
+.addr li { border: 1px dashed var(--rule); padding: .15rem .7rem; font-size: .95rem; }
+.steps { list-style: none; padding: 0; margin: 1rem 0 0; counter-reset: s; border: 1.5px solid var(--rule); }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 3rem 1fr; border-top: 1px solid rgba(28,42,68,.25); }
+.steps li:first-child { border-top: 0; }
+.steps li::before { content: counter(s); font-family: var(--mono); display: grid; place-items: center; border-left: 1px solid rgba(28,42,68,.25); color: var(--accent); }
+.steps li span { padding: .6rem .9rem; }
+.steps b { font-weight: 500; }
+@media (max-width: 860px) { .two { grid-template-columns: 1fr; } }
+
+/* Contact */
+.contact { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 1.5rem; }
+.contact form { display: grid; gap: 0; border: 1.5px solid var(--rule); }
+.contact label { display: grid; grid-template-columns: 7rem 1fr; border-bottom: 1px solid rgba(28,42,68,.25); }
+.contact label span { padding: .7rem .9rem; border-left: 1px solid rgba(28,42,68,.25); color: var(--soft); font-size: .95rem; }
+.contact input { font: inherit; border: 0; background: transparent; padding: .7rem .9rem; color: var(--ink); min-width: 0; }
+.contact button { font: inherit; font-weight: 700; padding: .9rem; border: 0; background: var(--ink); color: var(--sheet); cursor: pointer; }
+.contact .note { padding: .6rem .9rem; color: var(--soft); }
+.contact .lines { display: grid; gap: .4rem; font-size: 1.3rem; margin-top: 1rem; }
+.contact .lines a { text-decoration: none; }
+@media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
+footer { max-width: 74rem; margin: 2.5rem auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-size: .85rem; color: var(--soft); }
+@media (prefers-reduced-motion: no-preference) {
+  .drawing .r, .strip .logo svg rect { stroke-dasharray: 100; animation: draw 2s cubic-bezier(.6,.1,.3,1) both; }
+  .drawing .r:nth-child(2) { animation-delay: .15s } .drawing .r:nth-child(3) { animation-delay: .3s } .drawing .r:nth-child(4) { animation-delay: .45s } .drawing .r:nth-child(5) { animation-delay: .6s } .drawing .r:nth-child(6) { animation-delay: .75s }
+  .drawing .dims { animation: fade 1s 1.6s both; }
+  .stamp { animation: stamp .5s cubic-bezier(.3,1.6,.5,1) both; animation-timeline: view(); animation-range: entry 40% cover 40%; }
+}
+@keyframes draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes stamp { from { opacity: 0; transform: rotate(-3deg) scale(1.6); } to { opacity: 1; transform: rotate(-3deg) scale(1); } }
+</style>
+
+<header class="strip" id="strip">
+  <a class="logo" href="#top" aria-label="בית בישראל">
+    <svg viewBox="22 48 384 232" aria-hidden="true"><rect pathLength="100" stroke="#b5862f" x="30" y="55" width="50" height="217"/><rect pathLength="100" stroke="#b5862f" x="98" y="118" width="88" height="154"/><rect pathLength="100" stroke="#b5862f" x="222" y="167" width="153" height="105"/><rect pathLength="100" stroke="#1c2a44" x="55" y="158" width="67" height="114"/><rect pathLength="100" stroke="#1c2a44" x="145" y="203" width="183" height="69"/><rect pathLength="100" stroke="#1c2a44" x="245" y="240" width="153" height="32"/></svg>
+    <b>בית בישראל</b>
+  </a>
+  <nav aria-label="ניווט ראשי" id="nav">
+    <a href="#about">החברה<small>A-02</small></a><a href="#projects">פרויקטים<small>A-03</small></a><a href="#partners">שותפים ושירות<small>A-04</small></a><a href="#contact">צור קשר<small>A-05</small></a>
+  </nav>
+  <button class="menu" type="button" aria-expanded="false" aria-controls="nav">תפריט ☰</button>
+</header>
+
+<main id="top">
+  <section class="sheet">
+    <span class="sheet-no">A-01 · חזית</span>
+    <div class="hero">
+      <div>
+        <p class="mono">URBAN RENEWAL · TAMA 38 · ASHDOD</p>
+        <h1>בית בישראל</h1>
+        <p class="sub">יזמות נדל"ן והתחדשות עירונית</p>
+        <p class="lead" style="margin-top:1rem">בונים עתיד, יוצרים קהילה. מקדמים פרויקטי תמ"א 38 באשדוד, מהחתימה הראשונה של הדיירים ועד קבלת המפתח.</p>
+      </div>
+      <div class="drawing" aria-hidden="true">
+        <svg viewBox="0 30 440 300">
+          <g><rect class="r" pathLength="100" stroke="#b5862f" x="30" y="55" width="50" height="217"/><rect class="r" pathLength="100" stroke="#b5862f" x="98" y="118" width="88" height="154"/><rect class="r" pathLength="100" stroke="#b5862f" x="222" y="167" width="153" height="105"/><rect class="r" pathLength="100" stroke="#1c2a44" x="55" y="158" width="67" height="114"/><rect class="r" pathLength="100" stroke="#1c2a44" x="145" y="203" width="183" height="69"/><rect class="r" pathLength="100" stroke="#1c2a44" x="245" y="240" width="153" height="32"/></g>
+          <g class="dims">
+            <line class="dim" x1="30" y1="292" x2="398" y2="292"/><line class="dim" x1="30" y1="286" x2="30" y2="298"/><line class="dim" x1="398" y1="286" x2="398" y2="298"/>
+            <text x="214" y="308" text-anchor="middle">36.80</text>
+            <line class="dim" x1="415" y1="55" x2="415" y2="272"/><line class="dim" x1="409" y1="55" x2="421" y2="55"/><line class="dim" x1="409" y1="272" x2="421" y2="272"/>
+            <text x="428" y="166" transform="rotate(90 428 166)" text-anchor="middle">+21.70</text>
+            <line class="dim" x1="10" y1="272" x2="430" y2="272" stroke-dasharray="4 3"/><text x="12" y="268">±0.00</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <figure class="render" style="margin-inline:0;margin-bottom:0"><img src="assets/img/hero-night.jpg" alt="הדמיית לילה, מיכשווילי 14, אשדוד"><span class="mono">RENDER · MICHAKSHVILI 14</span></figure>
+    <dl class="tb" style="margin-bottom:0">
+      <div class="num"><dt>YEARS</dt><dd>15</dd></div><div class="num"><dt>TAMA 38</dt><dd>3</dd></div><div class="num"><dt>EXISTING UNITS</dt><dd>112</dd></div><div class="num"><dt>NEW UNITS</dt><dd>148</dd></div>
+    </dl>
+  </section>
+
+  <section class="sheet" id="about">
+    <span class="sheet-no">A-02 · החברה</span>
+    <h2>הניסיון שלנו הוא היתרון שלכם</h2>
+    <div class="about">
+      <div class="txt">
+        <p>בית בישראל היא חברת יזמות בתחום ההתחדשות העירונית, בבעלותו של יצחק זיידמן. אנחנו מקדמים פרויקטים במסלול תמ"א 38, שבהם בניינים ותיקים עוברים התחדשות ומתווספות להם דירות חדשות, ומובילים אותם משלב הייזום ועד שהדיירים מקבלים את המפתח.</p>
+        <p>בנוסף לפרויקטים שאנחנו יוזמים, החברה מעניקה שירותי ניהול תכנון ורישוי: תיאום האדריכל והיועצים, הגשת הבקשות להיתר וקבלת האישורים מהוועדות.</p>
+      </div>
+      <div class="spec"><h3>הבעלים · יצחק זיידמן</h3><dl>
+        <div><dt>השכלה</dt><dd>הטכניון, ניהול פרויקטים לבנייה</dd></div>
+        <div><dt>ניסיון</dt><dd>כ-15 שנה בניהול תכנון ורישוי</dd></div>
+        <div><dt>פרויקטים</dt><dd>עשרות רבות, מהייזום ועד טופס 4</dd></div>
+      </dl></div>
+    </div>
+  </section>
+
+  <section class="sheet" id="projects">
+    <span class="sheet-no">A-03 · פרויקטים</span>
+    <h2>פרויקטי תמ"א 38 בהם שותפה בית בישראל</h2>
+    <div class="projects">
+      <article class="psheet">
+        <div class="img"><img src="assets/img/render-a-day.jpg" alt="הדמיה, מיכשווילי 14" loading="lazy"><span class="mono">RENDER</span></div>
+        <div class="data"><div class="name"><h3>מיכשווילי 14</h3><p>רובע ו', אשדוד</p></div>
+          <table><tr><td>מסלול</td><td>תמ"א 38</td></tr><tr><td>יח"ד קיימות</td><td>32</td></tr><tr><td>יח"ד חדשות</td><td>+32</td></tr><tr><td>סה"כ אחרי הפרויקט</td><td>64</td></tr><tr><td>חתימות דיירים<div class="sig"><i style="width:100%"></i></div></td><td>100%</td></tr></table>
+          <span class="stamp">לקראת היתר</span></div>
+      </article>
+      <article class="psheet">
+        <div class="img"><img src="assets/img/aerial-givati-2.jpg" alt="צילום אוויר, חטיבת גבעתי 2" loading="lazy"><span class="mono">EXISTING · AERIAL</span></div>
+        <div class="data"><div class="name"><h3>חטיבת גבעתי 2</h3><p>רובע ג', אשדוד</p></div>
+          <table><tr><td>מסלול</td><td>תמ"א 38</td></tr><tr><td>יח"ד קיימות</td><td>48</td></tr><tr><td>יח"ד חדשות</td><td>+84</td></tr><tr><td>סה"כ אחרי הפרויקט</td><td>132</td></tr><tr><td>חתימות דיירים<div class="sig"><i style="width:80%"></i></div></td><td>מעל 80%</td></tr><tr><td>שותף</td><td>קבוצת אם סי פרויקטים</td></tr></table>
+          <span class="stamp">אושר בוועדות</span></div>
+      </article>
+      <article class="psheet">
+        <div class="img"><img src="assets/img/aerial-palmach-13.jpg" alt="צילום אוויר, הפלמ&quot;ח 13" loading="lazy"><span class="mono">EXISTING · AERIAL</span></div>
+        <div class="data"><div class="name"><h3>הפלמ"ח 13</h3><p>רובע ג', אשדוד</p></div>
+          <table><tr><td>מסלול</td><td>תמ"א 38</td></tr><tr><td>יח"ד קיימות</td><td>32</td></tr><tr><td>יח"ד חדשות</td><td>+32</td></tr><tr><td>סה"כ אחרי הפרויקט</td><td>64</td></tr><tr><td>חתימות דיירים<div class="sig"><i style="width:70%"></i></div></td><td>מעל 70%</td></tr></table>
+          <span class="stamp">תכנון מוקדם</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sheet" id="partners">
+    <span class="sheet-no">A-04 · שותפים ושירות</span>
+    <div class="two">
+      <div><h2>קבוצת אם סי פרויקטים</h2><p class="lead">חברה יזמית בבעלותו של יעקב מלבסקי, בעלת מוניטין ואיתנות פיננסית. דורגה בדירוג Dun's 100 לשנת 2026 בתחום ההתחדשות העירונית.</p>
+        <ul class="addr"><li>החמציץ 3</li><li>הרותם 10</li><li>אברהם שפירא 15</li><li>אברהם שפירא 9</li><li>אברהם שפירא 1</li></ul></div>
+      <div><h2>ניהול תכנון ורישוי</h2><p class="lead">שירות נוסף: ליווי הפרויקט עד היתר וביצוע.</p>
+        <ol class="steps"><li><span><b>ניהול התכנון</b> · מהשלב המוקדם ועד תוכניות להגשה</span></li><li><span><b>בקשה להיתר</b> · הכנה, הגשה וליווי</span></li><li><span><b>תיאום יועצים</b> · סופרפוזיציה בין כל היועצים</span></li><li><span><b>אישורים וועדות</b> · מול הגורמים והוועדה המקומית</span></li></ol></div>
+    </div>
+  </section>
+
+  <section class="sheet" id="contact">
+    <span class="sheet-no">A-05 · צור קשר</span>
+    <div class="contact">
+      <div><h2>נשמח לשמוע מכם</h2><div class="lines"><a href="tel:+972527111707" dir="ltr">052-7111707</a><a href="mailto:yz@bb-ar.com" dir="ltr">yz@bb-ar.com</a><span>הוז דב 4, אשדוד</span></div></div>
+      <form onsubmit="event.preventDefault(); this.querySelector('.note').hidden=false;">
+        <label for="c-name"><span>שם מלא</span><input id="c-name" autocomplete="name"></label>
+        <label for="c-phone"><span>טלפון</span><input id="c-phone" type="tel" dir="ltr"></label>
+        <label for="c-msg"><span>הודעה</span><input id="c-msg"></label>
+        <button type="submit">שליחה</button>
+        <p class="note" hidden>דוגמת עיצוב: הטופס לא שולח.</p>
+      </form>
+    </div>
+  </section>
+</main>
+<footer><span>© בית בישראל אדריכלות ובנייה בע"מ · ח.פ. 516315587</span><span>דוגמת עיצוב ג' · גיליון תכנון</span></footer>
+<script>
+(function () {
+  var s = document.getElementById('strip'), b = s.querySelector('.menu');
+  b.addEventListener('click', function () { var o = s.classList.toggle('open'); b.setAttribute('aria-expanded', o); });
+  document.getElementById('nav').addEventListener('click', function () { s.classList.remove('open'); });
+})();
+</script>
