@@ -268,7 +268,6 @@ section.block { padding-block: clamp(3rem, 7vw, 5rem); }
 .details dt { font-size: .9rem; color: var(--on-navy-muted); min-width: 4.5rem; }
 .details dd { margin: 0; font-weight: 700; }
 .details a { text-decoration: none; border-bottom: 1px solid var(--gold); }
-.copy { font: inherit; font-size: .8rem; background: transparent; color: var(--on-navy-muted); border: 1px solid color-mix(in srgb, var(--on-navy) 30%, transparent); border-radius: 999px; padding: .05rem .6rem; cursor: pointer; }
 form { display: grid; gap: 1rem; min-width: 0; }
 .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 @media (max-width: 520px) { .row { grid-template-columns: 1fr; } }
@@ -557,9 +556,9 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
         <h2>נשמח לשמוע מכם</h2>
         <p class="intro">יש לכם בניין שמתאים להתחדשות עירונית, קרקע או שאלה? השאירו פרטים או פנו אלינו ישירות.</p>
         <dl class="details">
-          <div><dt>טלפון</dt><dd><a href="tel:+972527111707" dir="ltr">052-7111707</a></dd><button class="copy" type="button" data-copy="052-7111707">העתקה</button></div>
+          <div><dt>טלפון</dt><dd><a href="tel:+972527111707" dir="ltr">052-7111707</a></dd></div>
           <div><dt>וואטסאפ</dt><dd><a href="https://wa.me/972527111707" target="_blank" rel="noopener" dir="ltr">052-7111707</a></dd></div>
-          <div><dt>מייל</dt><dd><a href="mailto:yz@bb-ar.com" dir="ltr">yz@bb-ar.com</a></dd><button class="copy" type="button" data-copy="yz@bb-ar.com">העתקה</button></div>
+          <div><dt>מייל</dt><dd><a href="mailto:yz@bb-ar.com" dir="ltr">yz@bb-ar.com</a></dd></div>
           <div><dt>משרד</dt><dd>הוז דב 4, אשדוד</dd></div>
         </dl>
       </div>
@@ -761,17 +760,6 @@ document.getElementById('lead-form').addEventListener('submit', function (e) {
     note.textContent = 'תודה, ' + name + '. זו גרסת טיוטה: הטופס עדיין לא מחובר, ולכן הפרטים לא נשלחו. אפשר לפנות אלינו בטלפון או בוואטסאפ.';
   }
   note.hidden = false;
-});
-document.querySelectorAll('.copy').forEach(function (b) {
-  b.addEventListener('click', function () {
-    var t = b.getAttribute('data-copy');
-    var done = function () { b.textContent = 'הועתק'; setTimeout(function () { b.textContent = 'העתקה'; }, 1500); };
-    var fallback = function () {
-      var r = document.createRange(); r.selectNodeContents(b.previousElementSibling);
-      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-    };
-    try { navigator.clipboard.writeText(t).then(done, fallback); } catch (err) { fallback(); }
-  });
 });
 
 // Count the stats up once they scroll into view; the final numbers are already in the markup.
