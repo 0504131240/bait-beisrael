@@ -339,6 +339,60 @@ html.a11y-nomotion .has-flyer .brand .mark { visibility: visible; }
 html.a11y-nomotion .slides img + img { opacity: 0 !important; }
 html.a11y-nomotion .slides img:first-of-type { opacity: 1 !important; }
 
+/* Project cards open a details dialog */
+.proj[data-card] { cursor: pointer; }
+.proj .more { justify-self: start; margin-top: .8rem; font: inherit; font-weight: 800; font-size: 1rem; color: var(--gold-ink); background: none; border: 0; padding: .2rem 0; cursor: pointer; border-bottom: 2px solid currentColor; }
+.proj .more span { display: inline-block; transition: transform .2s ease; }
+.proj:hover .more span { transform: translateX(-4px); }
+
+dialog.pd {
+  width: min(60rem, calc(100vw - 1.5rem)); max-height: calc(100vh - 2rem); padding: 0; border: 0; border-radius: 12px; overflow: auto;
+  background: var(--sheet); color: var(--ink); box-shadow: 0 30px 80px -20px rgba(0,0,0,.7);
+}
+dialog.pd::backdrop { background: rgba(8, 16, 30, .72); }
+.pd-close { position: sticky; top: .75rem; float: left; margin: .75rem; z-index: 3; width: 2.6rem; height: 2.6rem; border-radius: 50%; border: 0; background: rgba(15,35,64,.85); color: #fff; font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.pd-gallery { position: relative; background: var(--navy-2); }
+.pd-main { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; max-width: 100%; }
+.pd-gallery .status { right: 1.5rem; }
+.pd-cap { position: absolute; left: .75rem; bottom: .6rem; font-size: .8rem; background: rgba(15,35,64,.75); color: #e6e9ee; padding: .1rem .55rem; border-radius: 3px; }
+.pd-thumbs { display: flex; gap: .5rem; padding: .6rem 1.5rem 0; overflow-x: auto; }
+.pd-thumbs button { flex: none; width: 5.5rem; aspect-ratio: 16 / 10; padding: 0; border: 2px solid transparent; border-radius: 6px; overflow: hidden; cursor: pointer; background: none; }
+.pd-thumbs button[aria-current="true"] { border-color: var(--gold); }
+.pd-thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pd-body { padding: 1.4rem 1.5rem 1.8rem; display: grid; gap: 1.5rem; }
+.pd-title h2 { font-size: clamp(2rem, 4vw, 2.6rem); font-weight: 900; }
+.pd-title p { color: var(--muted); font-weight: 600; }
+.pd-title a { color: var(--gold-ink); font-weight: 700; }
+.pd-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; margin: 0; }
+.pd-facts div { background: var(--paper); border-radius: 6px; padding: .7rem .9rem; min-width: 0; }
+.pd-facts dt { font-size: .85rem; color: var(--muted); }
+.pd-facts dd { margin: 0; font-family: var(--display); font-weight: 900; font-size: 1.7rem; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.pd-facts .small dd { font-family: var(--body); font-size: 1.05rem; font-weight: 800; line-height: 1.4; }
+@media (max-width: 640px) { .pd-facts { grid-template-columns: 1fr 1fr; } }
+.pd h3 { font-family: var(--body); font-size: 1.15rem; font-weight: 800; margin-bottom: .75rem; }
+.pd-sig .sig { margin-top: 0; }
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: .4rem; counter-reset: t; }
+.timeline li { position: relative; padding-top: 1.6rem; font-size: .95rem; font-weight: 600; color: var(--muted); min-width: 0; }
+.timeline li::before { content: ""; position: absolute; top: .45rem; right: 0; left: -.4rem; height: 3px; background: var(--line); }
+.timeline li:last-child::before { left: 0; }
+.timeline li::after { content: ""; position: absolute; top: 0; right: 0; width: 1rem; height: 1rem; border-radius: 50%; background: var(--sheet); border: 3px solid var(--line); box-sizing: border-box; }
+.timeline li.done { color: var(--ink); }
+.timeline li.done::before { background: var(--gold); }
+.timeline li.done::after { background: var(--gold); border-color: var(--gold); }
+.timeline li.now { color: var(--ink); font-weight: 800; }
+.timeline li.now::after { border-color: var(--gold); box-shadow: 0 0 0 4px color-mix(in srgb, var(--gold) 30%, transparent); }
+.timeline small { display: block; font-weight: 600; color: var(--gold-ink); font-size: .8rem; }
+@media (max-width: 640px) {
+  .timeline { grid-template-columns: 1fr; gap: 0; }
+  .timeline li { padding: 0 1.8rem .9rem 0; }
+  .timeline li::before { top: .5rem; bottom: -.5rem; right: .4rem; left: auto; width: 3px; height: auto; }
+  .timeline li:last-child::before { display: none; }
+  .timeline li::after { top: .15rem; }
+}
+.pd-about { color: var(--muted); max-width: 62ch; }
+.pd-cta { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+.pd-cta .ghost3 { font: inherit; font-weight: 800; font-size: 1rem; text-decoration: none; color: var(--ink); border: 1.5px solid var(--line); border-radius: 999px; padding: .7rem 1.4rem; }
+
 /* Policy dialogs */
 dialog.policy {
   width: min(46rem, calc(100vw - 2rem)); max-height: calc(100vh - 3rem); padding: 0; border: 0; border-radius: 10px;
@@ -489,7 +543,7 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
         <hr class="rule">
       </div>
       <div class="projects">
-        <article class="proj">
+        <article class="proj" data-card>
           <div class="pic slides"><img src="assets/img/render-a-day.jpg" alt="הדמיית הפרויקט במיכקשווילי 14, אשדוד" loading="lazy"><img src="assets/img/hero-night.jpg" alt="" loading="lazy"><img src="assets/img/render-b-day.jpg" alt="" loading="lazy"><span class="status">לקראת היתר</span><small>הדמיה</small></div>
           <div class="body">
             <h3>מיכקשווילי 14</h3>
@@ -497,9 +551,10 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
             <dl class="units"><div><dt>יח"ד קיימות</dt><dd>32</dd></div><div><dt>יח"ד חדשות</dt><dd><span dir="ltr">+32</span></dd></div></dl>
             <div class="sig"><span>חתימות דיירים</span><b>100%</b><i style="--p:100%"></i></div>
             <p class="stage">לקראת הוצאת היתר בנייה ועלייה לקרקע</p>
+            <button class="more" type="button" data-project="michakshvili-14">לכל פרטי הפרויקט <span aria-hidden="true">←</span></button>
           </div>
         </article>
-        <article class="proj">
+        <article class="proj" data-card>
           <div class="pic"><img src="assets/img/aerial-givati-2.jpg" alt="צילום אוויר של המגרש בחטיבת גבעתי 2, אשדוד" loading="lazy"><span class="status s2">אושר בוועדות</span><small>מצב קיים · צילום אוויר</small></div>
           <div class="body">
             <h3>חטיבת גבעתי 2</h3>
@@ -507,9 +562,10 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
             <dl class="units"><div><dt>יח"ד קיימות</dt><dd>48</dd></div><div><dt>יח"ד חדשות</dt><dd><span dir="ltr">+84</span></dd></div></dl>
             <div class="sig"><span>חתימות דיירים</span><b>מעל 80%</b><i style="--p:80%"></i></div>
             <p class="stage">לאחר אישור הוועדה המקומית והוועדה המחוזית</p>
+            <button class="more" type="button" data-project="givati-2">לכל פרטי הפרויקט <span aria-hidden="true">←</span></button>
           </div>
         </article>
-        <article class="proj">
+        <article class="proj" data-card>
           <div class="pic"><img src="assets/img/aerial-palmach-13.jpg" alt="צילום אוויר של המגרש בהפלמ&quot;ח 13, אשדוד" loading="lazy"><span class="status s3">תכנון מוקדם</span><small>מצב קיים · צילום אוויר</small></div>
           <div class="body">
             <h3>הפלמ"ח 13</h3>
@@ -517,6 +573,7 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
             <dl class="units"><div><dt>יח"ד קיימות</dt><dd>32</dd></div><div><dt>יח"ד חדשות</dt><dd><span dir="ltr">+32</span></dd></div></dl>
             <div class="sig"><span>חתימות דיירים</span><b>מעל 70%</b><i style="--p:70%"></i></div>
             <p class="stage">בתכנון מוקדם</p>
+            <button class="more" type="button" data-project="palmach-13">לכל פרטי הפרויקט <span aria-hidden="true">←</span></button>
           </div>
         </article>
       </div>
@@ -611,6 +668,30 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
   </div>
 </div>
 
+<dialog class="pd" id="project-dialog" aria-labelledby="pd-name">
+  <button class="pd-close" type="button" data-close aria-label="סגירה">×</button>
+  <div class="pd-gallery">
+    <img class="pd-main" id="pd-main" alt="">
+    <span class="status" id="pd-status"></span>
+    <span class="pd-cap" id="pd-cap"></span>
+  </div>
+  <div class="pd-thumbs" id="pd-thumbs"></div>
+  <div class="pd-body">
+    <div class="pd-title">
+      <h2 id="pd-name"></h2>
+      <p><span id="pd-where"></span> · <a id="pd-map" href="#" target="_blank" rel="noopener">פתיחה במפה</a></p>
+    </div>
+    <dl class="pd-facts" id="pd-facts"></dl>
+    <div class="pd-sig"><h3>חתימות דיירים</h3><div class="sig" id="pd-sig"></div></div>
+    <div><h3>שלבי הפרויקט</h3><ol class="timeline" id="pd-timeline"></ol></div>
+    <div><h3>על הפרויקט</h3><p class="pd-about" id="pd-about"></p></div>
+    <div class="pd-cta">
+      <button type="button" class="btn" id="pd-contact">פנייה בנוגע לפרויקט</button>
+      <a class="ghost3" href="https://wa.me/972527111707" id="pd-wa" target="_blank" rel="noopener">וואטסאפ</a>
+    </div>
+  </div>
+</dialog>
+
 <dialog class="policy" id="accessibility" aria-labelledby="acc-title">
   <div class="policy-head"><h2 id="acc-title">הצהרת נגישות</h2><button type="button" data-close>סגירה</button></div>
   <div class="policy-body">
@@ -680,6 +761,80 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
 </div>
 
 <script>
+
+// Project details. Data matches the cards; open by clicking a card or linking to #p-<id>.
+(function () {
+  var STAGES = ['חתימות דיירים', 'תכנון ואישורים', 'היתר בנייה', 'ביצוע', 'אכלוס'];
+  var P = {
+    'michakshvili-14': {
+      name: 'מיכקשווילי 14', where: "רובע ו', אשדוד", street: 'מיכקשווילי 14, אשדוד',
+      status: 'לקראת היתר', statusClass: '', existing: 32, added: 32, sig: 100, sigText: '100%',
+      stage: 'לקראת הוצאת היתר בנייה ועלייה לקרקע',
+      steps: ['done', 'done', 'now', '', ''],
+      about: 'פרויקט תמ"א 38 ברובע ו\' באשדוד: 32 הדירות הקיימות בבניין עוברות התחדשות, ומתווספות 32 דירות חדשות. כל הדיירים חתמו, והפרויקט נמצא לקראת הוצאת היתר בנייה ועלייה לקרקע. הפרויקט מקודם בשותפות עם קבוצת אם סי פרויקטים.',
+      images: [['assets/img/render-a-day.jpg', 'הדמיה'], ['assets/img/hero-night.jpg', 'הדמיה · לילה'], ['assets/img/render-b-day.jpg', 'הדמיה']]
+    },
+    'givati-2': {
+      name: 'חטיבת גבעתי 2', where: "רובע ג', אשדוד", street: 'חטיבת גבעתי 2, אשדוד',
+      status: 'אושר בוועדות', statusClass: 's2', existing: 48, added: 84, sig: 80, sigText: 'מעל 80%',
+      stage: 'לאחר אישור הוועדה המקומית והוועדה המחוזית',
+      steps: ['now', 'done', '', '', ''],
+      about: 'פרויקט תמ"א 38 ברובע ג\' באשדוד: 48 דירות קיימות, ומתווספות 84 דירות חדשות. התוכנית אושרה בוועדה המקומית ובוועדה המחוזית, ומעל 80% מהדיירים כבר חתמו. הפרויקט מקודם בשותפות עם קבוצת אם סי פרויקטים.',
+      images: [['assets/img/aerial-givati-2.jpg', 'מצב קיים · צילום אוויר']]
+    },
+    'palmach-13': {
+      name: 'הפלמ"ח 13', where: "רובע ג', אשדוד", street: 'הפלמ"ח 13, אשדוד',
+      status: 'תכנון מוקדם', statusClass: 's3', existing: 32, added: 32, sig: 70, sigText: 'מעל 70%',
+      stage: 'בתכנון מוקדם',
+      steps: ['now', 'now', '', '', ''],
+      about: 'פרויקט תמ"א 38 ברובע ג\' באשדוד: 32 דירות קיימות, ומתווספות 32 דירות חדשות. הפרויקט בשלב תכנון מוקדם, ומעל 70% מהדיירים כבר חתמו. הפרויקט מקודם בשותפות עם קבוצת אם סי פרויקטים.',
+      images: [['assets/img/aerial-palmach-13.jpg', 'מצב קיים · צילום אוויר']]
+    }
+  };
+  var dlg = document.getElementById('project-dialog'), $ = function (id) { return document.getElementById(id); };
+  var current = null;
+  function el(tag, html, cls) { var e = document.createElement(tag); if (cls) e.className = cls; e.innerHTML = html; return e; }
+  function show(img) {
+    $('pd-main').src = img[0]; $('pd-main').alt = current.name + ' – ' + img[1]; $('pd-cap').textContent = img[1];
+    $('pd-thumbs').querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-current', b.dataset.src === img[0] ? 'true' : 'false'); });
+  }
+  function open(id) {
+    var d = P[id]; if (!d) return; current = d;
+    $('pd-name').textContent = d.name; $('pd-where').textContent = d.where;
+    $('pd-map').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(d.street);
+    $('pd-status').textContent = d.status; $('pd-status').className = 'status ' + d.statusClass;
+    var t = $('pd-thumbs'); t.innerHTML = ''; t.hidden = d.images.length < 2;
+    d.images.forEach(function (img) {
+      var b = el('button', '<img src="' + img[0] + '" alt="">'); b.type = 'button'; b.dataset.src = img[0];
+      b.setAttribute('aria-label', 'הצגת ' + img[1]); b.addEventListener('click', function () { show(img); }); t.appendChild(b);
+    });
+    show(d.images[0]);
+    var f = $('pd-facts'); f.innerHTML = '';
+    [['מסלול', 'תמ"א 38', 'small'], ['יח"ד קיימות', d.existing], ['יח"ד חדשות', '<span dir="ltr">+' + d.added + '</span>'], ['סה"כ אחרי הפרויקט', d.existing + d.added]]
+      .forEach(function (x) { var w = el('div', '<dt>' + x[0] + '</dt><dd>' + x[1] + '</dd>', x[2]); f.appendChild(w); });
+    $('pd-sig').innerHTML = '<span>מהדיירים בבניין כבר חתמו</span><b>' + d.sigText + '</b><i style="--p:' + d.sig + '%"></i>';
+    var tl = $('pd-timeline'); tl.innerHTML = '';
+    STAGES.forEach(function (name, i) {
+      var st = d.steps[i], li = el('li', name + (st === 'now' ? '<small>בתהליך</small>' : st === 'done' ? '<small>הושלם</small>' : ''), st);
+      if (st === 'now') li.setAttribute('aria-current', 'step'); tl.appendChild(li);
+    });
+    $('pd-about').textContent = d.about;
+    $('pd-wa').href = 'https://wa.me/972527111707?text=' + encodeURIComponent('שלום, אשמח לפרטים על הפרויקט ' + d.name);
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+    dlg.scrollTop = 0;
+  }
+  document.querySelectorAll('[data-card]').forEach(function (card) {
+    var id = card.querySelector('[data-project]').dataset.project;
+    card.addEventListener('click', function () { open(id); });
+  });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+  $('pd-contact').addEventListener('click', function () {
+    dlg.close();
+    var msg = $('f-msg'); if (msg && !msg.value) msg.value = 'פנייה בנוגע לפרויקט ' + current.name + ': ';
+    $('contact').scrollIntoView({ behavior: 'smooth' }); setTimeout(function () { $('f-name').focus({ preventScroll: true }); }, 600);
+  });
+  var h = location.hash.replace('#p-', ''); if (P[h]) open(h);
+})();
 
 // Safe localStorage helpers (storage can be blocked).
 function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
