@@ -9,6 +9,7 @@ wrap() {
   {
     printf '<!doctype html>\n<html lang="he" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n<meta name="description" content="בית בישראל – יזמות נדל&quot;ן והתחדשות עירונית באשדוד. בונים עתיד, יוצרים קהילה.">\n</head>\n<body>\n'
     cat "$1"
+    [ -f src/signature.html ] && cat src/signature.html
     [ -f src/switcher.html ] && cat src/switcher.html
     printf '\n</body>\n</html>\n'
   } > "$2"
