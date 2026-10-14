@@ -135,6 +135,34 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
 @keyframes drift { from { transform: scale(1.15); } to { transform: scale(1); } }
 @keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
 @keyframes draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+
+.owner-line { margin: 2rem auto 0; max-width: 48ch; color: var(--dim); font-size: 1.15rem; }
+.owner-line b { color: var(--text); font-weight: 400; }
+/* Two areas: two tall cinematic panels */
+.areas { padding-block: clamp(3rem, 8vw, 6rem) !important; }
+.doors { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2rem; }
+.door { position: relative; overflow: hidden; min-height: 30rem; border: 1px solid var(--line); border-radius: 6px; padding: 0; cursor: pointer; background: var(--night-2); color: var(--text); font: inherit; text-align: right; display: flex; align-items: flex-end; }
+.door img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s ease; }
+.door-dev::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,12,16,.97) 0%, rgba(10,12,16,.85) 40%, rgba(10,12,16,.3) 75%, rgba(10,12,16,.1) 100%); }
+.door-mgmt { background: radial-gradient(circle at 30% 30%, #1b2230, var(--night-2) 70%); }
+.door-art { position: absolute; top: 2.2rem; left: 50%; transform: translateX(-50%); width: 46%; color: var(--gold); opacity: .35; transition: opacity .8s ease; }
+.door-in { position: relative; z-index: 1; display: grid; gap: .5rem; padding: 2.2rem; }
+.door-k { color: var(--gold); font-size: .9rem; }
+.door-t { font-size: clamp(2rem, 4vw, 3rem); font-weight: 200; line-height: 1.05; }
+.door-p { color: var(--dim); }
+.door-c { margin-top: .6rem; color: var(--gold); }
+.door:hover img { transform: scale(1.06); } .door:hover .door-art { opacity: .6; }
+.door.active { border-color: var(--gold); }
+.split.one { grid-template-columns: 1fr; }
+.mg h2 { font-size: clamp(2.4rem, 6vw, 4.6rem); }
+.mg-text { color: var(--dim); max-width: 60ch; margin-top: 1.2rem; font-size: 1.15rem; }
+.mg-steps { list-style: none; margin: 2.5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); counter-reset: s; }
+.mg-steps li { counter-increment: s; background: var(--night); padding: 1.6rem; display: grid; gap: .4rem; }
+.mg-steps li::before { content: "0" counter(s); color: var(--gold); font-size: 2rem; font-weight: 200; }
+.mg-steps b { font-weight: 400; font-size: 1.2rem; } .mg-steps span { color: var(--dim); font-size: .95rem; }
+@media (max-width: 860px) { .doors { grid-template-columns: 1fr; } .door { min-height: 22rem; } .mg-steps { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .mg-steps { grid-template-columns: 1fr; } }
+.door-panel, section[id] { scroll-margin-top: 5rem; }
 </style>
 
 <header class="bar" id="bar">
@@ -143,7 +171,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       <svg viewBox="22 48 384 232" aria-hidden="true"><rect pathLength="100" stroke="#d6b77b" x="30" y="55" width="50" height="217"/><rect pathLength="100" stroke="#d6b77b" x="98" y="118" width="88" height="154"/><rect pathLength="100" stroke="#d6b77b" x="222" y="167" width="153" height="105"/><rect pathLength="100" stroke="#f1eee8" x="55" y="158" width="67" height="114"/><rect pathLength="100" stroke="#f1eee8" x="145" y="203" width="183" height="69"/><rect pathLength="100" stroke="#f1eee8" x="245" y="240" width="153" height="32"/></svg>
       <b>בית בישראל</b>
     </a>
-    <nav aria-label="ניווט ראשי" id="nav"><a href="#about">החברה</a><a href="#projects">פרויקטים</a><a href="#partners">שותפים</a><a href="#contact">צור קשר</a></nav>
+    <nav aria-label="ניווט ראשי" id="nav"><a href="#about">החברה</a><a href="#projects">יזמות</a><a href="#services">ניהול פרויקטים</a><a href="#contact">צור קשר</a></nav>
     <button class="menu" type="button" aria-label="תפריט" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -163,13 +191,22 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
   <section class="statement wrap" id="about">
     <p class="label">החברה</p>
     <p class="big">מקדמים פרויקטי <em>תמ"א 38</em> באשדוד, מהחתימה הראשונה של הדיירים ועד קבלת המפתח.</p>
-    <div class="pillars">
-      <div><p class="label">יזמות</p><h3>התחדשות עירונית</h3><p>בניינים ותיקים עוברים התחדשות ומתווספות להם דירות חדשות, בהובלה שלנו משלב הייזום.</p></div>
-      <div><p class="label">שירות</p><h3>ניהול תכנון ורישוי</h3><p>תיאום אדריכל ויועצים, הגשת בקשות להיתר וקבלת אישורים מהוועדות.</p></div>
-      <div><p class="label">הבעלים</p><h3>יצחק זיידמן</h3><p>בוגר הטכניון, כ-15 שנות ניסיון ועשרות רבות של פרויקטים עד טופס 4.</p></div>
+    <p class="owner-line">חברת יזמות והתחדשות עירונית בבעלותו של <b>יצחק זיידמן</b>, בוגר הטכניון עם כ-15 שנות ניסיון ועשרות רבות של פרויקטים עד טופס 4.</p>
+  </section>
+
+  <section class="numbers">
+    <div class="wrap"><div><b>15</b><span>שנות ניסיון</span></div><div><b>3</b><span>פרויקטי תמ"א 38</span></div><div><b>112</b><span>דירות קיימות</span></div><div><b>148</b><span>יח"ד חדשות</span></div></div>
+  </section>
+
+  <section class="wrap areas" id="areas" aria-label="תחומי הפעילות">
+    <p class="label" style="text-align:center">תחומי הפעילות</p>
+    <div class="doors">
+      <button class="door door-dev" type="button" data-door aria-controls="dev-panel" aria-expanded="false"><img src="assets/img/render-a-day.jpg" alt="" loading="lazy"><span class="door-in"><span class="door-k">יזמות</span><span class="door-t">התחדשות עירונית ותמ"א 38</span><span class="door-p">פרויקטים שאנחנו יוזמים ומובילים באשדוד, מהחתימה הראשונה של הדיירים ועד קבלת המפתח.</span><span class="door-c">לפרויקטים שלנו <span aria-hidden="true">←</span></span></span></button>
+      <button class="door door-mgmt" type="button" data-door aria-controls="mgmt-panel" aria-expanded="false"><svg class="door-art" viewBox="22 48 384 232" aria-hidden="true"><g fill="none" stroke-width="5"><rect stroke="currentColor" x="30" y="55" width="50" height="217"/><rect stroke="currentColor" x="98" y="118" width="88" height="154"/><rect stroke="currentColor" x="222" y="167" width="153" height="105"/><rect stroke="currentColor" opacity=".55" x="55" y="158" width="67" height="114"/><rect stroke="currentColor" opacity=".55" x="145" y="203" width="183" height="69"/><rect stroke="currentColor" opacity=".55" x="245" y="240" width="153" height="32"/></g></svg><span class="door-in"><span class="door-k">ניהול פרויקטים</span><span class="door-t">ניהול תכנון ורישוי</span><span class="door-p">ליווי מקצועי של תהליכי התכנון, ההיתרים והאישורים, עד שהפרויקט מוכן לביצוע.</span><span class="door-c">להסבר על השירות <span aria-hidden="true">←</span></span></span></button>
     </div>
   </section>
 
+  <div class="door-panel" id="dev-panel" hidden>
   <section id="projects" style="padding-inline:0">
     <div class="wrap gal-head"><div><p class="label">פרויקטים</p><h2>תמ"א 38 · אשדוד</h2></div>
       <div class="arrows"><button type="button" data-dir="1" aria-label="הקודם">→</button><button type="button" data-dir="-1" aria-label="הבא">←</button></div></div>
@@ -180,19 +217,21 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
       <button class="card" type="button" data-p="0"><img src="assets/img/render-b-day.jpg" alt="" loading="lazy"><small>הדמיה</small><span class="in"><span class="st">מיכשווילי 14</span><h3>מבט נוסף</h3><span class="meta">הדמיית יום</span></span></button>
     </div>
   </section>
-
-  <section class="numbers">
-    <div class="wrap"><div><b>15</b><span>שנות ניסיון</span></div><div><b>3</b><span>פרויקטי תמ"א 38</span></div><div><b>112</b><span>דירות קיימות</span></div><div><b>148</b><span>יח"ד חדשות</span></div></div>
-  </section>
-
   <section id="partners" style="padding:0">
-    <div class="split">
+    <div class="split one">
       <div><p class="label">שותפים</p><h2>קבוצת אם סי פרויקטים</h2><p>חברה יזמית בבעלותו של יעקב מלבסקי, בעלת מוניטין ואיתנות פיננסית. <span class="gold">דורגה בדירוג Dun's 100 לשנת 2026 בתחום ההתחדשות העירונית.</span></p>
         <ul><li>החמציץ 3<span>אוכלס</span></li><li>הרותם 10<span>אוכלס</span></li><li>אברהם שפירא 15, 9, 1<span>אוכלסו</span></li></ul></div>
-      <div><p class="label">שירות נוסף</p><h2>ניהול תכנון ורישוי</h2><p>החברה מעניקה שירות ניהול תכנון ורישוי ומלווה את הפרויקט עד היתר וביצוע.</p>
-        <ul><li>ניהול התכנון<span>01</span></li><li>בקשה להיתר בנייה<span>02</span></li><li>תיאום יועצים<span>03</span></li><li>אישורים וועדות<span>04</span></li></ul></div>
     </div>
   </section>
+  </div>
+  <div class="door-panel" id="mgmt-panel" hidden>
+  <section id="services" class="wrap mg">
+    <p class="label">ניהול פרויקטים</p>
+    <h2>ניהול תכנון ורישוי</h2>
+    <p class="mg-text">ניהול תכנון ורישוי הוא תחום פעילות נפרד של החברה. אנחנו מלווים פרויקטים מהשלב המוקדם: בניית צוות התכנון, תיאום בין האדריכל והיועצים, הכנת הבקשה להיתר והגשתה, ומעקב מול הוועדות והגורמים המאשרים עד שהפרויקט מוכן לביצוע.</p>
+    <ol class="mg-steps"><li><b>ניהול התכנון</b><span>מהשלב המוקדם ועד תוכניות מוכנות להגשה.</span></li><li><b>בקשה להיתר בנייה</b><span>הכנת הבקשה, הגשתה וליווי עד קבלת ההיתר.</span></li><li><b>תיאום יועצים</b><span>ניהול ותיאום סופרפוזיציה בין יועצי הפרויקט.</span></li><li><b>אישורים וועדות</b><span>קבלת אישורי הגורמים והוועדה המקומית.</span></li></ol>
+  </section>
+  </div>
 
   <section class="contact wrap" id="contact">
     <p class="label">צור קשר</p>
@@ -232,5 +271,29 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
     ov.hidden = false; ov.scrollTop = 0; ov.querySelector('.close').focus(); }); });
   ov.querySelector('.close').addEventListener('click', function () { ov.hidden = true; });
   addEventListener('keydown', function (e) { if (e.key === 'Escape') ov.hidden = true; });
+})();
+
+// Two areas of activity. Each big door opens its own panel (entrepreneurship → projects, management → the service);
+// a menu link that points into a closed panel opens that panel first.
+(function () {
+  var doors = Array.prototype.slice.call(document.querySelectorAll('[data-door]'));
+  if (!doors.length) return;
+  function open(id, scroll) {
+    doors.forEach(function (d) { var on = d.getAttribute('aria-controls') === id; d.setAttribute('aria-expanded', on ? 'true' : 'false'); d.classList.toggle('active', on); });
+    document.querySelectorAll('.door-panel').forEach(function (p) { p.hidden = p.id !== id; });
+    if (scroll) document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  doors.forEach(function (d) { d.addEventListener('click', function () { open(d.getAttribute('aria-controls'), true); }); });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a || a.getAttribute('href').length < 2) return;
+    var t = document.querySelector(a.getAttribute('href')); var p = t && t.closest('.door-panel');
+    if (p && p.hidden) {
+      e.preventDefault(); open(p.id, false);
+      requestAnimationFrame(function () { t.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      try { history.replaceState(null, '', a.getAttribute('href')); } catch (err) {}
+    }
+  }, true);
+  var h = location.hash.length > 1 && document.querySelector(location.hash), hp = h && h.closest('.door-panel');
+  if (hp) open(hp.id, false);
 })();
 </script>
