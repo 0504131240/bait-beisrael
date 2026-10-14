@@ -143,6 +143,21 @@ footer { max-width: 74rem; margin: 2.5rem auto; display: flex; justify-content: 
 @keyframes draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes stamp { from { opacity: 0; transform: rotate(-3deg) scale(1.6); } to { opacity: 1; transform: rotate(-3deg) scale(1); } }
+
+/* Two areas as two framed detail boxes on the sheet */
+.doors { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.8rem; }
+.door { position: relative; display: grid; grid-template-rows: auto 1fr; padding: 0; border: 1.5px solid var(--rule); background: var(--sheet); color: var(--ink); text-align: right; font: inherit; cursor: pointer; }
+.door img, .door-art { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; border-bottom: 1.5px solid var(--rule); }
+.door-art { padding: 1.5rem 2.5rem; color: var(--ink); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 16px 16px; }
+.door-in { display: grid; gap: .5rem; padding: 1.2rem 1.4rem 1.5rem; }
+.door-k { font-family: var(--mono); font-size: .75rem; color: var(--accent); }
+.door-t { font-size: 1.8rem; font-weight: 700; line-height: 1.15; }
+.door-p { color: var(--soft); }
+.door-c { margin-top: .4rem; justify-self: start; font-weight: 700; border: 1.5px solid var(--rule); padding: .3rem .9rem; }
+.door:hover .door-c, .door.active .door-c { background: var(--ink); color: var(--sheet); }
+.door.active { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (max-width: 760px) { .doors { grid-template-columns: 1fr; } }
+.door-panel, section[id] { scroll-margin-top: 5rem; }
 </style>
 
 <header class="strip" id="strip">
@@ -151,7 +166,7 @@ footer { max-width: 74rem; margin: 2.5rem auto; display: flex; justify-content: 
     <b>בית בישראל</b>
   </a>
   <nav aria-label="ניווט ראשי" id="nav">
-    <a href="#about">החברה<small>A-02</small></a><a href="#projects">פרויקטים<small>A-03</small></a><a href="#partners">שותפים ושירות<small>A-04</small></a><a href="#contact">צור קשר<small>A-05</small></a>
+    <a href="#about">החברה<small>A-02</small></a><a href="#projects">יזמות<small>A-03a</small></a><a href="#services">ניהול פרויקטים<small>A-04</small></a><a href="#contact">צור קשר<small>A-05</small></a>
   </nav>
   <button class="menu" type="button" aria-expanded="false" aria-controls="nav">תפריט ☰</button>
 </header>
@@ -201,8 +216,18 @@ footer { max-width: 74rem; margin: 2.5rem auto; display: flex; justify-content: 
     </div>
   </section>
 
+  <section class="sheet" id="areas" aria-label="תחומי הפעילות">
+    <span class="sheet-no">A-03 · תחומי פעילות</span>
+    <h2>שני תחומים</h2>
+    <div class="doors">
+      <button class="door door-dev" type="button" data-door aria-controls="dev-panel" aria-expanded="false"><img src="assets/img/render-a-day.jpg" alt="" loading="lazy"><span class="door-in"><span class="door-k">יזמות</span><span class="door-t">התחדשות עירונית ותמ"א 38</span><span class="door-p">פרויקטים שאנחנו יוזמים ומובילים באשדוד, מהחתימה הראשונה של הדיירים ועד קבלת המפתח.</span><span class="door-c">לפרויקטים שלנו <span aria-hidden="true">←</span></span></span></button>
+      <button class="door door-mgmt" type="button" data-door aria-controls="mgmt-panel" aria-expanded="false"><svg class="door-art" viewBox="22 48 384 232" aria-hidden="true"><g fill="none" stroke-width="5"><rect stroke="currentColor" x="30" y="55" width="50" height="217"/><rect stroke="currentColor" x="98" y="118" width="88" height="154"/><rect stroke="currentColor" x="222" y="167" width="153" height="105"/><rect stroke="currentColor" opacity=".55" x="55" y="158" width="67" height="114"/><rect stroke="currentColor" opacity=".55" x="145" y="203" width="183" height="69"/><rect stroke="currentColor" opacity=".55" x="245" y="240" width="153" height="32"/></g></svg><span class="door-in"><span class="door-k">ניהול פרויקטים</span><span class="door-t">ניהול תכנון ורישוי</span><span class="door-p">ליווי מקצועי של תהליכי התכנון, ההיתרים והאישורים, עד שהפרויקט מוכן לביצוע.</span><span class="door-c">להסבר על השירות <span aria-hidden="true">←</span></span></span></button>
+    </div>
+  </section>
+
+  <div class="door-panel" id="dev-panel" hidden>
   <section class="sheet" id="projects">
-    <span class="sheet-no">A-03 · פרויקטים</span>
+    <span class="sheet-no">A-03a · יזמות · פרויקטים</span>
     <h2>פרויקטי תמ"א 38 בהם שותפה בית בישראל</h2>
     <div class="projects">
       <article class="psheet">
@@ -225,16 +250,20 @@ footer { max-width: 74rem; margin: 2.5rem auto; display: flex; justify-content: 
       </article>
     </div>
   </section>
-
   <section class="sheet" id="partners">
-    <span class="sheet-no">A-04 · שותפים ושירות</span>
-    <div class="two">
-      <div><h2>קבוצת אם סי פרויקטים</h2><p class="lead">חברה יזמית בבעלותו של יעקב מלבסקי, בעלת מוניטין ואיתנות פיננסית. דורגה בדירוג Dun's 100 לשנת 2026 בתחום ההתחדשות העירונית.</p>
-        <ul class="addr"><li>החמציץ 3</li><li>הרותם 10</li><li>אברהם שפירא 15</li><li>אברהם שפירא 9</li><li>אברהם שפירא 1</li></ul></div>
-      <div><h2>ניהול תכנון ורישוי</h2><p class="lead">שירות נוסף: ליווי הפרויקט עד היתר וביצוע.</p>
-        <ol class="steps"><li><span><b>ניהול התכנון</b> · מהשלב המוקדם ועד תוכניות להגשה</span></li><li><span><b>בקשה להיתר</b> · הכנה, הגשה וליווי</span></li><li><span><b>תיאום יועצים</b> · סופרפוזיציה בין כל היועצים</span></li><li><span><b>אישורים וועדות</b> · מול הגורמים והוועדה המקומית</span></li></ol></div>
-    </div>
+    <span class="sheet-no">A-03b · שותפים</span>
+    <h2>קבוצת אם סי פרויקטים</h2><p class="lead">חברה יזמית בבעלותו של יעקב מלבסקי, בעלת מוניטין ואיתנות פיננסית. דורגה בדירוג Dun's 100 לשנת 2026 בתחום ההתחדשות העירונית.</p>
+    <ul class="addr"><li>החמציץ 3</li><li>הרותם 10</li><li>אברהם שפירא 15</li><li>אברהם שפירא 9</li><li>אברהם שפירא 1</li></ul>
   </section>
+  </div>
+  <div class="door-panel" id="mgmt-panel" hidden>
+  <section class="sheet" id="services">
+    <span class="sheet-no">A-04 · ניהול פרויקטים</span>
+    <h2>ניהול תכנון ורישוי</h2>
+    <p class="lead">ניהול תכנון ורישוי הוא תחום פעילות נפרד של החברה. אנחנו מלווים פרויקטים מהשלב המוקדם: בניית צוות התכנון, תיאום בין האדריכל והיועצים, הכנת הבקשה להיתר והגשתה, ומעקב מול הוועדות והגורמים המאשרים עד שהפרויקט מוכן לביצוע.</p>
+    <ol class="steps"><li><span><b>ניהול התכנון</b> · מהשלב המוקדם ועד תוכניות להגשה</span></li><li><span><b>בקשה להיתר</b> · הכנה, הגשה וליווי</span></li><li><span><b>תיאום יועצים</b> · סופרפוזיציה בין כל היועצים</span></li><li><span><b>אישורים וועדות</b> · מול הגורמים והוועדה המקומית</span></li></ol>
+  </section>
+  </div>
 
   <section class="sheet" id="contact">
     <span class="sheet-no">A-05 · צור קשר</span>
@@ -256,6 +285,30 @@ footer { max-width: 74rem; margin: 2.5rem auto; display: flex; justify-content: 
   var s = document.getElementById('strip'), b = s.querySelector('.menu');
   b.addEventListener('click', function () { var o = s.classList.toggle('open'); b.setAttribute('aria-expanded', o); });
   document.getElementById('nav').addEventListener('click', function () { s.classList.remove('open'); });
+})();
+
+// Two areas of activity. Each big door opens its own panel (entrepreneurship → projects, management → the service);
+// a menu link that points into a closed panel opens that panel first.
+(function () {
+  var doors = Array.prototype.slice.call(document.querySelectorAll('[data-door]'));
+  if (!doors.length) return;
+  function open(id, scroll) {
+    doors.forEach(function (d) { var on = d.getAttribute('aria-controls') === id; d.setAttribute('aria-expanded', on ? 'true' : 'false'); d.classList.toggle('active', on); });
+    document.querySelectorAll('.door-panel').forEach(function (p) { p.hidden = p.id !== id; });
+    if (scroll) document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  doors.forEach(function (d) { d.addEventListener('click', function () { open(d.getAttribute('aria-controls'), true); }); });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a || a.getAttribute('href').length < 2) return;
+    var t = document.querySelector(a.getAttribute('href')); var p = t && t.closest('.door-panel');
+    if (p && p.hidden) {
+      e.preventDefault(); open(p.id, false);
+      requestAnimationFrame(function () { t.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      try { history.replaceState(null, '', a.getAttribute('href')); } catch (err) {}
+    }
+  }, true);
+  var h = location.hash.length > 1 && document.querySelector(location.hash), hp = h && h.closest('.door-panel');
+  if (hp) open(hp.id, false);
 })();
 </script>
 <!-- Site credit (reusable): copy this block into the end of <body> on any page. -->

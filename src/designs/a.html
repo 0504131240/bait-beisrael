@@ -138,6 +138,25 @@ footer { border-top: 1px solid var(--hair); padding-block: 2rem; font-size: .9re
   .rail .mark rect:nth-child(4) { animation-delay: .45s } .rail .mark rect:nth-child(5) { animation-delay: .6s } .rail .mark rect:nth-child(6) { animation-delay: .75s }
 }
 @keyframes draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+
+/* Two areas as a pair of facing pages */
+.doors { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--ink); }
+.door { position: relative; display: grid; grid-template-rows: auto 1fr; padding: 0; border: 0; background: var(--paper); color: var(--ink); text-align: right; font: inherit; cursor: pointer; }
+.door + .door { border-right: 1px solid var(--ink); }
+.door img, .door-art { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; }
+.door-art { padding: 2.5rem 3rem; color: var(--gold); background: var(--ivory); border-bottom: 1px solid var(--hair); }
+.door img { border-bottom: 1px solid var(--hair); filter: grayscale(.35); transition: filter .6s ease; }
+.door:hover img, .door.active img { filter: none; }
+.door-in { display: grid; gap: .6rem; padding: 2rem clamp(1.25rem, 3vw, 2.5rem) 2.4rem; }
+.door-k { color: var(--gold); font-size: .85rem; font-weight: 600; }
+.door-t { font-family: var(--serif); font-weight: 300; font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1.05; }
+.door-p { color: var(--soft); }
+.door-c { margin-top: .5rem; justify-self: start; font-weight: 600; border-bottom: 1px solid var(--ink); }
+.door.active { background: var(--rail); color: var(--rail-ink); }
+.door.active .door-p { color: #b9b3a8; } .door.active .door-c { border-color: var(--gold); color: var(--gold); }
+.mg-text { max-width: 62ch; font-size: 1.15rem; color: #2b2925; margin-bottom: 2.5rem; }
+@media (max-width: 800px) { .doors { grid-template-columns: 1fr; } .door + .door { border-right: 0; border-top: 1px solid var(--ink); } }
+.door-panel, section[id] { scroll-margin-top: 5rem; }
 </style>
 
 <aside class="rail" id="rail">
@@ -148,7 +167,7 @@ footer { border-top: 1px solid var(--hair); padding-block: 2rem; font-size: .9re
   <div><div class="name">בית בישראל</div><div class="tag">יזמות נדל"ן והתחדשות עירונית</div></div>
   <button class="menu" type="button" aria-label="תפריט" aria-expanded="false"><span></span><span></span><span></span></button>
   <nav aria-label="ניווט ראשי">
-    <a href="#about">קצת עלינו</a><a href="#projects">הפרויקטים</a><a href="#partners">השותפים</a><a href="#services">ניהול תכנון ורישוי</a><a href="#contact">צור קשר</a>
+    <a href="#about">קצת עלינו</a><a href="#areas">תחומי פעילות</a><a href="#projects">יזמות · פרויקטים</a><a href="#services">ניהול תכנון ורישוי</a><a href="#contact">צור קשר</a>
   </nav>
   <div class="foot"><a href="tel:+972527111707" dir="ltr">052-7111707</a><a href="mailto:yz@bb-ar.com" dir="ltr">yz@bb-ar.com</a><span>הוז דב 4, אשדוד</span></div>
 </aside>
@@ -180,6 +199,15 @@ footer { border-top: 1px solid var(--hair); padding-block: 2rem; font-size: .9re
     </div>
   </section>
 
+  <section class="wrap areas" id="areas" aria-label="תחומי הפעילות">
+    <div class="sec-head rv"><p class="kicker">תחומי הפעילות</p><h2>שני תחומים</h2></div>
+    <div class="doors">
+      <button class="door door-dev" type="button" data-door aria-controls="dev-panel" aria-expanded="false"><img src="assets/img/render-a-day.jpg" alt="" loading="lazy"><span class="door-in"><span class="door-k">יזמות</span><span class="door-t">התחדשות עירונית ותמ"א 38</span><span class="door-p">פרויקטים שאנחנו יוזמים ומובילים באשדוד, מהחתימה הראשונה של הדיירים ועד קבלת המפתח.</span><span class="door-c">לפרויקטים שלנו <span aria-hidden="true">←</span></span></span></button>
+      <button class="door door-mgmt" type="button" data-door aria-controls="mgmt-panel" aria-expanded="false"><svg class="door-art" viewBox="22 48 384 232" aria-hidden="true"><g fill="none" stroke-width="5"><rect stroke="currentColor" x="30" y="55" width="50" height="217"/><rect stroke="currentColor" x="98" y="118" width="88" height="154"/><rect stroke="currentColor" x="222" y="167" width="153" height="105"/><rect stroke="currentColor" opacity=".55" x="55" y="158" width="67" height="114"/><rect stroke="currentColor" opacity=".55" x="145" y="203" width="183" height="69"/><rect stroke="currentColor" opacity=".55" x="245" y="240" width="153" height="32"/></g></svg><span class="door-in"><span class="door-k">ניהול פרויקטים</span><span class="door-t">ניהול תכנון ורישוי</span><span class="door-p">ליווי מקצועי של תהליכי התכנון, ההיתרים והאישורים, עד שהפרויקט מוכן לביצוע.</span><span class="door-c">להסבר על השירות <span aria-hidden="true">←</span></span></span></button>
+    </div>
+  </section>
+
+  <div class="door-panel" id="dev-panel" hidden>
   <section id="projects" class="wrap">
     <div class="sec-head rv"><p class="kicker">הפרויקטים</p><h2>פרויקטי תמ"א 38 בהם שותפה בית בישראל</h2></div>
     <article class="spread rv">
@@ -207,9 +235,12 @@ footer { border-top: 1px solid var(--hair); padding-block: 2rem; font-size: .9re
     <p class="quote rv" style="margin-top:1.5rem">קבוצת אם סי פרויקטים, בבעלותו של יעקב מלבסקי. חברה יזמית בעלת מוניטין ואיתנות פיננסית, <em>שדורגה בדירוג Dun's 100 לשנת 2026</em> בתחום ההתחדשות העירונית.</p>
     <ul class="addr rv"><li>החמציץ 3</li><li>הרותם 10</li><li>אברהם שפירא 15</li><li>אברהם שפירא 9</li><li>אברהם שפירא 1</li></ul>
   </div></section>
+  </div>
+  <div class="door-panel" id="mgmt-panel" hidden>
 
   <section id="services" class="wrap">
     <div class="sec-head rv"><p class="kicker">שירות נוסף</p><h2>ניהול תכנון ורישוי</h2></div>
+    <p class="mg-text rv">ניהול תכנון ורישוי הוא תחום פעילות נפרד של החברה. אנחנו מלווים פרויקטים מהשלב המוקדם: בניית צוות התכנון, תיאום בין האדריכל והיועצים, הכנת הבקשה להיתר והגשתה, ומעקב מול הוועדות והגורמים המאשרים עד שהפרויקט מוכן לביצוע.</p>
     <ol class="steps rv">
       <li><h3>ניהול התכנון</h3><p>הובלת התכנון מהשלב המוקדם ועד תוכניות מוכנות להגשה.</p></li>
       <li><h3>בקשה להיתר</h3><p>הכנת הבקשה, הגשתה וליווי עד קבלת ההיתר.</p></li>
@@ -217,6 +248,7 @@ footer { border-top: 1px solid var(--hair); padding-block: 2rem; font-size: .9re
       <li><h3>אישורים וועדות</h3><p>קבלת אישורי הגורמים והוועדה המקומית.</p></li>
     </ol>
   </section>
+  </div>
 
   <section id="contact" class="wrap">
     <div class="contact">
@@ -242,5 +274,29 @@ footer { border-top: 1px solid var(--hair); padding-block: 2rem; font-size: .9re
   if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
   var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }); }, { threshold: .12 });
   els.forEach(function (e) { if (e.getBoundingClientRect().top < innerHeight) e.classList.add('in'); else io.observe(e); });
+})();
+
+// Two areas of activity. Each big door opens its own panel (entrepreneurship → projects, management → the service);
+// a menu link that points into a closed panel opens that panel first.
+(function () {
+  var doors = Array.prototype.slice.call(document.querySelectorAll('[data-door]'));
+  if (!doors.length) return;
+  function open(id, scroll) {
+    doors.forEach(function (d) { var on = d.getAttribute('aria-controls') === id; d.setAttribute('aria-expanded', on ? 'true' : 'false'); d.classList.toggle('active', on); });
+    document.querySelectorAll('.door-panel').forEach(function (p) { p.hidden = p.id !== id; });
+    if (scroll) document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  doors.forEach(function (d) { d.addEventListener('click', function () { open(d.getAttribute('aria-controls'), true); }); });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a || a.getAttribute('href').length < 2) return;
+    var t = document.querySelector(a.getAttribute('href')); var p = t && t.closest('.door-panel');
+    if (p && p.hidden) {
+      e.preventDefault(); open(p.id, false);
+      requestAnimationFrame(function () { t.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      try { history.replaceState(null, '', a.getAttribute('href')); } catch (err) {}
+    }
+  }, true);
+  var h = location.hash.length > 1 && document.querySelector(location.hash), hp = h && h.closest('.door-panel');
+  if (hp) open(hp.id, false);
 })();
 </script>

@@ -504,6 +504,25 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
 .cookie .cookie-actions { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
 .cookie .btn { padding: .55rem 1.2rem; }
 .cookie .ghost2 { font: inherit; font-weight: 700; background: transparent; color: var(--ink); border: 1.5px solid var(--line); border-radius: 999px; padding: .5rem 1.1rem; cursor: pointer; }
+
+/* Two areas: big doors that open their panel */
+.areas { padding-bottom: clamp(2rem, 5vw, 3.5rem) !important; }
+.doors { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.door { position: relative; overflow: hidden; min-height: 24rem; border: 0; border-radius: 14px; padding: 0; cursor: pointer; text-align: right; font: inherit; color: #f2f4f8; background: var(--navy); display: flex; align-items: flex-end; box-shadow: 0 25px 50px -30px rgba(10,20,40,.7); outline: 2px solid transparent; outline-offset: 4px; transition: outline-color .3s ease, transform .3s ease; }
+.door img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease; }
+.door-dev::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(9,18,34,.96) 0%, rgba(9,18,34,.8) 45%, rgba(9,18,34,.2) 100%); }
+.door-mgmt { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%); }
+.door-art { position: absolute; top: 1.5rem; left: 1.5rem; width: 40%; color: var(--gold); opacity: .55; transition: transform 1s ease; }
+.door-in { position: relative; z-index: 1; display: grid; gap: .5rem; padding: 2rem; }
+.door-k { color: var(--gold); font-weight: 800; font-size: .95rem; }
+.door-t { font-family: var(--display); font-weight: 900; font-size: clamp(1.8rem, 3.5vw, 2.6rem); line-height: 1.1; }
+.door-p { color: #c9d2e0; max-width: 34ch; }
+.door-c { margin-top: .6rem; justify-self: start; font-weight: 800; color: var(--gold); border-bottom: 2px solid var(--gold); padding-bottom: .1rem; }
+.door:hover img, .door:hover .door-art { transform: scale(1.05); }
+.door:hover { transform: translateY(-3px); }
+.door.active { outline-color: var(--gold); }
+.door-panel { scroll-margin-top: 4rem; }
+@media (max-width: 760px) { .doors { grid-template-columns: 1fr; } .door { min-height: 18rem; } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -529,9 +548,8 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
     </a>
     <nav aria-label="ניווט ראשי" id="main-nav">
       <a href="#about">אודות</a>
-      <a href="#projects">הפרויקטים</a>
-      <a href="#partners">השותפים שלנו</a>
-      <a href="#services">ניהול תכנון ורישוי</a>
+      <a href="#projects">יזמות</a>
+      <a href="#services">ניהול פרויקטים</a>
       <a href="#contact">צור קשר</a>
     </nav>
     <div class="top-cta">
@@ -604,6 +622,15 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
   </section>
 
 
+  <section class="block areas" id="areas" aria-label="תחומי הפעילות">
+    <div class="wrap head"><p class="eyebrow">תחומי הפעילות</p><h2>שני תחומים, ניסיון אחד</h2><hr class="rule"></div>
+    <div class="wrap doors">
+      <button class="door door-dev" type="button" data-door aria-controls="dev-panel" aria-expanded="false"><img src="assets/img/render-a-day.jpg" alt="" loading="lazy"><span class="door-in"><span class="door-k">יזמות</span><span class="door-t">התחדשות עירונית ותמ"א 38</span><span class="door-p">פרויקטים שאנחנו יוזמים ומובילים באשדוד, מהחתימה הראשונה של הדיירים ועד קבלת המפתח.</span><span class="door-c">לפרויקטים שלנו <span aria-hidden="true">←</span></span></span></button>
+      <button class="door door-mgmt" type="button" data-door aria-controls="mgmt-panel" aria-expanded="false"><svg class="door-art" viewBox="22 48 384 232" aria-hidden="true"><g fill="none" stroke-width="5"><rect stroke="currentColor" x="30" y="55" width="50" height="217"/><rect stroke="currentColor" x="98" y="118" width="88" height="154"/><rect stroke="currentColor" x="222" y="167" width="153" height="105"/><rect stroke="currentColor" opacity=".55" x="55" y="158" width="67" height="114"/><rect stroke="currentColor" opacity=".55" x="145" y="203" width="183" height="69"/><rect stroke="currentColor" opacity=".55" x="245" y="240" width="153" height="32"/></g></svg><span class="door-in"><span class="door-k">ניהול פרויקטים</span><span class="door-t">ניהול תכנון ורישוי</span><span class="door-p">ליווי מקצועי של תהליכי התכנון, ההיתרים והאישורים, עד שהפרויקט מוכן לביצוע.</span><span class="door-c">להסבר על השירות <span aria-hidden="true">←</span></span></span></button>
+    </div>
+  </section>
+
+  <div class="door-panel" id="dev-panel" hidden>
   <section class="block navy bleed" id="projects">
     <div class="wrap">
       <div class="head">
@@ -657,6 +684,8 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
       </div>
     </div>
   </section>
+  </div>
+  <div class="door-panel" id="mgmt-panel" hidden>
 
   <section class="block service-band" id="services">
     <div class="wrap">
@@ -664,6 +693,7 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
         <p class="eyebrow">שירות נוסף</p>
         <h2>ניהול תכנון ורישוי פרויקטים</h2>
         <hr class="rule">
+        <p class="sub-lead">ניהול תכנון ורישוי הוא תחום פעילות נפרד של החברה. אנחנו מלווים פרויקטים מהשלב המוקדם: בניית צוות התכנון, תיאום בין האדריכל והיועצים, הכנת הבקשה להיתר והגשתה, ומעקב מול הוועדות והגורמים המאשרים עד שהפרויקט מוכן לביצוע.</p>
         <p class="sub-lead">החברה מעניקה שירות ניהול תכנון ורישוי לפרויקטים, ומלווה את כל התהליך עד שהפרויקט מגיע להיתר ולביצוע בלי עיכובים מיותרים.</p>
       </div>
       <ol class="steps">
@@ -674,6 +704,7 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
       </ol>
     </div>
   </section>
+  </div>
 
   <section class="block contact" id="contact">
     <div class="wrap">
@@ -1083,5 +1114,29 @@ document.getElementById('lead-form').addEventListener('submit', function (e) {
   measure();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
   addEventListener('load', measure);
+})();
+
+// Two areas of activity. Each big door opens its own panel (entrepreneurship → projects, management → the service);
+// a menu link that points into a closed panel opens that panel first.
+(function () {
+  var doors = Array.prototype.slice.call(document.querySelectorAll('[data-door]'));
+  if (!doors.length) return;
+  function open(id, scroll) {
+    doors.forEach(function (d) { var on = d.getAttribute('aria-controls') === id; d.setAttribute('aria-expanded', on ? 'true' : 'false'); d.classList.toggle('active', on); });
+    document.querySelectorAll('.door-panel').forEach(function (p) { p.hidden = p.id !== id; });
+    if (scroll) document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  doors.forEach(function (d) { d.addEventListener('click', function () { open(d.getAttribute('aria-controls'), true); }); });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a || a.getAttribute('href').length < 2) return;
+    var t = document.querySelector(a.getAttribute('href')); var p = t && t.closest('.door-panel');
+    if (p && p.hidden) {
+      e.preventDefault(); open(p.id, false);
+      requestAnimationFrame(function () { t.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      try { history.replaceState(null, '', a.getAttribute('href')); } catch (err) {}
+    }
+  }, true);
+  var h = location.hash.length > 1 && document.querySelector(location.hash), hp = h && h.closest('.door-panel');
+  if (hp) open(hp.id, false);
 })();
 </script>
