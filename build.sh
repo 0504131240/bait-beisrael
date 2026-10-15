@@ -7,7 +7,7 @@ set -e
 cd "$(dirname "$0")"
 wrap() {
   {
-    printf '<!doctype html>\n<html lang="he" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n<meta name="description" content="בית בישראל – יזמות נדל&quot;ן והתחדשות עירונית באשדוד. בונים עתיד, יוצרים קהילה.">\n</head>\n<body>\n'
+    printf '<!doctype html>\n<html lang="he" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n<meta name="description" content="בית בישראל – יזמות נדל&quot;ן והתחדשות עירונית באשדוד. בונים עתיד, יוצרים קהילה.">\n<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">\n<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">\n<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">\n</head>\n<body>\n'
     cat "$1"
     [ -f src/signature.html ] && cat src/signature.html
     [ -f src/switcher.html ] && cat src/switcher.html
