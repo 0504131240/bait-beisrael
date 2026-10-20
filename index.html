@@ -255,7 +255,8 @@ section.block { padding-block: clamp(3rem, 7vw, 5rem); }
 .clients li { display: grid; justify-items: center; gap: .7rem; text-align: center; font-weight: 700; font-size: 1rem; line-height: 1.35; min-width: 0; }
 .clients .mono, .clients img { width: 6rem; height: 6rem; border-radius: 50%; }
 .clients .mono { display: grid; place-items: center; background: var(--sheet); border: 1.5px solid var(--gold); color: var(--gold-ink); font-family: var(--display); font-weight: 900; font-size: 1.7rem; }
-.clients img { object-fit: contain; background: #fff; }
+.clients img { object-fit: contain; background: #fff; padding: .55rem; border: 1.5px solid var(--gold); }
+.clients img.dark { background: #0f2340; }
 @media (max-width: 900px) { .clients ul { grid-template-columns: repeat(3, 1fr); row-gap: 1.75rem; } }
 @media (max-width: 520px) { .clients ul { grid-template-columns: 1fr 1fr; } .clients .mono, .clients img { width: 5rem; height: 5rem; } }
 
@@ -720,12 +721,12 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
       </div>
       <div class="clients">
         <h3>בין לקוחותינו המרוצים</h3>
-        <!-- Logos to come: swap each <span class="mono"> for <img src="assets/img/clients/..." alt=""> -->
+        <!-- Clients without a logo yet show initials (span.mono); swap in an <img> from assets/img/clients/ when one arrives -->
         <ul>
-          <li><span class="mono" aria-hidden="true">מד</span>המועצה הדתית אשדוד</li>
+          <li><img class="dark" src="assets/img/clients/religious-council-ashdod.png" alt="" loading="lazy">המועצה הדתית אשדוד</li>
           <li><span class="mono" aria-hidden="true">בי</span>ישיבת בית ישראל אשדוד</li>
           <li><span class="mono" aria-hidden="true">גו</span>עמותת גני ויזניץ אשדוד</li>
-          <li><span class="mono" aria-hidden="true">חמ</span>עמותת חסד ומרפא ממעמקים</li>
+          <li><img src="assets/img/clients/mimaamakim.jpg" alt="" loading="lazy">עמותת חסד ומרפא ממעמקים</li>
           <li><span class="mono" aria-hidden="true">אי</span>עמותת אהבת ישראל ויזניץ'</li>
         </ul>
       </div>
