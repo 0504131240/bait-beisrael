@@ -168,6 +168,23 @@ footer { border-top: 1px solid var(--hair); padding-block: 2rem; font-size: .9re
 .mg-text { max-width: 62ch; font-size: 1.15rem; color: #2b2925; margin-bottom: 2.5rem; }
 @media (max-width: 800px) { .doors { grid-template-columns: 1fr; } .door + .door { border-right: 0; border-top: 1px solid var(--ink); } }
 .door-panel, section[id] { scroll-margin-top: 5rem; }
+
+/* Services: one card per type of client, then the clients list */
+.svc { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.svc article { background: var(--paper); border: 1px solid var(--hair); border-top: 3px solid var(--gold); padding: 1.5rem 1.6rem 1.6rem; display: grid; gap: .6rem; align-content: start; min-width: 0; }
+.svc h3 { font-size: 1.4rem; font-family: var(--serif); font-weight: 400; }
+.svc p { color: var(--soft); }
+.svc .tag { color: var(--gold); font-weight: 700; font-size: 1.1rem; }
+@media (max-width: 720px) { .svc { grid-template-columns: 1fr; } }
+.clients { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--hair); }
+.clients h3 { font-size: 1.6rem; margin-bottom: 1.5rem; font-family: var(--serif); font-weight: 400; }
+.clients ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+.clients li { display: grid; justify-items: center; gap: .7rem; text-align: center; font-weight: 600; font-size: 1rem; line-height: 1.35; min-width: 0; }
+.clients .mono, .clients img { width: 6rem; height: 6rem; border-radius: 50%; }
+.clients .mono { display: grid; place-items: center; background: var(--paper); border: 1.5px solid var(--gold); color: var(--gold); font-weight: 700; font-size: 1.7rem; letter-spacing: 0; }
+.clients img { object-fit: contain; background: #fff; }
+@media (max-width: 900px) { .clients ul { grid-template-columns: repeat(3, 1fr); row-gap: 1.75rem; } }
+@media (max-width: 520px) { .clients ul { grid-template-columns: 1fr 1fr; } .clients .mono, .clients img { width: 5rem; height: 5rem; } }
 </style>
 
 <aside class="rail" id="rail">
@@ -251,13 +268,24 @@ footer { border-top: 1px solid var(--hair); padding-block: 2rem; font-size: .9re
 
   <section id="services" class="wrap">
     <div class="sec-head rv"><p class="kicker">שירות נוסף</p><h2>ניהול תכנון ורישוי</h2></div>
-    <p class="mg-text rv">ניהול תכנון ורישוי הוא תחום התמחות נפרד של החברה. אנו מרכזים עבור הפרויקט את כל שלבי התכנון: הרכבת צוות התכנון, תיאום בין האדריכל והיועצים, הכנת הבקשה להיתר והגשתה, ומעקב צמוד מול הוועדות והגורמים המאשרים, עד לקבלת ההיתר והיערכות לביצוע.</p>
-    <ol class="steps rv">
-      <li><h3>ייזום ותכנון מוקדם</h3><p>בחינת הפרויקט, הרכבת צוות התכנון וגיבוש התוכנית.</p></li>
-      <li><h3>תיאום יועצים</h3><p>ניהול סופרפוזיציה בין כל יועצי הפרויקט.</p></li>
-      <li><h3>בקשה להיתר בנייה</h3><p>הכנה, הגשה וליווי עד קבלת ההיתר.</p></li>
-      <li><h3>אישורים וועדות</h3><p>מול הוועדה המקומית וכלל הגורמים המאשרים.</p></li>
-    </ol>
+    <p class="mg-text rv">ליווי מקצועי בכל שלבי התכנון והרישוי, עם שירות מותאם לכל סוג לקוח.</p>
+    <div class="svc rv">
+      <article><h3>ניהול פרויקטים, אדריכלות, תכנון ורישוי</h3><p>חברתנו מתמחה ובעלת ניסיון מקצועי רב בניהול פרויקטים. אנו מלווים את הפרויקט מהרעיון הראשון, דרך הרכבת צוות התכנון ותיאום בין האדריכל והיועצים, ועד לקבלת ההיתר והיערכות לביצוע.</p></article>
+      <article><h3>ייעוץ מקצועי לאדריכלים, אנשי מקצוע ופרטיים</h3><p>ניהול וליווי הליכי בקשות להיתר: ליווי ותיאום מול האדריכל, צוות היועצים ומכון הבקרה. ייעוץ תכנוני וחוות דעת מקצועיות.</p><p class="tag">הניסיון שלנו – החיסכון שלכם.</p></article>
+      <article><h3>שירות למוסדות ועמותות</h3><p>סיוע וליווי מקצועי החל משלב איתור קרקע להקצאה, ועד לקבלת היתר בנייה.</p><p class="tag">אנו ניתן לכם ראש שקט בתחום שזר לכם.</p></article>
+      <article><h3>שירות לחברות, יזמים וקבלנים</h3><p>ליווי וסיוע בהליכי קבלת טופס 2 (אישור תחילת עבודות), טופס 4 וכל הנדרש לאכלוס.</p><p class="tag">ניסיון שעושה את ההבדל.</p></article>
+    </div>
+    <div class="clients rv">
+      <h3>בין לקוחותינו המרוצים</h3>
+      <!-- Logos to come: swap each <span class="mono"> for <img src="assets/img/clients/..." alt=""> -->
+      <ul>
+        <li><span class="mono" aria-hidden="true">מד</span>המועצה הדתית אשדוד</li>
+        <li><span class="mono" aria-hidden="true">בי</span>ישיבת בית ישראל אשדוד</li>
+        <li><span class="mono" aria-hidden="true">גו</span>עמותת גני ויזניץ אשדוד</li>
+        <li><span class="mono" aria-hidden="true">חמ</span>עמותת חסד ומרפא ממעמקים</li>
+        <li><span class="mono" aria-hidden="true">אי</span>עמותת אהבת ישראל ויזניץ'</li>
+      </ul>
+    </div>
   </section>
   </div>
 
