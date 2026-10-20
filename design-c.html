@@ -164,12 +164,12 @@ footer { max-width: 74rem; margin: 2.5rem auto; display: flex; justify-content: 
 
 /* Services: one card per type of client, then the clients list */
 .mg .svc, .sheet .svc { margin-top: 2rem; }
-.svc { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.svc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
 .svc article { background: var(--sheet); border: 1px solid var(--rule); border-top: 3px solid var(--accent); padding: 1.5rem 1.6rem 1.6rem; display: grid; gap: .6rem; align-content: start; min-width: 0; }
 .svc h3 { font-size: 1.4rem; font-weight: 500; }
 .svc p { color: var(--soft); }
 .svc .tag { color: var(--accent); font-weight: 700; font-size: 1.1rem; }
-@media (max-width: 720px) { .svc { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .svc { grid-template-columns: 1fr; } }
 .clients { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--rule); }
 .clients h3 { font-size: 1.6rem; margin-bottom: 1.5rem; font-weight: 500; }
 .clients ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
@@ -280,10 +280,9 @@ footer { max-width: 74rem; margin: 2.5rem auto; display: flex; justify-content: 
   <div class="door-panel" id="mgmt-panel" hidden>
   <section class="sheet" id="services">
     <span class="sheet-no">A-04 · ניהול פרויקטים</span>
-    <h2>ניהול תכנון ורישוי</h2>
-    <p class="lead">ליווי מקצועי בכל שלבי התכנון והרישוי, עם שירות מותאם לכל סוג לקוח.</p>
+    <h2>ניהול פרויקטים, אדריכלות, תכנון ורישוי</h2>
+    <p class="lead">חברתנו מתמחה ובעלת ניסיון מקצועי רב בניהול פרויקטים. אנו מלווים את הפרויקט מהרעיון הראשון, דרך הרכבת צוות התכנון ותיאום בין האדריכל והיועצים, ועד לקבלת ההיתר והיערכות לביצוע.</p>
     <div class="svc">
-      <article><h3>ניהול פרויקטים, אדריכלות, תכנון ורישוי</h3><p>חברתנו מתמחה ובעלת ניסיון מקצועי רב בניהול פרויקטים. אנו מלווים את הפרויקט מהרעיון הראשון, דרך הרכבת צוות התכנון ותיאום בין האדריכל והיועצים, ועד לקבלת ההיתר והיערכות לביצוע.</p></article>
       <article><h3>ייעוץ מקצועי לאדריכלים, אנשי מקצוע ופרטיים</h3><p>ניהול וליווי הליכי בקשות להיתר: ליווי ותיאום מול האדריכל, צוות היועצים ומכון הבקרה. ייעוץ תכנוני וחוות דעת מקצועיות.</p><p class="tag">הניסיון שלנו – החיסכון שלכם.</p></article>
       <article><h3>שירות למוסדות ועמותות</h3><p>סיוע וליווי מקצועי החל משלב איתור קרקע להקצאה, ועד לקבלת היתר בנייה.</p><p class="tag">אנו ניתן לכם ראש שקט בתחום שזר לכם.</p></article>
       <article><h3>שירות לחברות, יזמים וקבלנים</h3><p>ליווי וסיוע בהליכי קבלת טופס 2 (אישור תחילת עבודות), טופס 4 וכל הנדרש לאכלוס.</p><p class="tag">ניסיון שעושה את ההבדל.</p></article>
