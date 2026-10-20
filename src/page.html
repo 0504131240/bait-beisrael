@@ -816,7 +816,6 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
     <div><h3>שלבי הפרויקט</h3><ol class="timeline" id="pd-timeline"></ol></div>
     <div class="pd-cta">
       <button type="button" class="btn" id="pd-contact">פנייה בנוגע לפרויקט</button>
-      <a class="ghost3" href="https://wa.me/972527111707" id="pd-wa" target="_blank" rel="noopener">וואטסאפ</a>
       <a class="ghost3" id="pd-map" href="#" target="_blank" rel="noopener">פתיחה במפה</a>
     </div>
   </div>
@@ -965,7 +964,6 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
     });
     $('pd-about').textContent = d.about;
     $('pd-partner').hidden = !d.partner; $('pd-partner-name').textContent = d.partner || '';
-    $('pd-wa').href = 'https://wa.me/972527111707?text=' + encodeURIComponent('שלום, אשמח לפרטים על הפרויקט ' + d.name);
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
     dlg.scrollTop = 0;
   }
