@@ -148,8 +148,6 @@ section[id] { scroll-margin-top: 4.25rem; }
   .rule { transform-origin: right; }
   .reveal .rule, .reveal.rule { transform: scaleX(0); transition: transform .9s .3s ease-out; }
   .reveal.in .rule, .reveal.in.rule { transform: none; }
-  .steps li.reveal { border-top-color: transparent; background: linear-gradient(var(--gold), var(--gold)) right top / 0 3px no-repeat; transition: opacity .8s ease, transform .8s ease, background-size 1s ease-out; transition-delay: var(--d, 0s); }
-  .steps li.reveal.in { background-size: 100% 3px; }
   .sig i { transition: background-size 1.4s cubic-bezier(.2,.7,.2,1) .3s; }
 
   .proj { transition: transform .35s ease, box-shadow .35s ease; }
@@ -230,16 +228,25 @@ section.block { padding-block: clamp(3rem, 7vw, 5rem); }
 .ceo .facts li { padding-right: 1.1rem; position: relative; color: var(--muted); }
 .ceo .facts li::before { content: ""; position: absolute; right: 0; top: .65em; width: .45rem; height: .45rem; background: var(--gold); }
 
-/* Service steps: a real sequence */
-
+/* Services: one card per type of client */
 .sub-lead { color: var(--muted); margin-top: .8rem; }
-.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; counter-reset: s; }
-.steps li { counter-increment: s; border-top: 3px solid var(--gold); padding-top: 1rem; min-width: 0; }
-.steps li::before { content: "שלב " counter(s); display: block; font-weight: 800; font-size: .85rem; color: var(--gold-ink); margin-bottom: .3rem; }
-.steps h3 { font-size: 1.3rem; margin-bottom: .4rem; }
-.steps p { color: var(--muted); font-size: 1rem; }
-@media (max-width: 900px) { .steps { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+.svc { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.svc article { background: var(--sheet); border: 1px solid var(--line); border-top: 3px solid var(--gold); padding: 1.5rem 1.6rem 1.6rem; display: grid; gap: .6rem; align-content: start; min-width: 0; }
+.svc h3 { font-size: 1.45rem; font-weight: 900; }
+.svc p { color: var(--muted); }
+.svc .tag { font-family: var(--display); font-weight: 700; font-size: 1.15rem; color: var(--gold-ink); margin-top: .2rem; }
+@media (max-width: 720px) { .svc { grid-template-columns: 1fr; } }
+
+/* Clients */
+.clients { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+.clients h3 { font-size: 1.6rem; font-weight: 900; margin-bottom: 1.5rem; }
+.clients ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+.clients li { display: grid; justify-items: center; gap: .7rem; text-align: center; font-weight: 700; font-size: 1rem; line-height: 1.35; min-width: 0; }
+.clients .mono, .clients img { width: 6rem; height: 6rem; border-radius: 50%; }
+.clients .mono { display: grid; place-items: center; background: var(--sheet); border: 1.5px solid var(--gold); color: var(--gold-ink); font-family: var(--display); font-weight: 900; font-size: 1.7rem; }
+.clients img { object-fit: contain; background: #fff; }
+@media (max-width: 900px) { .clients ul { grid-template-columns: repeat(3, 1fr); row-gap: 1.75rem; } }
+@media (max-width: 520px) { .clients ul { grid-template-columns: 1fr 1fr; } .clients .mono, .clients img { width: 5rem; height: 5rem; } }
 
 /* Project facts */
 .units { margin: .6rem 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
@@ -693,15 +700,25 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
         <p class="eyebrow">שירות נוסף</p>
         <h2>ניהול תכנון ורישוי פרויקטים</h2>
         <hr class="rule">
-        <p class="sub-lead">ניהול תכנון ורישוי הוא תחום התמחות נפרד של החברה. אנו מרכזים עבור הפרויקט את כל שלבי התכנון: הרכבת צוות התכנון, תיאום בין האדריכל והיועצים, הכנת הבקשה להיתר והגשתה, ומעקב צמוד מול הוועדות והגורמים המאשרים, עד לקבלת ההיתר והיערכות לביצוע.</p>
-        <p class="sub-lead">החברה מעניקה שירות ניהול תכנון ורישוי לפרויקטים, ומלווה את כל התהליך עד שהפרויקט מגיע להיתר ולביצוע בלי עיכובים מיותרים.</p>
+        <p class="sub-lead">ליווי מקצועי בכל שלבי התכנון והרישוי, עם שירות מותאם לכל סוג לקוח.</p>
       </div>
-      <ol class="steps">
-        <li><h3>ייזום ותכנון מוקדם</h3><p>בחינת הפרויקט, הרכבת צוות התכנון וגיבוש התוכנית.</p></li>
-        <li><h3>תיאום יועצים</h3><p>ניהול סופרפוזיציה בין כל יועצי הפרויקט.</p></li>
-        <li><h3>בקשה להיתר בנייה</h3><p>הכנה, הגשה וליווי עד קבלת ההיתר.</p></li>
-        <li><h3>אישורים וועדות</h3><p>מול הוועדה המקומית וכלל הגורמים המאשרים.</p></li>
-      </ol>
+      <div class="svc">
+        <article><h3>ניהול פרויקטים, אדריכלות, תכנון ורישוי</h3><p>חברתנו מתמחה ובעלת ניסיון מקצועי רב בניהול פרויקטים. אנו מלווים את הפרויקט מהרעיון הראשון, דרך הרכבת צוות התכנון ותיאום בין האדריכל והיועצים, ועד לקבלת ההיתר והיערכות לביצוע.</p></article>
+        <article><h3>ייעוץ מקצועי לאדריכלים, אנשי מקצוע ופרטיים</h3><p>ניהול וליווי הליכי בקשות להיתר: ליווי ותיאום מול האדריכל, צוות היועצים ומכון הבקרה. ייעוץ תכנוני וחוות דעת מקצועיות.</p><p class="tag">הניסיון שלנו – החיסכון שלכם.</p></article>
+        <article><h3>שירות למוסדות ועמותות</h3><p>סיוע וליווי מקצועי החל משלב איתור קרקע להקצאה, ועד לקבלת היתר בנייה.</p><p class="tag">אנו ניתן לכם ראש שקט בתחום שזר לכם.</p></article>
+        <article><h3>שירות לחברות, יזמים וקבלנים</h3><p>ליווי וסיוע בהליכי קבלת טופס 2 (אישור תחילת עבודות), טופס 4 וכל הנדרש לאכלוס.</p><p class="tag">ניסיון שעושה את ההבדל.</p></article>
+      </div>
+      <div class="clients">
+        <h3>בין לקוחותינו המרוצים</h3>
+        <!-- Logos to come: swap each <span class="mono"> for <img src="assets/img/clients/..." alt=""> -->
+        <ul>
+          <li><span class="mono" aria-hidden="true">מד</span>המועצה הדתית אשדוד</li>
+          <li><span class="mono" aria-hidden="true">בי</span>ישיבת בית ישראל אשדוד</li>
+          <li><span class="mono" aria-hidden="true">גו</span>עמותת גני ויזניץ אשדוד</li>
+          <li><span class="mono" aria-hidden="true">חמ</span>עמותת חסד ומרפא ממעמקים</li>
+          <li><span class="mono" aria-hidden="true">אי</span>עמותת אהבת ישראל ויזניץ'</li>
+        </ul>
+      </div>
     </div>
   </section>
   </div>
@@ -729,6 +746,7 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
             <option>בעל דירה בבניין להתחדשות עירונית</option>
             <option>בעל קרקע</option>
             <option>ניהול תכנון ורישוי</option>
+            <option>מוסד / עמותה</option>
             <option>משקיע / שותפות</option>
             <option>אחר</option>
           </select>
@@ -1061,7 +1079,7 @@ document.getElementById('lead-form').addEventListener('submit', function (e) {
 // Scroll reveal. Only elements still below the fold at load are hidden, so the first screen is always complete.
 (function () {
   if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var sel = 'section.block .head, .about .text > p, .ceo, .stats > div, .steps li, .proj, .partner .head ~ *, .contact .wrap > *';
+  var sel = 'section.block .head, .about .text > p, .ceo, .stats > div, .svc article, .clients li, .proj, .partner .head ~ *, .contact .wrap > *';
   var items = Array.prototype.slice.call(document.querySelectorAll(sel));
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
