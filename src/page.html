@@ -280,6 +280,8 @@ section.block { padding-block: clamp(3rem, 7vw, 5rem); }
 .stats-band { border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); }
 @media (max-width: 760px) { .stats div:nth-child(3) { border-right: 0; } }
 @media (max-width: 760px) { .stats { grid-template-columns: 1fr 1fr; row-gap: 2rem; } }
+.stats.three { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 760px) { .stats.three div:nth-child(3) { border-right: 1px solid color-mix(in srgb, var(--on-navy) 15%, transparent); } .stats.three { gap: .75rem; } }
 
 /* Contact */
 /* Contact sits in a framed navy panel on the page background, not a full-width band */
@@ -369,7 +371,6 @@ html.a11y-contrast .hero::before, html.a11y-contrast .hero::after { display: non
 html.a11y-contrast .proj, html.a11y-contrast .ceo, html.a11y-contrast .units div { border: 1px solid #fff; }
 html.a11y-nomotion *, html.a11y-nomotion *::before, html.a11y-nomotion *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 html.a11y-nomotion .reveal { opacity: 1 !important; transform: none !important; }
-html.a11y-nomotion .hero-mark.flying { display: none; }
 html.a11y-nomotion .has-flyer .brand .mark { visibility: visible; }
 html.a11y-nomotion .slides img + img { opacity: 0 !important; }
 html.a11y-nomotion .slides img:first-of-type { opacity: 1 !important; }
@@ -514,8 +515,7 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
 .cookie .ghost2 { font: inherit; font-weight: 700; background: transparent; color: var(--ink); border: 1.5px solid var(--line); border-radius: 999px; padding: .5rem 1.1rem; cursor: pointer; }
 .cookie .linkish, .a11y-panel .linkish { color: var(--gold-ink); font-weight: 700; }
 
-/* Two areas: big doors that open their panel */
-.areas { padding-bottom: clamp(2rem, 5vw, 3.5rem) !important; }
+/* Two areas: big doors, each opens its own screen */
 .doors { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .door { position: relative; overflow: hidden; min-height: 24rem; border: 0; border-radius: 14px; padding: 0; cursor: pointer; text-align: right; font: inherit; color: #f2f4f8; background: var(--navy); display: flex; align-items: flex-end; box-shadow: 0 25px 50px -30px rgba(10,20,40,.7); outline: 2px solid transparent; outline-offset: 4px; transition: outline-color .3s ease, transform .3s ease; }
 .door img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease; }
@@ -529,9 +529,54 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
 .door-c { margin-top: .6rem; justify-self: start; font-weight: 800; color: var(--gold); border-bottom: 2px solid var(--gold); padding-bottom: .1rem; }
 .door:hover img, .door:hover .door-art { transform: scale(1.05); }
 .door:hover { transform: translateY(-3px); }
-.door.active { outline-color: var(--gold); }
-.door-panel { scroll-margin-top: 4rem; }
-@media (max-width: 760px) { .doors { grid-template-columns: 1fr; } .door { min-height: 18rem; } }
+.door { text-decoration: none; }
+@media (max-width: 760px) {
+  .doors { gap: .75rem; }
+  .door { min-height: 15rem; border-radius: 10px; }
+  .door-in { padding: 1rem; gap: .35rem; }
+  .door-k { font-size: .85rem; }
+  .door-t { font-size: 1.3rem; }
+  .door-p { display: none; }
+  .door-c { font-size: .9rem; margin-top: .3rem; }
+  .door-art { top: 1rem; left: 1rem; width: 55%; }
+}
+/* Home screen: the logo large on navy, the two areas right under it */
+.home { background: var(--navy); color: var(--on-navy); position: relative; overflow: hidden; isolation: isolate; padding-block: clamp(2rem, 5vh, 4rem) clamp(2.5rem, 6vw, 5rem); }
+.home::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse 70% 55% at 50% 18%, color-mix(in srgb, var(--gold) 16%, transparent), transparent 70%), linear-gradient(to bottom, var(--navy), var(--navy-2)); }
+.home-copy { display: grid; justify-items: center; text-align: center; }
+.home .hero-mark, .home .hero-mark-slot { width: clamp(11rem, min(52vw, 27vh), 20rem); margin: 0 0 1rem; }
+.home h1 { font-size: clamp(2.6rem, 9vw, 4.2rem); font-weight: 900; white-space: nowrap; }
+.home h1:focus { outline: none; }
+.home .slogan { margin-top: .5rem; font-family: var(--display); font-weight: 700; font-size: clamp(1.25rem, 2.6vw, 1.8rem); color: var(--gold); }
+.home .pick { margin-top: .9rem; color: var(--on-navy-muted); }
+.home .doors { margin-top: clamp(1.5rem, 3.5vh, 2.5rem); }
+@media (min-width: 761px) { .home .door { min-height: clamp(17rem, 38vh, 24rem); } }
+.home .door { box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 45%, transparent), 0 25px 50px -25px rgba(0,0,0,.75); }
+@media (prefers-reduced-motion: no-preference) {
+  .home-copy > :not(.hero-mark):not(.hero-mark-slot), .home .doors { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+  .home-copy > h1 { animation-delay: .9s } .home-copy > .slogan { animation-delay: 1.05s } .home-copy > .pick { animation-delay: 1.2s } .home .doors { animation-delay: 1.3s }
+}
+
+/* Back link at the top of each area's screen */
+.back { display: inline-flex; gap: .4rem; margin-bottom: 1.25rem; color: var(--on-navy-muted); text-decoration: none; font-weight: 700; font-size: .95rem; }
+.back:hover { color: var(--gold); }
+.hero .hero-t { font-size: clamp(2rem, 5.5vw, 3.6rem); font-weight: 900; margin-top: .4rem; }
+.hero-t:focus, .mg-hero h2:focus { outline: none; }
+.hero .lead b { color: var(--on-navy); }
+
+/* Management screen header */
+.mg-hero { color: var(--on-navy); background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%); padding-block: clamp(2.5rem, 7vw, 5rem); position: relative; overflow: hidden; }
+.mg-hero .wrap { position: relative; }
+.mg-copy { position: relative; max-width: 40rem; }
+.mg-hero .eyebrow { color: var(--gold); }
+.mg-hero h2 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900; }
+.mg-hero .lead { color: var(--on-navy-muted); margin-top: 1rem; max-width: 56ch; }
+.mg-art { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: min(32%, 22rem); color: var(--gold); opacity: .5; }
+.mg-stat { margin-top: 1.75rem; display: flex; align-items: baseline; gap: .7rem; }
+.mg-stat b { font-family: var(--display); font-size: clamp(2.6rem, 5vw, 3.4rem); line-height: 1; color: var(--gold); }
+.mg-stat span { font-weight: 700; }
+@media (max-width: 820px) { .mg-art { top: 0; transform: none; width: 38%; opacity: .2; } }
+
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -556,9 +601,10 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
       <span>בית בישראל</span>
     </a>
     <nav aria-label="ניווט ראשי" id="main-nav">
+      <a href="#top">ראשי</a>
+      <a href="#renewal">התחדשות עירונית</a>
+      <a href="#management">ניהול פרויקטים</a>
       <a href="#about">אודות</a>
-      <a href="#projects">יזמות</a>
-      <a href="#services">ניהול פרויקטים</a>
       <a href="#contact">צור קשר</a>
     </nav>
     <div class="top-cta">
@@ -570,9 +616,12 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
 
 <main id="top">
   <span id="main-content" tabindex="-1"></span>
-  <section class="hero bleed">
+
+  <!-- Home: the logo and the two areas. Each area is its own view (#renewal, #management); see the router script. -->
+  <div class="view" id="home" data-view data-title="בית בישראל">
+  <section class="home bleed" aria-labelledby="home-title">
     <div class="wrap">
-      <div class="hero-copy">
+      <div class="home-copy">
         <svg class="hero-mark" viewBox="22 48 384 232" aria-hidden="true">
 <g fill="none" >
         <rect class="a" pathLength="100" x="30" y="55" width="50" height="217"/>
@@ -583,13 +632,15 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
         <rect class="b" x="245" y="240" width="153" height="32" pathLength="100"/>
     </g>
         </svg>
-        <h1>בית בישראל</h1>
-        <p class="sub">יזמות נדל"ן והתחדשות עירונית</p>
+        <h1 id="home-title" tabindex="-1">בית בישראל</h1>
         <p class="slogan">בונים עתיד, יוצרים קהילה</p>
-        <p class="lead">יזמות והתחדשות עירונית באשדוד. אנו מובילים פרויקטי תמ"א 38 משלב הייזום ועד מסירת הדירות, בליווי מקצועי לאורך כל הדרך.</p>
+        <p class="pick">שני תחומי פעילות. בחרו את התחום שלכם:</p>
+      </div>
+      <div class="doors">
+      <a class="door door-dev" href="#renewal"><img src="assets/img/render-a-day.jpg" alt=""><span class="door-in"><span class="door-k">יזמות</span><span class="door-t">התחדשות עירונית ותמ"א 38</span><span class="door-p">אנו יוזמים ומובילים פרויקטי תמ"א 38 באשדוד, תוך שקיפות מלאה מול בעלי הדירות, מהחתימה הראשונה ועד קבלת המפתח.</span><span class="door-c">לפרויקטים שלנו <span aria-hidden="true">←</span></span></span></a>
+      <a class="door door-mgmt" href="#management"><svg class="door-art" viewBox="22 48 384 232" aria-hidden="true"><g fill="none" stroke-width="5"><rect stroke="currentColor" x="30" y="55" width="50" height="217"/><rect stroke="currentColor" x="98" y="118" width="88" height="154"/><rect stroke="currentColor" x="222" y="167" width="153" height="105"/><rect stroke="currentColor" opacity=".55" x="55" y="158" width="67" height="114"/><rect stroke="currentColor" opacity=".55" x="145" y="203" width="183" height="69"/><rect stroke="currentColor" opacity=".55" x="245" y="240" width="153" height="32"/></g></svg><span class="door-in"><span class="door-k">ניהול פרויקטים</span><span class="door-t">ניהול תכנון ורישוי</span><span class="door-p">ליווי מקצועי של תהליכי התכנון, ההיתרים והאישורים, עד שהפרויקט מוכן לביצוע.</span><span class="door-c">לפרטי השירות <span aria-hidden="true">←</span></span></span></a>
       </div>
     </div>
-    <span class="credit">הדמיה · מיכשווילי 14</span>
   </section>
 
   <section class="block" id="about">
@@ -603,7 +654,6 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
           </div>
           <p>בית בישראל היא חברת יזמות הפועלת בתחום ההתחדשות העירונית, בבעלותו ובניהולו של <b>יצחק זיידמן</b>. החברה מקדמת פרויקטים במסלול תמ"א 38, המעניקים לבניינים ותיקים חיים חדשים ומוסיפים יחידות דיור חדשות לשכונה.</p>
           <p>לצד פעילות היזמות, החברה מעניקה שירותי ניהול תכנון ורישוי לפרויקטי בנייה, מתוך היכרות מעמיקה עם הליכי התכנון והאישורים.</p>
-          <p>בין שותפינו: קבוצת אם סי פרויקטים, חברה יזמית בעלת ניסיון מקצועי רב.</p>
           <ul class="focus" aria-label="תחומי הפעילות">
             <li>יזמות נדל"ן</li><li>התחדשות עירונית</li><li>תמ"א 38</li><li>ניהול תכנון ואישורים</li>
           </ul>
@@ -620,26 +670,32 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
       </div>
     </div>
   </section>
+  </div>
+
+  <div class="view" id="renewal" data-view data-title="התחדשות עירונית ותמ&quot;א 38 · בית בישראל" hidden>
+  <section class="hero bleed">
+    <div class="wrap">
+      <div class="hero-copy">
+        <a class="back" href="#top"><span aria-hidden="true">→</span> לשני התחומים</a>
+        <p class="sub">יזמות נדל"ן</p>
+        <h2 class="hero-t" tabindex="-1">התחדשות עירונית ותמ"א 38</h2>
+        <p class="slogan">בונים עתיד, יוצרים קהילה</p>
+        <p class="lead">אנו יוזמים ומובילים פרויקטי תמ"א 38 באשדוד, משלב הייזום ועד מסירת הדירות, תוך שקיפות מלאה מול בעלי הדירות.</p>
+        <p class="lead">בין שותפינו: <b>קבוצת אם סי פרויקטים</b>, חברה יזמית בעלת ניסיון מקצועי רב.</p>
+        <div class="actions"><a class="btn" href="#projects">לפרויקטים שלנו</a><a class="btn ghost" href="#contact">לבדיקת הבניין שלכם</a></div>
+      </div>
+    </div>
+    <span class="credit">הדמיה · מיכשווילי 14</span>
+  </section>
 
   <section class="block navy stats-band bleed">
-    <div class="wrap stats">
-      <div><b data-count="15">15</b><span>שנות ניסיון</span><small>בניהול תכנון ורישוי</small></div>
+    <div class="wrap stats three">
       <div><b data-count="3">3</b><span>פרויקטי תמ"א 38</span><small>באשדוד</small></div>
       <div><b data-count="112">112</b><span>דירות קיימות</span><small>שעוברות התחדשות</small></div>
       <div><b data-count="148">148</b><span>יח"ד חדשות</span><small>שיתווספו בפרויקטים</small></div>
     </div>
   </section>
 
-
-  <section class="block areas" id="areas" aria-label="תחומי הפעילות">
-    <div class="wrap head"><p class="eyebrow">תחומי הפעילות</p><h2>שני תחומים, ניסיון אחד</h2><hr class="rule"></div>
-    <div class="wrap doors">
-      <button class="door door-dev" type="button" data-door aria-controls="dev-panel" aria-expanded="false"><img src="assets/img/render-a-day.jpg" alt="" loading="lazy"><span class="door-in"><span class="door-k">יזמות</span><span class="door-t">התחדשות עירונית ותמ"א 38</span><span class="door-p">אנו יוזמים ומובילים פרויקטי תמ"א 38 באשדוד, תוך שקיפות מלאה מול בעלי הדירות, מהחתימה הראשונה ועד קבלת המפתח.</span><span class="door-c">לפרויקטים שלנו <span aria-hidden="true">←</span></span></span></button>
-      <button class="door door-mgmt" type="button" data-door aria-controls="mgmt-panel" aria-expanded="false"><svg class="door-art" viewBox="22 48 384 232" aria-hidden="true"><g fill="none" stroke-width="5"><rect stroke="currentColor" x="30" y="55" width="50" height="217"/><rect stroke="currentColor" x="98" y="118" width="88" height="154"/><rect stroke="currentColor" x="222" y="167" width="153" height="105"/><rect stroke="currentColor" opacity=".55" x="55" y="158" width="67" height="114"/><rect stroke="currentColor" opacity=".55" x="145" y="203" width="183" height="69"/><rect stroke="currentColor" opacity=".55" x="245" y="240" width="153" height="32"/></g></svg><span class="door-in"><span class="door-k">ניהול פרויקטים</span><span class="door-t">ניהול תכנון ורישוי</span><span class="door-p">ליווי מקצועי של תהליכי התכנון, ההיתרים והאישורים, עד שהפרויקט מוכן לביצוע.</span><span class="door-c">לפרטי השירות <span aria-hidden="true">←</span></span></span></button>
-    </div>
-  </section>
-
-  <div class="door-panel" id="dev-panel" hidden>
   <section class="block navy bleed" id="projects">
     <div class="wrap">
       <div class="head">
@@ -694,16 +750,24 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
     </div>
   </section>
   </div>
-  <div class="door-panel" id="mgmt-panel" hidden>
 
-  <section class="block service-band" id="services">
+  <div class="view" id="management" data-view data-title="ניהול פרויקטים, תכנון ורישוי · בית בישראל" hidden>
+  <section class="mg-hero bleed">
     <div class="wrap">
-      <div class="head">
-        <p class="eyebrow">שירות נוסף</p>
-        <h2>ניהול פרויקטים, אדריכלות, תכנון ורישוי</h2>
+      <svg class="mg-art" viewBox="22 48 384 232" aria-hidden="true"><g fill="none" stroke-width="5"><rect stroke="currentColor" x="30" y="55" width="50" height="217"/><rect stroke="currentColor" x="98" y="118" width="88" height="154"/><rect stroke="currentColor" x="222" y="167" width="153" height="105"/><rect stroke="currentColor" opacity=".55" x="55" y="158" width="67" height="114"/><rect stroke="currentColor" opacity=".55" x="145" y="203" width="183" height="69"/><rect stroke="currentColor" opacity=".55" x="245" y="240" width="153" height="32"/></g></svg>
+      <div class="mg-copy">
+        <a class="back" href="#top"><span aria-hidden="true">→</span> לשני התחומים</a>
+        <p class="eyebrow">ניהול פרויקטים</p>
+        <h2 tabindex="-1">ניהול פרויקטים, אדריכלות, תכנון ורישוי</h2>
         <hr class="rule">
-        <p class="sub-lead">חברתנו מתמחה ובעלת ניסיון מקצועי רב בניהול פרויקטים. אנו מלווים את הפרויקט מהרעיון הראשון, דרך הרכבת צוות התכנון ותיאום בין האדריכל והיועצים, ועד לקבלת ההיתר והיערכות לביצוע.</p>
+        <p class="lead">חברתנו מתמחה ובעלת ניסיון מקצועי רב בניהול פרויקטים. אנו מלווים את הפרויקט מהרעיון הראשון, דרך הרכבת צוות התכנון ותיאום בין האדריכל והיועצים, ועד לקבלת ההיתר והיערכות לביצוע.</p>
+        <p class="mg-stat"><b>15</b><span>שנות ניסיון בניהול תכנון ורישוי</span></p>
       </div>
+    </div>
+  </section>
+
+  <section class="block service-band" id="services" aria-label="השירותים שלנו">
+    <div class="wrap">
       <div class="svc">
         <article><h3>ייעוץ מקצועי לאדריכלים, אנשי מקצוע ופרטיים</h3><p>ניהול וליווי הליכי בקשות להיתר: ליווי ותיאום מול האדריכל, צוות היועצים ומכון הבקרה. ייעוץ תכנוני וחוות דעת מקצועיות.</p><p class="tag">הניסיון שלנו – החיסכון שלכם.</p></article>
         <article><h3>שירות למוסדות ועמותות</h3><p>סיוע וליווי מקצועי החל משלב איתור קרקע להקצאה, ועד לקבלת היתר בנייה.</p><p class="tag">אנו ניתן לכם ראש שקט בתחום שזר לכם.</p></article>
@@ -1098,7 +1162,7 @@ document.getElementById('lead-form').addEventListener('submit', function (e) {
   var mark = document.querySelector('.hero-mark');
   var target = document.querySelector('.brand .mark');
   if (!mark || !target) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { mark.style.display = 'none'; return; }
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var slot = document.createElement('div');
   slot.className = 'hero-mark-slot';
   slot.setAttribute('aria-hidden', 'true');
@@ -1117,7 +1181,8 @@ document.getElementById('lead-form').addEventListener('submit', function (e) {
   }
   function update() {
     ticking = false;
-    var y = scrollY, p = Math.min(1, Math.max(0, y / travel));
+    // With the accessibility menu's "stop animations" the logo just scrolls with the page
+    var y = scrollY, p = document.documentElement.classList.contains('a11y-nomotion') ? 0 : Math.min(1, Math.max(0, y / travel));
     var e = p * p * (3 - 2 * p);
     var top = (start.y - y) * (1 - e) + end.y * e;
     var left = start.x + (end.x - start.x) * e;
@@ -1128,32 +1193,55 @@ document.getElementById('lead-form').addEventListener('submit', function (e) {
   addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   // Phones fire resize when the address bar hides; only re-measure when the width really changes.
   addEventListener('resize', function () { if (innerWidth !== lastW) { lastW = innerWidth; measure(); } });
+  // Only the home screen has the big logo; on the other screens the header shows its own
+  document.addEventListener('viewchange', function (e) {
+    var home = e.detail === 'home';
+    mark.style.display = home ? '' : 'none';
+    document.body.classList.toggle('has-flyer', home);
+    if (home) requestAnimationFrame(measure);
+  });
   measure();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
   addEventListener('load', measure);
 })();
 
-// Two areas of activity. Each big door opens its own panel (entrepreneurship → projects, management → the service);
-// a menu link that points into a closed panel opens that panel first.
+// Views: the home screen shows the logo and the two areas; each area is its own screen (#renewal, #management).
+// The hash decides the view, so links, the back button and shared links all work. Contact sits below every view.
 (function () {
-  var doors = Array.prototype.slice.call(document.querySelectorAll('[data-door]'));
-  if (!doors.length) return;
-  function open(id, scroll) {
-    doors.forEach(function (d) { var on = d.getAttribute('aria-controls') === id; d.setAttribute('aria-expanded', on ? 'true' : 'false'); d.classList.toggle('active', on); });
-    document.querySelectorAll('.door-panel').forEach(function (p) { p.hidden = p.id !== id; });
-    if (scroll) document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  var views = Array.prototype.slice.call(document.querySelectorAll('[data-view]'));
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('#main-nav a'));
+  var current = null;
+  function show(view) {
+    if (view === current) return false;
+    views.forEach(function (v) { v.hidden = v !== view; });
+    current = view;
+    document.title = view.getAttribute('data-title') || 'בית בישראל';
+    navLinks.forEach(function (a) {
+      var t = document.getElementById(a.getAttribute('href').slice(1)), on = t && (t === view || (t.id === 'top' && view.id === 'home'));
+      if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+    document.dispatchEvent(new CustomEvent('viewchange', { detail: view.id }));
+    return true;
   }
-  doors.forEach(function (d) { d.addEventListener('click', function () { open(d.getAttribute('aria-controls'), true); }); });
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a || a.getAttribute('href').length < 2) return;
-    var t = document.querySelector(a.getAttribute('href')); var p = t && t.closest('.door-panel');
-    if (p && p.hidden) {
-      e.preventDefault(); open(p.id, false);
-      requestAnimationFrame(function () { t.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-      try { history.replaceState(null, '', a.getAttribute('href')); } catch (err) {}
+  function route(first) {
+    var id = '', el = null;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch (e) {}
+    if (id) el = document.getElementById(id);
+    if (!el && /^p-/.test(id)) el = document.getElementById('projects');
+    var view = el && el.closest('[data-view]');
+    if (!el || id === 'top') view = document.getElementById('home');
+    var changed = view ? show(view) : (current ? false : show(document.getElementById('home')));
+    var toTop = !el || id === 'top' || el === view;
+    if (first && toTop) return;
+    if (toTop) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      // Move focus to the screen's heading so screen readers announce the new screen
+      if (changed && !first) { var h = view.querySelector('h1[tabindex], h2[tabindex]'); if (h) h.focus({ preventScroll: true }); }
+    } else {
+      requestAnimationFrame(function () { el.scrollIntoView({ behavior: changed ? 'instant' : 'smooth', block: 'start' }); });
     }
-  }, true);
-  var h = location.hash.length > 1 && document.querySelector(location.hash), hp = h && h.closest('.door-panel');
-  if (hp) open(hp.id, false);
+  }
+  addEventListener('hashchange', function () { route(false); });
+  route(true);
 })();
 </script>
