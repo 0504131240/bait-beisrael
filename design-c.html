@@ -180,6 +180,22 @@ footer { max-width: 74rem; margin: 2.5rem auto; display: flex; justify-content: 
 .clients img.dark { background: #0f2340; }
 @media (max-width: 900px) { .clients ul { grid-template-columns: repeat(3, 1fr); row-gap: 1.75rem; } }
 @media (max-width: 520px) { .clients ul { grid-template-columns: 1fr 1fr; } .clients .mono, .clients img { width: 5rem; height: 5rem; } }
+
+/* Clients with a project render get a photo card; the rest stay as logos below */
+.cl-feat { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+.cl-card { margin: 0; background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; min-width: 0; }
+.cl-pic { position: relative; aspect-ratio: 16 / 10; overflow: hidden; }
+.cl-pic img { width: 100%; height: 100%; object-fit: cover; display: block; border: 0; border-radius: 0; padding: 0; background: none; transition: transform .8s ease; }
+.cl-card:hover .cl-pic img { transform: scale(1.04); }
+.cl-pic small { position: absolute; top: .5rem; left: .5rem; font-size: .75rem; background: rgba(10,18,32,.72); color: #fff; padding: .05rem .5rem; border-radius: 3px; }
+.cl-card figcaption { position: relative; display: grid; gap: .15rem; padding: 0 1.25rem 1.25rem; }
+.clients .mono { font-family: var(--sans); }
+.cl-card .mono { width: 4.6rem; height: 4.6rem; margin-top: -2.3rem; margin-bottom: .5rem; font-size: 1.4rem; box-shadow: 0 6px 16px -6px rgba(0,0,0,.45); }
+.cl-card b { font-size: 1.2rem; font-weight: 500; }
+.cl-card figcaption > span:last-child:not(.mono) { color: var(--soft); font-size: .95rem; }
+.cl-feat + ul { grid-template-columns: repeat(3, 1fr); max-width: 44rem; margin-inline: auto; }
+@media (max-width: 720px) { .cl-feat { grid-template-columns: 1fr; gap: 1.25rem; } }
+@media (max-width: 520px) { .cl-feat + ul { grid-template-columns: repeat(3, 1fr); gap: .5rem; } .cl-feat + ul li { font-size: .9rem; } .cl-feat + ul .mono, .cl-feat + ul img { width: 4.6rem; height: 4.6rem; } }
 </style>
 
 <header class="strip" id="strip">
@@ -291,12 +307,14 @@ footer { max-width: 74rem; margin: 2.5rem auto; display: flex; justify-content: 
     <div class="clients">
       <h3>בין לקוחותינו המרוצים</h3>
       <!-- Clients without a logo yet show initials (span.mono); swap in an <img> from assets/img/clients/ when one arrives -->
+      <div class="cl-feat">
+        <figure class="cl-card"><div class="cl-pic"><img src="assets/img/clients/beit-yisrael-yeshiva.jpg" alt="הדמיית ישיבת בית ישראל, אשדוד" loading="lazy"><small>הדמיה</small></div><figcaption><span class="mono" aria-hidden="true">בי</span><b>ישיבת בית ישראל אשדוד</b></figcaption></figure>
+        <figure class="cl-card"><div class="cl-pic"><img src="assets/img/clients/ahavat-yisrael-beit-midrash.jpg" alt="הדמיית בית המדרש אהבת ישראל ויזניץ'" loading="lazy"><small>הדמיה</small></div><figcaption><span class="mono" aria-hidden="true">אי</span><b>עמותת אהבת ישראל ויזניץ'</b><span>בית המדרש אהבת ישראל ויזניץ'</span></figcaption></figure>
+      </div>
       <ul>
         <li><img class="dark" src="assets/img/clients/religious-council-ashdod.png" alt="" loading="lazy">המועצה הדתית אשדוד</li>
-        <li><span class="mono" aria-hidden="true">בי</span>ישיבת בית ישראל אשדוד</li>
         <li><span class="mono" aria-hidden="true">גו</span>עמותת גני ויזניץ אשדוד</li>
         <li><img src="assets/img/clients/mimaamakim.jpg" alt="" loading="lazy">עמותת חסד ומרפא ממעמקים</li>
-        <li><span class="mono" aria-hidden="true">אי</span>עמותת אהבת ישראל ויזניץ'</li>
       </ul>
     </div>
   </section>
