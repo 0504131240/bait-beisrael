@@ -559,13 +559,12 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
 .home h1 { font-size: clamp(2.6rem, 9vw, 4.2rem); font-weight: 900; white-space: nowrap; }
 .home h1:focus { outline: none; }
 .home .slogan { margin-top: .5rem; font-family: var(--display); font-weight: 700; font-size: clamp(1.25rem, 2.6vw, 1.8rem); color: var(--gold); }
-.home .pick { margin-top: .9rem; color: var(--on-navy-muted); }
 .home .doors { margin-top: clamp(1.5rem, 3.5vh, 2.5rem); }
 @media (min-width: 761px) { .home .door { min-height: clamp(17rem, 38vh, 24rem); } }
 .home .door { box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 45%, transparent), 0 25px 50px -25px rgba(0,0,0,.75); }
 @media (prefers-reduced-motion: no-preference) {
   .home-copy > :not(.hero-mark):not(.hero-mark-slot), .home .doors { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
-  .home-copy > h1 { animation-delay: .9s } .home-copy > .slogan { animation-delay: 1.05s } .home-copy > .pick { animation-delay: 1.2s } .home .doors { animation-delay: 1.3s }
+  .home-copy > h1 { animation-delay: .9s } .home-copy > .slogan { animation-delay: 1.05s } .home .doors { animation-delay: 1.3s }
 }
 
 /* Back link at the top of each area's screen */
@@ -645,12 +644,20 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
         </svg>
         <h1 id="home-title" tabindex="-1">בית בישראל</h1>
         <p class="slogan">בונים עתיד, יוצרים קהילה</p>
-        <p class="pick">שני תחומי פעילות. בחרו את התחום שלכם:</p>
       </div>
       <div class="doors">
       <a class="door door-dev" href="#renewal"><img src="assets/img/render-a-day.jpg" alt=""><span class="door-in"><span class="door-k">יזמות</span><span class="door-t">התחדשות עירונית ותמ"א 38</span><span class="door-p">אנו יוזמים ומובילים פרויקטי תמ"א 38 באשדוד, תוך שקיפות מלאה מול בעלי הדירות, מהחתימה הראשונה ועד קבלת המפתח.</span><span class="door-c">לפרויקטים שלנו <span aria-hidden="true">←</span></span></span></a>
       <a class="door door-mgmt" href="#management"><svg class="door-art" viewBox="22 48 384 232" aria-hidden="true"><g fill="none" stroke-width="5"><rect stroke="currentColor" x="30" y="55" width="50" height="217"/><rect stroke="currentColor" x="98" y="118" width="88" height="154"/><rect stroke="currentColor" x="222" y="167" width="153" height="105"/><rect stroke="currentColor" opacity=".55" x="55" y="158" width="67" height="114"/><rect stroke="currentColor" opacity=".55" x="145" y="203" width="183" height="69"/><rect stroke="currentColor" opacity=".55" x="245" y="240" width="153" height="32"/></g></svg><span class="door-in"><span class="door-k">ניהול פרויקטים</span><span class="door-t">ניהול תכנון ורישוי</span><span class="door-p">ליווי מקצועי של תהליכי התכנון, ההיתרים והאישורים, עד שהפרויקט מוכן לביצוע.</span><span class="door-c">לפרטי השירות <span aria-hidden="true">←</span></span></span></a>
       </div>
+    </div>
+  </section>
+
+  <section class="block navy stats-band bleed">
+    <div class="wrap stats">
+      <div><b data-count="15">15</b><span>שנות ניסיון</span><small>בניהול תכנון ורישוי</small></div>
+      <div><b data-count="3">3</b><span>פרויקטי תמ"א 38</span><small>באשדוד</small></div>
+      <div><b data-count="112">112</b><span>דירות קיימות</span><small>שעוברות התחדשות</small></div>
+      <div><b data-count="148">148</b><span>יח"ד חדשות</span><small>שיתווספו בפרויקטים</small></div>
     </div>
   </section>
 
@@ -687,7 +694,7 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
   <section class="hero bleed">
     <div class="wrap">
       <div class="hero-copy">
-        <a class="back" href="#top"><span aria-hidden="true">→</span> לשני התחומים</a>
+        <a class="back" href="#top"><span aria-hidden="true">→</span> לדף הראשי</a>
         <p class="sub">יזמות נדל"ן</p>
         <h2 class="hero-t" tabindex="-1">התחדשות עירונית ותמ"א 38</h2>
         <p class="slogan">בונים עתיד, יוצרים קהילה</p>
@@ -699,13 +706,6 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
     <span class="credit">הדמיה · מיכשווילי 14</span>
   </section>
 
-  <section class="block navy stats-band bleed">
-    <div class="wrap stats three">
-      <div><b data-count="3">3</b><span>פרויקטי תמ"א 38</span><small>באשדוד</small></div>
-      <div><b data-count="112">112</b><span>דירות קיימות</span><small>שעוברות התחדשות</small></div>
-      <div><b data-count="148">148</b><span>יח"ד חדשות</span><small>שיתווספו בפרויקטים</small></div>
-    </div>
-  </section>
 
   <section class="block navy bleed" id="projects">
     <div class="wrap">
@@ -767,7 +767,7 @@ dialog.policy::backdrop { background: rgba(8, 16, 30, .65); }
     <div class="wrap">
       <svg class="mg-art" viewBox="22 48 384 232" aria-hidden="true"><g fill="none" stroke-width="5"><rect stroke="currentColor" x="30" y="55" width="50" height="217"/><rect stroke="currentColor" x="98" y="118" width="88" height="154"/><rect stroke="currentColor" x="222" y="167" width="153" height="105"/><rect stroke="currentColor" opacity=".55" x="55" y="158" width="67" height="114"/><rect stroke="currentColor" opacity=".55" x="145" y="203" width="183" height="69"/><rect stroke="currentColor" opacity=".55" x="245" y="240" width="153" height="32"/></g></svg>
       <div class="mg-copy">
-        <a class="back" href="#top"><span aria-hidden="true">→</span> לשני התחומים</a>
+        <a class="back" href="#top"><span aria-hidden="true">→</span> לדף הראשי</a>
         <p class="eyebrow">ניהול פרויקטים</p>
         <h2 tabindex="-1">ניהול פרויקטים, אדריכלות, תכנון ורישוי</h2>
         <hr class="rule">
